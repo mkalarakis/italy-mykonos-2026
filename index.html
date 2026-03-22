@@ -5,7 +5,174 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Italy + Mykonos 2026</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+// ── HAPPY WITH ANYTHING ──
+const isHappy=(o,u)=>!!(o.happyWith&&o.happyWith[u]);
+const hasVotedOrHappy=(o,u)=>!!(o.votes&&o.votes[u])||(o.happyWith&&o.happyWith[u]);
+
+window.toggleHappy=async function(optId){
+  const opt=ao[optId];if(!opt||!cun)return;
+  const already=isHappy(opt,cun);
+  try{
+    await updateDoc(doc(db,"options",optId),{[`happyWith.${cun}`]:already?null:true});
+    if(!already){await logFeed(cun+' is happy with anything for "'+opt.name+'"',"happy");toast("Marked 😊");}
+    else toast("Removed");
+  }catch(e){toast("Error")}
+};
+
+function buildHappyRow(opt){
+  const amHappy=isHappy(opt,cun);
+  const happyUsers=USERS.filter(u=>isHappy(opt,u));
+  const row=document.createElement("div");row.className="happy-row";
+  const btn=document.createElement("button");
+  btn.className="happy-btn"+(amHappy?" active":"");
+  btn.textContent="😊 I'm happy with anything";
+  btn.addEventListener("click",e=>{e.stopPropagation();window.toggleHappy(opt.id)});
+  row.appendChild(btn);
+  if(happyUsers.length){
+    const avs=document.createElement("div");avs.style.cssText="display:flex;gap:3px;align-items:center";
+    happyUsers.forEach(u=>{const a=document.createElement("div");a.className="happy-av";a.style.background=UC[u];a.title=u+" is happy with anything";a.textContent=u[0];avs.appendChild(a)});
+    const lbl=document.createElement("span");lbl.style.cssText="font-size:11px;color:var(--text3)";
+    lbl.textContent=happyUsers.join(", ")+" "+(happyUsers.length===1?"is":"are")+" happy with anything";
+    row.appendChild(avs);row.appendChild(lbl);
+  }
+  return row;
+}
+
+// ── NUDGE ──
+const showNudgeToast=msg=>{const t=ge("nudge-toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),4500)};
+
+window.nudgeUser=async function(targetUser,optId,btnId){
+  const opt=ao[optId];if(!opt)return;
+  const btn=ge(btnId);
+  await logFeed('🔔 '+cun+' nudged '+targetUser+' to vote on "'+opt.name+'"',"nudge");
+  if(btn){btn.classList.add("sent");btn.textContent="✓ Nudged!";}
+  toast('Nudged '+targetUser+'! 📣');
+};
+
+function buildNudgeRow(opt){
+  const unvoted=USERS.filter(u=>u!==cun&&!hasVotedOrHappy(opt,u));
+  if(!unvoted.length)return null;
+  const row=document.createElement("div");row.className="nudge-row";
+  const lbl=document.createElement("span");lbl.className="nudge-label";lbl.textContent="Nudge:";
+  row.appendChild(lbl);
+  unvoted.forEach(u=>{
+    const btnId=`nudge-${u}-${opt.id}`;
+    const btn=document.createElement("button");btn.className="nudge-btn";btn.id=btnId;
+    btn.innerHTML=`<span style="width:16px;height:16px;border-radius:50%;background:${UC[u]};display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:white">${u[0]}</span>${u}`;
+    btn.addEventListener("click",e=>{e.stopPropagation();window.nudgeUser(u,opt.id,btnId)});
+    row.appendChild(btn);
+  });
+  return row;
+}
+
+// ── ADDED BY STRIP ──
+function buildAddedByStrip(opt){
+  if(!opt.addedBy)return null;
+  const strip=document.createElement("div");strip.className="added-by-strip";
+  const dot=document.createElement("div");dot.className="added-by-dot";dot.style.background=UC[opt.addedBy]||"#888";
+  const lbl=document.createElement("span");lbl.className="added-by-label";lbl.textContent="Added by ";
+  const name=document.createElement("span");name.className="added-by-name";name.style.color=UC[opt.addedBy]||"#888";name.textContent=opt.addedBy;
+  strip.appendChild(dot);strip.appendChild(lbl);strip.appendChild(name);
+  return strip;
+}
+
+// ── EDIT ANYONE ──
+let editSelectedPrice=null,editingOptId=null;
+
+window.openEdit=function(id){
+  const opt=ao[id];if(!opt)return;
+  editingOptId=id;editSelectedPrice=opt.price||null;
+  ge("edit-name").value=opt.name||"";
+  ge("edit-link").value=opt.link||"";
+  ge("edit-notes").value=opt.notes||"";
+  document.querySelectorAll(".edit-price-btn").forEach(b=>b.classList.toggle("selected",parseInt(b.dataset.price)===editSelectedPrice));
+  ge("edit-modal").classList.remove("hidden");
+  setTimeout(()=>ge("edit-name").focus(),100);
+};
+
+document.querySelectorAll(".edit-price-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".edit-price-btn").forEach(b=>b.classList.remove("selected"));
+    editSelectedPrice=editSelectedPrice===parseInt(btn.dataset.price)?null:parseInt(btn.dataset.price);
+    if(editSelectedPrice)btn.classList.add("selected");
+  });
+});
+
+ge("cancel-edit").addEventListener("click",()=>{ge("edit-modal").classList.add("hidden");editingOptId=null});
+ge("edit-modal").addEventListener("click",e=>{if(e.target===ge("edit-modal")){ge("edit-modal").classList.add("hidden");editingOptId=null}});
+
+ge("submit-edit").addEventListener("click",async()=>{
+  if(!editingOptId)return;
+  const opt=ao[editingOptId];if(!opt)return;
+  const newName=ge("edit-name").value.trim();if(!newName){toast("Name required");return;}
+  const isMine=opt.addedBy===cun;
+  const day=ALL_DAYS.find(d=>d.id===opt.dayId)||ALL_DAYS.find(d=>HN_MAP[d.id]===opt.dayId);
+  const logMsg=isMine
+    ?cun+' edited their option "'+opt.name+'" → "'+newName+'"'+(day?' in '+day.location:'')
+    :cun+' edited '+opt.addedBy+"'s option ""+opt.name+'" → "'+newName+'"'+(day?' on '+day.date+' in '+day.location:'');
+  try{
+    await updateDoc(doc(db,"options",editingOptId),{name:newName,link:ge("edit-link").value.trim()||null,notes:ge("edit-notes").value.trim()||null,price:editSelectedPrice||null});
+    await logFeed(logMsg,"edit");
+    ge("edit-modal").classList.add("hidden");editingOptId=null;
+    toast("Saved ✓");
+  }catch(e){toast("Error: "+e.message)}
+});
+
+// ── VOTE GRID ──
+function renderVotingGrid(){
+  const c=ge("voting-content");if(!c)return;c.innerHTML="";
+  const opts=Object.values(ao).filter(o=>!o.vetoed);
+  const unvotedByMe=opts.filter(o=>!hasVotedOrHappy(o,cun));
+  c.innerHTML='<h2 style="font-size:18px;font-weight:700;margin-bottom:4px">📊 Vote Grid</h2><p style="font-size:13px;color:var(--text3);margin-bottom:16px">Who has and hasn\'t voted on each option'+(unvotedByMe.length?' · <strong style="color:var(--purple)">'+unvotedByMe.length+' waiting for you</strong>':'')+'</p>';
+  if(!opts.length){c.innerHTML+='<div class="loading">No options yet.</div>';return;}
+  const groups={Hotel:[],Breakfast:[],Lunch:[],Dinner:[],Activity:[]};
+  opts.forEach(o=>{if(groups[o.slotType])groups[o.slotType].push(o)});
+  const icons={Hotel:"🏨",Breakfast:"🌅",Lunch:"☀️",Dinner:"🌙",Activity:"🎯"};
+  Object.keys(groups).forEach(type=>{
+    if(!groups[type].length)return;
+    const sl=document.createElement("div");sl.className="section-label";sl.textContent=icons[type]+" "+type;c.appendChild(sl);
+    const card=document.createElement("div");card.className="voting-grid-card";
+    const table=document.createElement("table");table.className="vg-table";
+    table.innerHTML='<thead><tr><th>Option</th>'+USERS.map(u=>'<th class="vg-cell">'+u[0]+(u===cun?'<span class="vg-you-badge">you</span>':'')+'</th>').join('')+'<th>Avg</th></tr></thead>';
+    const tbody=document.createElement("tbody");
+    groups[type].sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach(opt=>{
+      const day=ALL_DAYS.find(d=>d.id===opt.dayId)||ALL_DAYS.find(d=>HN_MAP[d.id]===opt.dayId);
+      const tr=document.createElement("tr");
+      if(!hasVotedOrHappy(opt,cun))tr.style.background="rgba(83,74,183,.04)";
+      const nameTd=document.createElement("td");
+      nameTd.innerHTML='<div class="vg-opt-name" title="'+opt.name+'">'+(isFullyLocked(opt)?"🔒 ":"")+opt.name+'</div><div class="vg-opt-day">'+(day?day.date+" · "+day.location:"")+'</div>'+(opt.addedBy?'<div style="font-size:9px;font-weight:700;color:'+(UC[opt.addedBy]||"#888")+';margin-top:1px">by '+opt.addedBy+'</div>':"");
+      tr.appendChild(nameTd);
+      USERS.forEach(u=>{
+        const td=document.createElement("td");td.className="vg-cell";
+        if(isHappy(opt,u)){
+          const d=document.createElement("div");d.className="vg-happy";d.title=u+" is happy with anything";d.textContent="😊";td.appendChild(d);
+        }else if(opt.votes&&opt.votes[u]){
+          const d=document.createElement("div");d.className="vg-voted";d.style.background=UC[u];d.title=u+" voted "+opt.votes[u]+"/10";d.textContent=opt.votes[u];td.appendChild(d);
+        }else{
+          const d=document.createElement("div");d.className="vg-not-voted";d.title=u+" hasn't voted";d.textContent=u===cun?"?":"–";
+          if(u===cun){d.style.cssText="cursor:pointer;border-color:var(--purple);color:var(--purple)";d.title="Click to open and vote";d.addEventListener("click",()=>openDetail(icons[type]+" "+type,day?day.date+" — "+day.location:"",body=>{body.appendChild(buildOptCard(opt,opt.dayId,type,false))}));}
+          td.appendChild(d);
+        }
+        tr.appendChild(td);
+      });
+      const avgTd=document.createElement("td");avgTd.style.cssText="text-align:center;font-weight:700;color:var(--purple)";avgTd.textContent=cs(opt)||"–";tr.appendChild(avgTd);
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);card.appendChild(table);c.appendChild(card);
+  });
+  const blockerCard=document.createElement("div");blockerCard.className="voting-grid-card";blockerCard.style.marginTop="8px";
+  blockerCard.innerHTML='<div style="font-size:13px;font-weight:700;color:var(--text2);padding:13px 16px 5px;border-bottom:1px solid var(--border2)">🏃 Who still needs to vote</div>';
+  USERS.forEach(u=>{
+    const pending=opts.filter(o=>!hasVotedOrHappy(o,u)).length;
+    const row=document.createElement("div");row.style.cssText="display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--border2)";
+    row.innerHTML='<div style="width:28px;height:28px;border-radius:50%;background:'+UC[u]+';display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0">'+u[0]+'</div><div style="flex:1;font-size:13px;font-weight:'+(u===cun?"700":"500")+'">'+u+(u===cun?" (you)":"")+'</div><div style="font-size:13px;font-weight:700;color:'+(pending>0?UC[u]:"var(--teal)")+'">'+( pending>0?pending+" to vote":"All done ✓")+'</div>';
+    blockerCard.appendChild(row);
+  });
+  c.appendChild(blockerCard);
+}
+
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f5f4f0;--surface:white;--surface2:#fafafa;--border:#ebebeb;--border2:#f0f0f0;--text:#1a1a1a;--text2:#555;--text3:#888;--text4:#bbb;--purple:#534AB7;--purple-light:#EEEDFE;--purple-dark:#3C3489;--teal:#1D9E75;--teal-light:#E1F5EE;--pink:#D4537E;--pink-light:#FBEAF0;--amber:#EF9F27;--amber-light:#FAEEDA;--gold:#F5A623;--gold-light:#FFFBF0;--red:#e74c3c;--green:#0F6E56}
@@ -308,6 +475,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 @keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 .loading{text-align:center;padding:3rem;color:var(--text4);font-size:14px}
 @media(max-width:500px){.top-bar-title{font-size:14px}.nav-tab{padding:10px 9px;font-size:11px}.top-bar-center{display:none}}
+
+/* ADDED BY */
+.added-by-strip{display:flex;align-items:center;gap:6px;padding:5px 11px 7px;border-top:1px solid var(--border2);background:var(--surface2)}
+.added-by-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.added-by-label{font-size:10px;color:var(--text3)}
+.added-by-name{font-size:10px;font-weight:700}
+/* HAPPY WITH ANYTHING */
+.happy-row{display:flex;align-items:center;gap:8px;padding:7px 11px 9px;border-top:1px solid var(--border2);background:var(--surface2);flex-wrap:wrap}
+.happy-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--text2)}
+.happy-btn:hover,.happy-btn.active{border-color:var(--teal);background:var(--teal);color:white}
+.happy-av{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:white;flex-shrink:0}
+/* NUDGE */
+.nudge-row{display:flex;gap:6px;flex-wrap:wrap;padding:6px 11px 8px;border-top:1px solid var(--border2);background:var(--surface2);align-items:center}
+.nudge-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.05em;flex-shrink:0}
+.nudge-btn{padding:3px 9px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--text2);display:flex;align-items:center;gap:4px}
+.nudge-btn:hover{border-color:var(--amber);background:var(--amber-light);color:#7a4200}
+.nudge-btn.sent{border-color:var(--teal);background:var(--teal-light);color:var(--green);pointer-events:none}
+/* VOTE GRID */
+.voting-grid-card{background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px}
+.vg-table{width:100%;border-collapse:collapse;font-size:12px}
+.vg-table th{padding:8px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);border-bottom:1px solid var(--border2);background:var(--surface2)}
+.vg-table td{padding:7px 10px;border-bottom:1px solid var(--border2);vertical-align:middle}
+.vg-table tr:last-child td{border-bottom:none}
+.vg-table tr:hover td{background:var(--surface2)}
+.vg-opt-name{font-weight:600;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vg-opt-day{font-size:10px;color:var(--text3);margin-top:1px}
+.vg-cell{text-align:center;min-width:44px}
+.vg-voted{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white}
+.vg-not-voted{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:14px;color:var(--text4);border:1.5px dashed var(--text4)}
+.vg-happy{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;background:var(--teal-light);border:1.5px solid var(--teal)}
+.vg-you-badge{font-size:9px;background:var(--purple);color:white;padding:1px 5px;border-radius:6px;margin-left:3px;vertical-align:middle}
+/* EDIT MODAL */
+.edit-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+@media(min-width:600px){.edit-modal-overlay{align-items:center}}
+.edit-modal{background:var(--surface);border-radius:24px 24px 0 0;padding:1.5rem;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+@media(min-width:600px){.edit-modal{border-radius:18px}}
+/* NUDGE TOAST */
+.nudge-toast{position:fixed;top:80px;right:16px;background:var(--amber);color:white;padding:12px 16px;border-radius:14px;font-size:13px;font-weight:600;z-index:9998;opacity:0;transform:translateX(120%);transition:all .4s;max-width:280px;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.nudge-toast.show{opacity:1;transform:translateX(0)}
+/* OPT EDIT BUTTON */
+.opt-edit{background:none;border:none;cursor:pointer;font-size:12px;color:var(--text4);padding:2px 4px;flex-shrink:0;line-height:1}
 </style>
 </head>
 <body>
@@ -351,7 +559,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="nav-tab" data-tab="hotels">🏨 Hotels</div>
       <div class="nav-tab" data-tab="restaurants">🍽 Meals</div>
       <div class="nav-tab" data-tab="activities">🎯 Activities</div>
-      <div class="nav-tab" data-tab="packing">🧳 Packing</div>
+      <div class="nav-tab" data-tab="voting">📊 Vote Grid <span class="badge hidden" id="vote-badge">!</span></div>
+<div class="nav-tab" data-tab="packing">🧳 Packing</div>
       <div class="nav-tab" data-tab="feed">📣 Feed <span class="badge hidden" id="feed-badge">0</span></div>
       <div class="nav-tab" data-tab="leaderboard">🏆 Scores</div>
       <div class="nav-tab" data-tab="final">✨ Final Plan</div>
@@ -448,6 +657,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
+<!-- EDIT MODAL -->
+<div id="edit-modal" class="edit-modal-overlay hidden">
+  <div class="edit-modal">
+    <h2 id="edit-modal-title">Edit Option</h2>
+    <div class="modal-form-group"><label>Name</label><input type="text" id="edit-name" autocomplete="off"/></div>
+    <div class="modal-form-group"><label>Link</label><input type="url" id="edit-link" autocomplete="off"/></div>
+    <div class="modal-form-group"><label>Notes</label><textarea id="edit-notes" rows="2"></textarea></div>
+    <div class="modal-form-group">
+      <label>Price Range</label>
+      <div class="price-selector">
+        <button class="price-btn edit-price-btn" data-price="1">$ Budget</button>
+        <button class="price-btn edit-price-btn" data-price="2">$ Mid</button>
+        <button class="price-btn edit-price-btn" data-price="3">$$ Splurge</button>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="cancel-edit">Cancel</button>
+      <button class="btn-primary" id="submit-edit">Save Changes</button>
+    </div>
+  </div>
+</div>
+<div class="nudge-toast" id="nudge-toast"></div>
+
+<!-- VOTE GRID TAB CONTENT -->
+<div id="tab-voting" class="hidden"><div id="voting-content"></div></div>
+
 <div class="toast" id="toast"></div>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -709,7 +944,15 @@ function renderMap(){
   c.appendChild(dl);
 }
 window.toggleDetails=function(id){const d=ge("det-"+id),b=ge("exp-"+id);if(!d)return;const open=d.classList.toggle("open");if(b)b.textContent=open?"▲":"▼";};
-window.deleteOption=async function(id){if(!confirm("Delete?"))return;try{await deleteDoc(doc(db,"options",id));toast("Deleted");}catch(e){toast("Error")}};
+window.deleteOption=async function(id){
+  const opt=ao[id];if(!opt)return;
+  const isMine=opt.addedBy===cun;
+  const msg=isMine?'Delete "'+opt.name+'"?':'Delete "'+opt.name+'" (added by '+opt.addedBy+')? This will show in the activity log.';
+  if(!confirm(msg))return;
+  const day=ALL_DAYS.find(d=>d.id===opt.dayId)||ALL_DAYS.find(d=>HN_MAP[d.id]===opt.dayId);
+  const logMsg=isMine?cun+' deleted their own option "'+opt.name+'"'+(day?' in '+day.location:''):cun+' deleted '+opt.addedBy+"'s option \""+opt.name+'"'+(day?' on '+day.date+' in '+day.location:'');
+  try{await deleteDoc(doc(db,"options",id));await logFeed(logMsg,"delete");toast("Deleted");}catch(e){toast("Error")}
+};
 window.toggleLock=async function(optId){
   const opt=ao[optId];if(!opt||!cun)return;
   const already=opt.lockedBy&&opt.lockedBy[cun];
@@ -807,7 +1050,12 @@ function buildOptCard(opt,did,st,isW){
   if(!score){scoreSpan.style.background="var(--border)";scoreSpan.style.color="var(--text4)";}row.appendChild(scoreSpan);
   if(hasExtra){const expBtn=document.createElement("button");expBtn.className="opt-expand";expBtn.id="exp-"+opt.id;expBtn.textContent="▼";expBtn.addEventListener("click",e=>{e.stopPropagation();window.toggleDetails(opt.id)});row.appendChild(expBtn);}
   const vetoBtn=document.createElement("button");vetoBtn.className="opt-veto-btn";vetoBtn.title=vetoed?"Remove veto":"Veto";vetoBtn.textContent=vetoed?"↩":"🚫";vetoBtn.addEventListener("click",e=>{e.stopPropagation();window.toggleVeto(opt.id)});row.appendChild(vetoBtn);
-  if(isMine){const delBtn=document.createElement("button");delBtn.className="opt-delete";delBtn.title="Delete";delBtn.innerHTML="🗑";delBtn.addEventListener("click",e=>{e.stopPropagation();window.deleteOption(opt.id)});row.appendChild(delBtn);}
+  // Edit button — anyone can edit
+const editBtn=document.createElement("button");editBtn.className="opt-edit";editBtn.title="Edit";editBtn.innerHTML="✏️";
+editBtn.addEventListener("click",e=>{e.stopPropagation();window.openEdit(opt.id)});row.appendChild(editBtn);
+// Delete — anyone can delete
+const delBtn=document.createElement("button");delBtn.className="opt-delete";delBtn.title="Delete";delBtn.innerHTML="🗑";
+delBtn.addEventListener("click",e=>{e.stopPropagation();window.deleteOption(opt.id)});row.appendChild(delBtn);
   el.appendChild(row);
   if(hasExtra){
     const det=document.createElement("div");det.className="opt-details";det.id="det-"+opt.id;
@@ -816,7 +1064,11 @@ function buildOptCard(opt,did,st,isW){
     if(opt.addedBy){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">By</span><span>${opt.addedBy}</span>`;det.appendChild(r);}
     el.appendChild(det);
   }
-  if(!vetoed)el.appendChild(buildInlineVote(opt));
+  if(!vetoed){
+  el.appendChild(buildInlineVote(opt));
+  el.appendChild(buildHappyRow(opt));
+  const nr=buildNudgeRow(opt);if(nr)el.appendChild(nr);
+}
   el.appendChild(buildCommentsSection(opt));
   el.appendChild(buildLockRow(opt));
   return el;
@@ -839,7 +1091,7 @@ ge("logout-btn").addEventListener("click",()=>{
   ge("login-username").value="";ge("login-password").value="";
   USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity="1"});
 });
-const ALL_TABS=["itinerary","map","hotels","restaurants","activities","packing","feed","leaderboard","final"];
+const ALL_TABS=["itinerary","map","hotels","restaurants","activities","voting","packing","feed","leaderboard","final"];
 document.querySelectorAll(".nav-tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
     document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
@@ -847,6 +1099,7 @@ document.querySelectorAll(".nav-tab").forEach(tab=>{
     tab.classList.add("active");ge("tab-"+tab.dataset.tab).classList.remove("hidden");
     if(tab.dataset.tab==="feed")ge("feed-badge").classList.add("hidden");
     if(tab.dataset.tab==="map")renderMap();
+        if(tab.dataset.tab==="voting")renderVotingGrid();
   });
 });
 document.querySelectorAll(".price-btn").forEach(btn=>{
