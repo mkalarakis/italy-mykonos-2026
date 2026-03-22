@@ -89,23 +89,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .det-row{display:flex;gap:6px;margin-top:4px;align-items:flex-start;font-size:12px}
 .det-lbl{font-weight:600;color:#bbb;min-width:36px;flex-shrink:0;font-size:11px;text-transform:uppercase;padding-top:1px}
 .winner-tag{font-size:11px;color:#0F6E56;font-weight:600;padding:2px 10px 6px}
-
-/* LOCK ROW */
 .lock-row{display:flex;align-items:center;gap:8px;padding:6px 10px 8px;border-top:1px solid #f5f5f5}
 .lock-circles{display:flex;gap:5px;align-items:center}
 .lock-circle{width:22px;height:22px;border-radius:50%;border:2px solid #e0e0e0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#ccc;cursor:default;transition:all .2s;flex-shrink:0}
 .lock-circle.mine{cursor:pointer}
-.lock-circle.mine:hover{transform:scale(1.1)}
+.lock-circle.mine:hover{transform:scale(1.15)}
 .lock-circle.locked{border-color:transparent;color:white}
 .lock-circle.lc-Sammy{background:#534AB7;border-color:#534AB7}
 .lock-circle.lc-Milton{background:#1D9E75;border-color:#1D9E75}
 .lock-circle.lc-Sofia{background:#D4537E;border-color:#D4537E}
 .lock-circle.lc-Dua{background:#EF9F27;border-color:#EF9F27}
-.lock-icon{font-size:16px;margin-left:4px;transition:all .3s}
-.lock-icon.all-locked{animation:goldenPop .4s ease}
-.lock-label{font-size:11px;color:#aaa;margin-left:2px}
+.lock-status{display:flex;align-items:center;gap:5px;margin-left:4px}
+.lock-status-icon{font-size:15px;line-height:1}
+.lock-status-label{font-size:11px;color:#ccc;font-weight:500}
+.lock-status-label.confirmed{color:#F5A623;font-weight:700}
 @keyframes goldenPop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
-
+.pop{animation:goldenPop .4s ease}
 .add-option-btn{width:100%;margin-top:8px;padding:8px;background:none;border:1px dashed #ccc;border-radius:8px;font-size:13px;color:#888;cursor:pointer}
 .add-option-btn:hover{border-color:#534AB7;color:#534AB7}
 .empty-state{text-align:center;padding:1.5rem;color:#bbb;font-size:13px}
@@ -168,8 +167,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .lb-stat:last-child{border-right:none}
 .lb-stat-num{font-size:18px;font-weight:700;color:#534AB7}
 .lb-stat-lbl{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-
-/* FINAL PLAN */
 .final-hero{background:linear-gradient(135deg,#0f0c29 0%,#302b63 50%,#24243e 100%);border-radius:16px;padding:2rem 1.5rem;color:white;margin-bottom:1.5rem;text-align:center}
 .final-hero h1{font-size:26px;font-weight:700;letter-spacing:-.5px}
 .final-hero p{font-size:14px;opacity:.65;margin-top:6px}
@@ -190,7 +187,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .final-day-location{font-size:12px;color:#888;margin-top:1px}
 .final-day-badge{font-size:10px;padding:3px 9px;border-radius:20px;background:#f0f0f0;color:#888;font-weight:600}
 .final-items{padding:8px 12px;display:flex;flex-direction:column;gap:5px}
-.final-item{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;position:relative}
+.final-item{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;border:2px solid transparent;transition:all .2s}
 .final-item-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .final-item-info{flex:1;min-width:0}
 .final-item-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
@@ -203,18 +200,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fi-meal{background:#EEEDFE}.fi-meal .final-item-icon{background:#534AB7;color:white}.fi-meal .final-item-label{color:#534AB7}.fi-meal .final-item-score{color:#534AB7}
 .fi-act{background:#FEF6E8}.fi-act .final-item-icon{background:#EF9F27;color:white}.fi-act .final-item-label{color:#EF9F27}.fi-act .final-item-score{color:#EF9F27}
 .fi-pending{background:#f9f9f9}.fi-pending .final-item-icon{background:#ebebeb;color:#ccc}.fi-pending .final-item-label{color:#ccc}.fi-pending .final-item-name{color:#ccc}
-.fi-locked{border:2px solid #F5A623!important;background:#FFFBF0!important}
-.fi-locked .final-item-icon{box-shadow:0 0 0 2px #F5A62333}
-
-/* FINAL LOCK CIRCLES */
-.final-lock-circles{display:flex;gap:4px;align-items:center}
+.fi-locked{border-color:#F5A623!important;box-shadow:0 0 0 1px #F5A62322}
+.final-lock-wrap{display:flex;align-items:center;gap:4px}
 .flc{width:18px;height:18px;border-radius:50%;border:2px solid #e0e0e0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#ddd;flex-shrink:0}
 .flc.locked{color:white;border-color:transparent}
-.flc.lc-Sammy{background:#534AB7}
-.flc.lc-Milton{background:#1D9E75}
-.flc.lc-Sofia{background:#D4537E}
-.flc.lc-Dua{background:#EF9F27}
-.final-lock-icon{font-size:16px;margin-left:2px}
+.flc.lc-Sammy{background:#534AB7}.flc.lc-Milton{background:#1D9E75}.flc.lc-Sofia{background:#D4537E}.flc.lc-Dua{background:#EF9F27}
+.final-lock-icon{font-size:16px;margin-left:3px}
 @media(max-width:400px){.top-bar-title{font-size:14px}.nav-tab{padding:10px 9px;font-size:11px}}
 </style>
 </head>
@@ -371,7 +362,8 @@ const ge=id=>document.getElementById(id);
 const cs=o=>{if(!o.votes||!Object.keys(o.votes).length)return null;const v=Object.values(o.votes);return(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)};
 const gso=(did,st)=>Object.values(ao).filter(o=>o.dayId===did&&o.slotType===st);
 const getBest=opts=>{if(!opts.length)return null;return[...opts].sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0]};
-const isFullyLocked=o=>o.lockedBy&&USERS.every(u=>o.lockedBy[u]);
+const isFullyLocked=o=>!!(o.lockedBy&&USERS.every(u=>o.lockedBy[u]));
+const lockedCount=o=>o.lockedBy?USERS.filter(u=>o.lockedBy[u]).length:0;
 const toast=msg=>{const t=ge("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)};
 
 window.toggleDetails=function(id){
@@ -389,53 +381,57 @@ window.deleteOption=async function(id){
 
 window.toggleLock=async function(optId){
   const opt=ao[optId];if(!opt||!cun)return;
-  const alreadyLocked=opt.lockedBy&&opt.lockedBy[cun];
+  const already=opt.lockedBy&&opt.lockedBy[cun];
   try{
-    await updateDoc(doc(db,"options",optId),{[`lockedBy.${cun}`]:alreadyLocked?null:true});
-    if(!alreadyLocked){
-      const newLocked={...((opt.lockedBy)||{}), [cun]:true};
+    await updateDoc(doc(db,"options",optId),{[`lockedBy.${cun}`]:already?null:true});
+    if(!already){
+      const newLocked={...(opt.lockedBy||{}),[cun]:true};
       if(USERS.every(u=>newLocked[u]))toast("\uD83D\uDD12 Locked in by everyone! \uD83C\uDF89");
-      else toast("\uD83D\uDD12 You locked in!");
-    } else {
-      toast("Lock removed");
-    }
+      else toast("You confirmed \u2713");
+    }else{toast("Confirmation removed")}
   }catch(e){toast("Error: "+e.message)}
 };
 
 function buildLockRow(opt){
-  const lockedBy=opt.lockedBy||{};
+  const lb=opt.lockedBy||{};
   const allLocked=isFullyLocked(opt);
+  const cnt=lockedCount(opt);
   const row=document.createElement("div");
   row.className="lock-row";
 
   const circles=document.createElement("div");
   circles.className="lock-circles";
-
   USERS.forEach(name=>{
-    const locked=!!(lockedBy[name]);
+    const isLocked=!!(lb[name]);
     const c=document.createElement("div");
-    c.className="lock-circle"+(locked?` locked lc-${name}`:"")+(name===cun?" mine":"");
-    c.title=locked?`${name} locked in`:`${name} hasn't locked in`;
+    c.className="lock-circle"+(isLocked?` locked lc-${name}`:"")+(name===cun?" mine":"");
+    c.title=isLocked?`${name} confirmed`:name===cun?"Tap to confirm":name+" hasn't confirmed";
     c.textContent=name[0];
-    if(name===cun){
-      c.addEventListener("click",e=>{e.stopPropagation();window.toggleLock(opt.id)});
-    }
+    if(name===cun)c.addEventListener("click",e=>{e.stopPropagation();window.toggleLock(opt.id)});
     circles.appendChild(c);
   });
 
-  const lockIcon=document.createElement("span");
-  lockIcon.className="lock-icon"+(allLocked?" all-locked":"");
-  lockIcon.textContent=allLocked?"\uD83D\uDD12":"\uD83D\uDD13";
+  const status=document.createElement("div");
+  status.className="lock-status";
+
+  // Icon: gold lock if all confirmed, grey open circle if not
+  const icon=document.createElement("span");
+  icon.className="lock-status-icon";
+  if(allLocked){
+    icon.textContent="\uD83D\uDD12";
+    icon.classList.add("pop");
+  } else {
+    icon.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`;
+  }
 
   const label=document.createElement("span");
-  label.className="lock-label";
-  const lockedCount=USERS.filter(u=>lockedBy[u]).length;
-  label.textContent=allLocked?"Confirmed!":`${lockedCount}/4 confirmed`;
-  if(allLocked){label.style.color="#F5A623";label.style.fontWeight="600";}
+  label.className="lock-status-label"+(allLocked?" confirmed":"");
+  label.textContent=allLocked?"\u2713 All confirmed!":cnt+"/4 confirmed";
 
+  status.appendChild(icon);
+  status.appendChild(label);
   row.appendChild(circles);
-  row.appendChild(lockIcon);
-  row.appendChild(label);
+  row.appendChild(status);
   return row;
 }
 
@@ -448,43 +444,29 @@ function buildOptCard(opt,did,st,isW){
   const el=document.createElement("div");
   el.className="opt-card"+(locked?" locked-in":isW?" winner":"");
 
-  const row=document.createElement("div");
-  row.className="opt-row";
-
-  const nameSpan=document.createElement("span");
-  nameSpan.className="opt-name";nameSpan.title=opt.name;nameSpan.textContent=opt.name;
-  row.appendChild(nameSpan);
-
-  const scoreSpan=document.createElement("span");
-  scoreSpan.className="opt-score"+(isW?" top":"");
-  scoreSpan.textContent=score||"-";
-  if(!score){scoreSpan.style.background="#f5f5f5";scoreSpan.style.color="#bbb";}
-  row.appendChild(scoreSpan);
+  const row=document.createElement("div");row.className="opt-row";
+  const nameSpan=document.createElement("span");nameSpan.className="opt-name";nameSpan.title=opt.name;nameSpan.textContent=opt.name;row.appendChild(nameSpan);
+  const scoreSpan=document.createElement("span");scoreSpan.className="opt-score"+(isW?" top":"");scoreSpan.textContent=score||"-";
+  if(!score){scoreSpan.style.background="#f5f5f5";scoreSpan.style.color="#bbb";}row.appendChild(scoreSpan);
 
   if(hasExtra){
-    const expBtn=document.createElement("button");
-    expBtn.className="opt-expand";expBtn.id="exp-"+opt.id;expBtn.textContent="\u25BC";
-    expBtn.addEventListener("click",e=>{e.stopPropagation();window.toggleDetails(opt.id)});
-    row.appendChild(expBtn);
+    const expBtn=document.createElement("button");expBtn.className="opt-expand";expBtn.id="exp-"+opt.id;expBtn.textContent="\u25BC";
+    expBtn.addEventListener("click",e=>{e.stopPropagation();window.toggleDetails(opt.id)});row.appendChild(expBtn);
   }
   if(isMine){
-    const delBtn=document.createElement("button");
-    delBtn.className="opt-delete";delBtn.title="Delete";delBtn.innerHTML="&#128465;";
-    delBtn.addEventListener("click",e=>{e.stopPropagation();window.deleteOption(opt.id)});
-    row.appendChild(delBtn);
+    const delBtn=document.createElement("button");delBtn.className="opt-delete";delBtn.title="Delete";delBtn.innerHTML="&#128465;";
+    delBtn.addEventListener("click",e=>{e.stopPropagation();window.deleteOption(opt.id)});row.appendChild(delBtn);
   }
   row.addEventListener("click",()=>openVote(did,st));
   el.appendChild(row);
 
   if(hasExtra){
-    const det=document.createElement("div");
-    det.className="opt-details";det.id="det-"+opt.id;
+    const det=document.createElement("div");det.className="opt-details";det.id="det-"+opt.id;
     if(opt.link){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">Link</span><a href="${opt.link}" target="_blank" onclick="event.stopPropagation()">${opt.link}</a>`;det.appendChild(r);}
     if(opt.notes){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">Notes</span><span>${opt.notes}</span>`;det.appendChild(r);}
     if(opt.addedBy){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">By</span><span>${opt.addedBy}</span>`;det.appendChild(r);}
     el.appendChild(det);
   }
-
   el.appendChild(buildLockRow(opt));
   return el;
 }
@@ -516,8 +498,7 @@ document.querySelectorAll(".nav-tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
     document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
     ALL_TABS.forEach(t=>ge("tab-"+t).classList.add("hidden"));
-    tab.classList.add("active");
-    ge("tab-"+tab.dataset.tab).classList.remove("hidden");
+    tab.classList.add("active");ge("tab-"+tab.dataset.tab).classList.remove("hidden");
   });
 });
 
@@ -532,10 +513,8 @@ ge("detail-panel").addEventListener("click",e=>{if(e.target===ge("detail-panel")
 
 function closeDetail(){ge("detail-panel").classList.add("hidden")}
 function openDetail(title,subtitle,bodyFn){
-  ge("detail-title").textContent=title;
-  ge("detail-subtitle").textContent=subtitle||"";
-  const body=ge("detail-body");body.innerHTML="";
-  bodyFn(body);
+  ge("detail-title").textContent=title;ge("detail-subtitle").textContent=subtitle||"";
+  const body=ge("detail-body");body.innerHTML="";bodyFn(body);
   ge("detail-panel").classList.remove("hidden");
 }
 
@@ -551,8 +530,7 @@ function subscribe(){
 
 function updateStats(){
   let v=0;Object.values(ao).forEach(o=>{if(o.votes)v+=Object.keys(o.votes).length});
-  ge("stat-options").textContent=Object.values(ao).length;
-  ge("stat-votes").textContent=v;
+  ge("stat-options").textContent=Object.values(ao).length;ge("stat-votes").textContent=v;
 }
 
 function renderItinerary(){
@@ -565,9 +543,9 @@ function renderItinerary(){
       const mealOpts=["Breakfast","Lunch","Dinner"].flatMap(st=>gso(day.id,st));
       const actOpts=gso(day.id,"Activity");
       const topHotel=getBest(hotelOpts),topMeal=getBest(mealOpts),topAct=getBest(actOpts);
-      const hotelLocked=topHotel&&isFullyLocked(topHotel);
-      const mealLocked=topMeal&&isFullyLocked(topMeal);
-      const actLocked=topAct&&isFullyLocked(topAct);
+      const hLocked=topHotel&&isFullyLocked(topHotel);
+      const mLocked=topMeal&&isFullyLocked(topMeal);
+      const aLocked=topAct&&isFullyLocked(topAct);
 
       const card=document.createElement("div");card.className="day-card";
       card.innerHTML=`
@@ -576,22 +554,22 @@ function renderItinerary(){
           <div class="day-badge">${day.badge}</div>
         </div>
         <div class="day-boxes">
-          <div class="day-box${hotelLocked?" locked-in":""}" id="box-hotel-${day.id}" style="${hotelLocked?"border-color:#F5A623;background:#FFFBF0":""}">
-            <div class="day-box-icon">${hotelLocked?"\uD83D\uDD12":"\uD83C\uDFE8"}</div>
+          <div class="day-box" id="box-hotel-${day.id}" style="${hLocked?"border-color:#F5A623;background:#FFFBF0":""}">
+            <div class="day-box-icon">${hLocked?"\uD83D\uDD12":"\uD83C\uDFE8"}</div>
             <div class="day-box-label">Hotel</div>
             <div class="day-box-count">${hotelOpts.length} option${hotelOpts.length!==1?"s":""}</div>
             ${topHotel?`<div class="day-box-winner">${topHotel.name}</div>`:""}
             ${topHotel&&cs(topHotel)?`<div class="day-box-score">${cs(topHotel)}</div>`:""}
           </div>
-          <div class="day-box${mealLocked?" locked-in":""}" id="box-meals-${day.id}" style="${mealLocked?"border-color:#F5A623;background:#FFFBF0":""}">
-            <div class="day-box-icon">${mealLocked?"\uD83D\uDD12":"\uD83C\uDF7D\uFE0F"}</div>
+          <div class="day-box" id="box-meals-${day.id}" style="${mLocked?"border-color:#F5A623;background:#FFFBF0":""}">
+            <div class="day-box-icon">${mLocked?"\uD83D\uDD12":"\uD83C\uDF7D\uFE0F"}</div>
             <div class="day-box-label">Meals</div>
             <div class="day-box-count">${mealOpts.length} option${mealOpts.length!==1?"s":""}</div>
             ${topMeal?`<div class="day-box-winner">${topMeal.name}</div>`:""}
             ${topMeal&&cs(topMeal)?`<div class="day-box-score">${cs(topMeal)}</div>`:""}
           </div>
-          <div class="day-box${actLocked?" locked-in":""}" id="box-act-${day.id}" style="${actLocked?"border-color:#F5A623;background:#FFFBF0":""}">
-            <div class="day-box-icon">${actLocked?"\uD83D\uDD12":"\uD83C\uDFAF"}</div>
+          <div class="day-box" id="box-act-${day.id}" style="${aLocked?"border-color:#F5A623;background:#FFFBF0":""}">
+            <div class="day-box-icon">${aLocked?"\uD83D\uDD12":"\uD83C\uDFAF"}</div>
             <div class="day-box-label">Activities</div>
             <div class="day-box-count">${actOpts.length} option${actOpts.length!==1?"s":""}</div>
             ${topAct?`<div class="day-box-winner">${topAct.name}</div>`:""}
@@ -730,7 +708,7 @@ function updateLeaderboard(){
       const score=cs(opt),vc=opt.votes?Object.keys(opt.votes).length:0;
       const locked=isFullyLocked(opt);
       const row=document.createElement("div");row.style.cssText="display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid #f5f5f5;font-size:13px";
-      row.innerHTML=`<div style="flex:1;font-weight:500">${opt.name}${locked?' \uD83D\uDD12':''}</div><div style="font-size:11px;color:#aaa">${vc}/4 votes</div><div style="font-weight:700;color:${UC[name]};min-width:32px;text-align:right">${score||"\u2014"}</div>`;
+      row.innerHTML=`<div style="flex:1;font-weight:500">${opt.name}${locked?" \uD83D\uDD12":""}</div><div style="font-size:11px;color:#aaa">${vc}/4 votes</div><div style="font-weight:700;color:${UC[name]};min-width:32px;text-align:right">${score||"\u2014"}</div>`;
       card.appendChild(row);
     });
     c.appendChild(card);
@@ -749,20 +727,23 @@ function updateFinalPlan(){
     if(opt){
       const score=cs(opt);
       const locked=isFullyLocked(opt);
-      const lockedBy=opt.lockedBy||{};
-      const lockedCount=USERS.filter(u=>lockedBy[u]).length;
+      const lb=opt.lockedBy||{};
       el.className=`final-item ${typeClass}${locked?" fi-locked":""}`;
 
-      const iconDiv=document.createElement("div");iconDiv.className="final-item-icon";iconDiv.textContent=locked?"\uD83D\uDD12":icon;
+      const iconDiv=document.createElement("div");iconDiv.className="final-item-icon";
+      iconDiv.textContent=locked?"\uD83D\uDD12":icon;
+
       const info=document.createElement("div");info.className="final-item-info";
-      info.innerHTML=`<div class="final-item-label">${label}</div><div class="final-item-name">${opt.name}</div><div class="final-item-sub">${score?"Score: "+score+"\u2009\u00b7\u2009":""}${opt.addedBy?"Added by "+opt.addedBy:""}</div>`;
+      info.innerHTML=`<div class="final-item-label">${label}</div><div class="final-item-name">${opt.name}</div><div class="final-item-sub">${score?"Score: "+score+"\u2009\u00b7\u2009":""} ${opt.addedBy?"Added by "+opt.addedBy:""}</div>`;
 
       const right=document.createElement("div");right.className="final-item-right";
+      if(score){const sc=document.createElement("span");sc.className="final-item-score";sc.textContent=score;right.appendChild(sc);}
 
       // Lock circles
-      const circles=document.createElement("div");circles.className="final-lock-circles";
+      const wrap=document.createElement("div");wrap.className="final-lock-wrap";
+      const circles=document.createElement("div");circles.className="final-lock-circles" ;circles.style.display="flex";circles.style.gap="3px";
       USERS.forEach(name=>{
-        const isLocked=!!(lockedBy[name]);
+        const isLocked=!!(lb[name]);
         const dot=document.createElement("div");
         dot.className="flc"+(isLocked?` locked lc-${name}`:"");
         dot.title=isLocked?`${name} confirmed`:`${name} hasn't confirmed`;
@@ -770,19 +751,21 @@ function updateFinalPlan(){
         circles.appendChild(dot);
       });
 
+      // Lock icon — gold lock if all confirmed, open SVG if not
       const lockIcon=document.createElement("span");
       lockIcon.className="final-lock-icon";
-      lockIcon.textContent=locked?"\uD83D\uDD12":"\uD83D\uDD13";
-      lockIcon.style.filter=locked?"drop-shadow(0 0 3px #F5A623)":"none";
-      lockIcon.title=locked?"All confirmed!":lockedCount+"/4 confirmed";
+      if(locked){
+        lockIcon.textContent="\uD83D\uDD12";
+        lockIcon.style.filter="drop-shadow(0 0 4px #F5A623)";
+      } else {
+        lockIcon.innerHTML=`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`;
+      }
 
-      if(score){const sc=document.createElement("span");sc.className="final-item-score";sc.textContent=score;right.appendChild(sc);}
-      right.appendChild(circles);
-      right.appendChild(lockIcon);
+      wrap.appendChild(circles);
+      wrap.appendChild(lockIcon);
+      right.appendChild(wrap);
 
-      el.appendChild(iconDiv);
-      el.appendChild(info);
-      el.appendChild(right);
+      el.appendChild(iconDiv);el.appendChild(info);el.appendChild(right);
     } else {
       el.className="final-item fi-pending";
       el.innerHTML=`<div class="final-item-icon">\u2026</div><div class="final-item-info"><div class="final-item-label">${label}</div><div class="final-item-pending">Not selected yet</div></div>`;
@@ -822,8 +805,10 @@ function closeAdd(){ge("add-modal").classList.add("hidden");amc=null}
 async function submitAdd(){
   const name=ge("add-name").value.trim();if(!name){toast("Please enter a name");return}
   const link=ge("add-link").value.trim(),notes=ge("add-notes").value.trim();if(!amc)return;
-  try{await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,addedBy:cun,votes:{},lockedBy:{},createdAt:serverTimestamp()});closeAdd();toast("Added! \u2713");}
-  catch(e){toast("Error: "+e.message)}
+  try{
+    await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,addedBy:cun,votes:{},lockedBy:{},createdAt:serverTimestamp()});
+    closeAdd();toast("Added! \u2713");
+  }catch(e){toast("Error: "+e.message)}
 }
 
 window.openVote=function(did,st){
