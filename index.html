@@ -25,13 +25,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .top-bar-title{font-size:16px;font-weight:600}
 .top-bar-right{display:flex;align-items:center;gap:10px}
 .user-badge{display:flex;align-items:center;gap:6px;font-size:13px;color:#555}
-.avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
-.av-Sammy{background:#EEEDFE;color:#3C3489}
-.av-Milton{background:#E1F5EE;color:#085041}
-.av-Sofia{background:#FBEAF0;color:#72243E}
-.av-Dua{background:#FAEEDA;color:#633806}
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid transparent}
+.av-Sammy{background:#EEEDFE;color:#3C3489;border-color:#534AB7}
+.av-Milton{background:#E1F5EE;color:#085041;border-color:#1D9E75}
+.av-Sofia{background:#FBEAF0;color:#72243E;border-color:#D4537E}
+.av-Dua{background:#FAEEDA;color:#633806;border-color:#EF9F27}
 .logout-btn{font-size:12px;color:#888;cursor:pointer;background:none;border:none;padding:4px 8px;border-radius:6px}
 .logout-btn:hover{background:#f5f5f5}
+.avatars-strip{display:flex;gap:8px;align-items:center}
+.avatar-item{display:flex;flex-direction:column;align-items:center;gap:2px}
+.avatar-item span{font-size:9px;color:#aaa;font-weight:500}
 .nav-tabs{background:white;border-bottom:1px solid #ebebeb;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .nav-tabs::-webkit-scrollbar{display:none}
 .nav-tabs-inner{max-width:900px;margin:0 auto;display:flex;padding:0 1rem}
@@ -54,12 +57,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .slot{border:1px solid #ebebeb;border-radius:10px;padding:10px;background:#fafafa}
 .slot-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#aaa;font-weight:600;margin-bottom:6px}
 .slot-options{display:flex;flex-direction:column;gap:5px}
-.slot-option{display:flex;align-items:center;justify-content:space-between;gap:6px;background:white;border:1px solid #ebebeb;border-radius:7px;padding:6px 8px;cursor:pointer}
-.slot-option.winner{border-color:#1D9E75;background:#f0fdf7}
+.slot-option{background:white;border:1px solid #ebebeb;border-radius:7px;overflow:hidden}
+.slot-option.winner{border-color:#1D9E75}
+.slot-option-row{display:flex;align-items:center;gap:6px;padding:6px 8px;cursor:pointer}
+.slot-option.winner .slot-option-row{background:#f0fdf7}
 .option-name{font-size:12px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.option-score{font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px;background:#f0f0f0;color:#555;white-space:nowrap}
+.option-right{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.option-score{font-size:11px;font-weight:600;padding:2px 6px;border-radius:5px;background:#f0f0f0;color:#555;white-space:nowrap}
 .option-score.top{background:#E1F5EE;color:#0F6E56}
-.winner-tag{font-size:10px;color:#0F6E56;font-weight:600;margin-top:2px}
+.expand-btn{background:none;border:none;cursor:pointer;font-size:10px;color:#bbb;padding:2px 3px;line-height:1;flex-shrink:0}
+.expand-btn:hover{color:#534AB7}
+.option-details{display:none;padding:6px 10px 8px;border-top:1px solid #f0f0f0;background:#f8f8f8;font-size:11px;color:#666}
+.option-details.open{display:block}
+.option-details a{color:#534AB7;text-decoration:none;word-break:break-all}
+.option-details a:hover{text-decoration:underline}
+.detail-row{display:flex;gap:6px;margin-top:3px;align-items:flex-start}
+.detail-label{font-weight:600;color:#bbb;min-width:36px;flex-shrink:0}
+.winner-tag{font-size:10px;color:#0F6E56;font-weight:600;padding:0 8px 4px}
 .add-option-btn{width:100%;margin-top:6px;padding:6px;background:none;border:1px dashed #ccc;border-radius:7px;font-size:12px;color:#888;cursor:pointer}
 .add-option-btn:hover{border-color:#534AB7;color:#534AB7}
 .empty-slot{font-size:11px;color:#bbb;text-align:center;padding:4px 0}
@@ -70,6 +84,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .hotel-header-text h3{font-size:14px;font-weight:600}
 .hotel-header-text p{font-size:12px;color:#888;margin-top:2px}
 .hotel-body{padding:12px 16px}
+.big-option{background:white;border:1px solid #ebebeb;border-radius:8px;overflow:hidden;margin-bottom:6px}
+.big-option.winner{border-color:#1D9E75}
+.big-option-row{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer}
+.big-option.winner .big-option-row{background:#f0fdf7}
+.big-option-name{font-size:13px;font-weight:500;flex:1}
+.big-option-details{display:none;padding:6px 12px 9px;border-top:1px solid #f0f0f0;background:#f8f8f8;font-size:12px;color:#666}
+.big-option-details.open{display:block}
+.big-option-details a{color:#534AB7;text-decoration:none;word-break:break-all}
+.big-option-details a:hover{text-decoration:underline}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;display:flex;align-items:flex-end;justify-content:center}
 @media(min-width:600px){.modal-overlay{align-items:center}}
 .modal{background:white;border-radius:20px 20px 0 0;padding:1.5rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
@@ -130,7 +153,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="top-bar-inner">
       <div class="top-bar-title">&#127470;&#127481; &#127468;&#127479; Summer 2026</div>
       <div class="top-bar-right">
-        <div class="user-badge"><div class="avatar" id="user-avatar"></div><span id="user-name-display"></span></div>
+        <div class="avatars-strip" id="avatars-strip">
+          <div class="avatar-item"><div class="avatar av-Sammy">S</div><span>Sammy</span></div>
+          <div class="avatar-item"><div class="avatar av-Milton">M</div><span>Milton</span></div>
+          <div class="avatar-item"><div class="avatar av-Sofia">So</div><span>Sofia</span></div>
+          <div class="avatar-item"><div class="avatar av-Dua">D</div><span>Dua</span></div>
+        </div>
         <button class="logout-btn" id="logout-btn">Sign out</button>
       </div>
     </div>
@@ -242,6 +270,24 @@ const cs=o=>{if(!o.votes||!Object.keys(o.votes).length)return null;const v=Objec
 const gso=(did,st)=>Object.values(ao).filter(o=>o.dayId===did&&o.slotType===st);
 const toast=msg=>{const t=ge("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)};
 
+window.toggleDetails=function(id){
+  const d=ge("det-"+id),b=ge("exp-"+id);
+  if(!d)return;
+  const open=d.classList.toggle("open");
+  if(b)b.textContent=open?"\u25B2":"\u25BC";
+};
+
+function detailsHTML(opt,cls){
+  const has=opt.link||opt.notes||opt.addedBy;
+  if(!has)return"";
+  let h=`<div class="${cls} hidden" id="det-${opt.id}">`;
+  if(opt.link)h+=`<div class="detail-row"><span class="detail-label">Link</span><a href="${opt.link}" target="_blank">${opt.link}</a></div>`;
+  if(opt.notes)h+=`<div class="detail-row"><span class="detail-label">Notes</span><span>${opt.notes}</span></div>`;
+  if(opt.addedBy)h+=`<div class="detail-row"><span class="detail-label">By</span><span>${opt.addedBy}</span></div>`;
+  h+=`</div>`;
+  return h;
+}
+
 ge("login-btn").addEventListener("click",()=>{
   const u=ge("login-username").value.trim().toLowerCase();
   const p=ge("login-password").value;
@@ -253,8 +299,10 @@ ge("login-btn").addEventListener("click",()=>{
   cun=m.name;
   ge("login-screen").style.display="none";
   ge("app").style.display="block";
-  const av=ge("user-avatar");av.textContent=cun[0];av.className="avatar av-"+cun;
-  ge("user-name-display").textContent=cun;
+  // Highlight current user avatar
+  document.querySelectorAll(".avatar-item").forEach(el=>{
+    el.style.opacity=el.querySelector(".avatar").className.includes(cun)?"1":"0.4";
+  });
   initApp();
 });
 
@@ -262,12 +310,12 @@ ge("login-password").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login
 ge("login-username").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-password").focus()});
 
 ge("logout-btn").addEventListener("click",()=>{
-  cun=null;
-  us.forEach(u=>u());us=[];
+  cun=null;us.forEach(u=>u());us=[];
   ge("login-screen").style.display="flex";
   ge("app").style.display="none";
   ge("login-username").value="";
   ge("login-password").value="";
+  document.querySelectorAll(".avatar-item").forEach(el=>el.style.opacity="1");
 });
 
 document.querySelectorAll(".nav-tab").forEach(tab=>{
@@ -334,11 +382,44 @@ function updateSlot(did,st){
   if(!opts.length){c.innerHTML='<div class="empty-slot">No options yet</div>';return}
   opts.forEach((opt,i)=>{
     const score=cs(opt),isW=i===0&&score!==null;
+    const has=opt.link||opt.notes||opt.addedBy;
     const el=document.createElement("div");el.className="slot-option"+(isW?" winner":"");
-    el.innerHTML=`<span class="option-name" title="${opt.name}">${opt.name}</span>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
-    el.onclick=()=>openVote(did,st);c.appendChild(el);
+    el.innerHTML=`
+      <div class="slot-option-row">
+        <span class="option-name" title="${opt.name}">${opt.name}</span>
+        <div class="option-right">
+          ${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#bbb">-</span>'}
+          ${has?`<button class="expand-btn" id="exp-${opt.id}" onclick="event.stopPropagation();toggleDetails('${opt.id}')">\u25BC</button>`:""}
+        </div>
+      </div>
+      ${detailsHTML(opt,"option-details")}
+    `;
+    el.querySelector(".slot-option-row").addEventListener("click",()=>openVote(did,st));
+    c.appendChild(el);
     if(isW&&opts.length>1){const w=document.createElement("div");w.className="winner-tag";w.textContent="\u2713 Leading";c.appendChild(w)}
   });
+}
+
+function makeBigOption(opt,did,st,isW){
+  const score=cs(opt);
+  const has=opt.link||opt.notes||opt.addedBy;
+  const el=document.createElement("div");el.className="big-option"+(isW?" winner":"");
+  el.innerHTML=`
+    <div class="big-option-row">
+      <div class="big-option-name">${opt.name}</div>
+      <div class="option-right">
+        ${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#bbb">-</span>'}
+        ${has?`<button class="expand-btn" id="exp-${opt.id}" onclick="event.stopPropagation();toggleDetails('${opt.id}')">\u25BC</button>`:""}
+      </div>
+    </div>
+    <div class="big-option-details hidden" id="det-${opt.id}">
+      ${opt.link?`<div class="detail-row"><span class="detail-label">Link</span><a href="${opt.link}" target="_blank">${opt.link}</a></div>`:""}
+      ${opt.notes?`<div class="detail-row"><span class="detail-label">Notes</span><span>${opt.notes}</span></div>`:""}
+      ${opt.addedBy?`<div class="detail-row"><span class="detail-label">By</span><span>${opt.addedBy}</span></div>`:""}
+    </div>
+  `;
+  el.querySelector(".big-option-row").addEventListener("click",()=>openVote(did,st));
+  return el;
 }
 
 function renderHotels(){
@@ -346,23 +427,19 @@ function renderHotels(){
   HN.forEach(h=>{
     if(h.segment!==last){const sl=document.createElement("div");sl.className="section-label";sl.textContent=h.segment;c.appendChild(sl);last=h.segment}
     const card=document.createElement("div");card.className="hotel-card";
-    card.innerHTML=`<div class="hotel-header" onclick="openVote('${h.id}','Hotel')"><div class="hotel-icon">\uD83C\uDFE8</div><div class="hotel-header-text"><h3>${h.label}</h3><p>${h.dates}</p></div></div><div class="hotel-body"><div class="slot-options" id="hotel-opts-${h.id}"></div><button class="add-option-btn" onclick="openAdd('${h.id}','Hotel')">+ Add hotel option</button></div>`;
+    card.innerHTML=`<div class="hotel-header" onclick="openVote('${h.id}','Hotel')"><div class="hotel-icon">\uD83C\uDFE8</div><div class="hotel-header-text"><h3>${h.label}</h3><p>${h.dates}</p></div></div><div class="hotel-body" id="hbody-${h.id}"></div>`;
     c.appendChild(card);
   });
 }
 
 function updateHotelSlots(){
   HN.forEach(h=>{
-    const c=ge("hotel-opts-"+h.id);if(!c)return;
+    const c=ge("hbody-"+h.id);if(!c)return;
     const opts=Object.values(ao).filter(o=>o.dayId===h.id&&o.slotType==="Hotel").sort((a,b)=>(cs(b)||0)-(cs(a)||0));
     c.innerHTML="";
-    if(!opts.length){c.innerHTML='<div class="empty-slot" style="padding:8px 0">No options yet</div>';return}
-    opts.forEach((opt,i)=>{
-      const score=cs(opt),isW=i===0&&score!==null;
-      const el=document.createElement("div");el.className="slot-option"+(isW?" winner":"");el.style.cursor="pointer";
-      el.innerHTML=`<div style="flex:1;min-width:0"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View \u2192</a>`:""}</div>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
-      el.onclick=()=>openVote(h.id,"Hotel");c.appendChild(el);
-    });
+    if(!opts.length){c.innerHTML='<div class="empty-slot" style="padding:8px 0">No options yet</div>';}
+    else{opts.forEach((opt,i)=>c.appendChild(makeBigOption(opt,h.id,"Hotel",i===0&&cs(opt)!==null)))}
+    const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add hotel option";btn.onclick=()=>openAdd(h.id,"Hotel");c.appendChild(btn);
   });
 }
 
@@ -376,15 +453,11 @@ function updateRestTab(){
         if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}
         const card=document.createElement("div");card.className="hotel-card";
         const icon=type==="Breakfast"?"\uD83E\uDD50":type==="Lunch"?"\uD83C\uDF5D":"\uD83C\uDF77";
-        card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">${icon}</div><div class="hotel-header-text"><h3>${day.date} \u2014 ${type}</h3><p>${day.location}</p></div></div><div class="hotel-body"><div class="slot-options" id="rest-${day.id}-${type}"></div><button class="add-option-btn" onclick="openAdd('${day.id}','${type}')">+ Add option</button></div>`;
+        card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">${icon}</div><div class="hotel-header-text"><h3>${day.date} \u2014 ${type}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="rb-${day.id}-${type}"></div>`;
         c.appendChild(card);
-        const el=ge("rest-"+day.id+"-"+type);if(!el)return;
-        opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>{
-          const score=cs(opt),isW=i===0&&score!==null;
-          const row=document.createElement("div");row.className="slot-option"+(isW?" winner":"");row.style.cursor="pointer";
-          row.innerHTML=`<div style="flex:1"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View \u2192</a>`:""}</div>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
-          row.onclick=()=>openVote(day.id,type);el.appendChild(row);
-        });
+        const body=ge("rb-"+day.id+"-"+type);
+        opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>body.appendChild(makeBigOption(opt,day.id,type,i===0&&cs(opt)!==null)));
+        const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add option";btn.onclick=()=>openAdd(day.id,type);body.appendChild(btn);
       });
     });
   });
@@ -399,15 +472,11 @@ function updateActTab(){
       const opts=gso(day.id,"Activity");if(!opts.length)return;any=true;
       if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}
       const card=document.createElement("div");card.className="hotel-card";
-      card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">\uD83C\uDFAF</div><div class="hotel-header-text"><h3>${day.date}</h3><p>${day.location}</p></div></div><div class="hotel-body"><div class="slot-options" id="act-${day.id}"></div><button class="add-option-btn" onclick="openAdd('${day.id}','Activity')">+ Add activity</button></div>`;
+      card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">\uD83C\uDFAF</div><div class="hotel-header-text"><h3>${day.date}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="ab-${day.id}"></div>`;
       c.appendChild(card);
-      const el=ge("act-"+day.id);if(!el)return;
-      opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>{
-        const score=cs(opt),isW=i===0&&score!==null;
-        const row=document.createElement("div");row.className="slot-option"+(isW?" winner":"");row.style.cursor="pointer";
-        row.innerHTML=`<div style="flex:1"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View \u2192</a>`:""}</div>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
-        row.onclick=()=>openVote(day.id,"Activity");el.appendChild(row);
-      });
+      const body=ge("ab-"+day.id);
+      opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>body.appendChild(makeBigOption(opt,day.id,"Activity",i===0&&cs(opt)!==null)));
+      const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>openAdd(day.id,"Activity");body.appendChild(btn);
     });
   });
   if(!any)c.innerHTML='<div class="loading">No activities yet.<br>Add them from the Itinerary tab!</div>';
@@ -447,7 +516,18 @@ window.openVote=function(did,st){
     const myVote=opt.votes&&opt.votes[cun]?opt.votes[cun]:0;
     const avg=cs(opt);const vc=opt.votes?Object.keys(opt.votes).length:0;
     const item=document.createElement("div");item.className="vote-item";
-    item.innerHTML=`<div style="flex:1;min-width:0"><div class="vote-item-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank">View \u2192</a>`:""} ${opt.notes?`<div style="font-size:11px;color:#888;margin-top:2px">${opt.notes}</div>`:""}<div style="font-size:11px;color:#888;margin-top:3px">${vc}/4 voted${avg?" \u00b7 avg "+avg:""}</div><div class="vote-progress"><div class="vote-progress-fill" style="width:${(vc/4)*100}%"></div></div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div id="stars-${opt.id}" style="display:flex;flex-direction:column;gap:3px"></div><div class="vote-score-display" id="sd-${opt.id}">${myVote||"\u2014"}</div></div>`;
+    item.innerHTML=`
+      <div style="flex:1;min-width:0">
+        <div class="vote-item-name">${opt.name}</div>
+        ${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank">View link \u2192</a>`:""}
+        ${opt.notes?`<div style="font-size:11px;color:#888;margin-top:2px">${opt.notes}</div>`:""}
+        <div style="font-size:11px;color:#888;margin-top:3px">${vc}/4 voted${avg?" \u00b7 avg "+avg:""}</div>
+        <div class="vote-progress"><div class="vote-progress-fill" style="width:${(vc/4)*100}%"></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <div id="stars-${opt.id}" style="display:flex;flex-direction:column;gap:3px"></div>
+        <div class="vote-score-display" id="sd-${opt.id}">${myVote||"\u2014"}</div>
+      </div>`;
     list.appendChild(item);
     const se=item.querySelector("#stars-"+opt.id);
     const r1=document.createElement("div");r1.style.cssText="display:flex;gap:3px";
