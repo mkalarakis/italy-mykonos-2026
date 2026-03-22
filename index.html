@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italy + Mykonos 2026</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; min-height: 100vh; color: #1a1a1a; }
+#login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; }
+.login-card { background: white; border-radius: 16px; padding: 2rem; width: 100%; max-width: 380px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.login-logo { text-align: center; margin-bottom: 1.5rem; }
+.login-logo h1 { font-size: 22px; font-weight: 600; }
+.login-logo p { font-size: 13px; color: #888; margin-top: 4px; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 12px; font-weight: 500; color: #555; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.form-group input { width: 100%; padding: 10px 14px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 15px; outline: none; }
+.form-group input:focus { border-color: #534AB7; }
+.login-btn { width: 100%; padding: 12px; background: #534AB7; color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 0.5rem; }
+.login-btn:hover { background: #3C3489; }
+.login-error { color: #c0392b; font-size: 13px; text-align: center; margin-top: 8px; min-height: 18px; }
+#app { display: none; min-height: 100vh; }
+.top-bar { background: white; border-bottom: 1px solid #ebebeb; padding: 0 1rem; position: sticky; top: 0; z-index: 100; }
+.top-bar-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.top-bar-title { font-size: 16px; font-weight: 600; }
+.top-bar-right { display: flex; align-items: center; gap: 10px; }
+.user-badge { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #555; }
+.avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+.av-Sammy { background: #EEEDFE; color: #3C3489; }
+.av-Milton { background: #E1F5EE; color: #085041; }
+.av-Sofia { background: #FBEAF0; color: #72243E; }
+.av-Dua { background: #FAEEDA; color: #633806; }
+.logout-btn { font-size: 12px; color: #888; cursor: pointer; background: none; border: none; padding: 4px 8px; border-radius: 6px; }
+.logout-btn:hover { background: #f5f5f5; }
+.nav-tabs { background: white; border-bottom: 1px solid #ebebeb; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tabs-inner { max-width: 900px; margin: 0 auto; display: flex; padding: 0 1rem; }
+.nav-tab { padding: 12px 16px; font-size: 13px; font-weight: 500; color: #888; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.15s; }
+.nav-tab.active { color: #534AB7; border-bottom-color: #534AB7; }
+.nav-tab:hover { color: #534AB7; }
+.main { max-width: 900px; margin: 0 auto; padding: 1.25rem 1rem; }
+.hidden { display: none !important; }
+.section-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #888; margin: 1.5rem 0 0.75rem; }
+.section-label:first-child { margin-top: 0; }
+.day-card { background: white; border-radius: 14px; border: 1px solid #ebebeb; margin-bottom: 12px; overflow: hidden; }
+.day-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
+.day-header:hover { background: #fafafa; }
+.day-header-left h3 { font-size: 14px; font-weight: 600; }
+.day-header-left p { font-size: 12px; color: #888; margin-top: 2px; }
+.day-badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: #EEEDFE; color: #3C3489; font-weight: 500; }
+.day-body { padding: 12px 16px; }
+.slots-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (min-width: 600px) { .slots-grid { grid-template-columns: repeat(4, 1fr); } }
+.slot { border: 1px solid #ebebeb; border-radius: 10px; padding: 10px; background: #fafafa; }
+.slot-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #aaa; font-weight: 600; margin-bottom: 6px; }
+.slot-options { display: flex; flex-direction: column; gap: 5px; }
+.slot-option { display: flex; align-items: center; justify-content: space-between; gap: 6px; background: white; border: 1px solid #ebebeb; border-radius: 7px; padding: 6px 8px; cursor: pointer; }
+.slot-option.winner { border-color: #1D9E75; background: #f0fdf7; }
+.option-name { font-size: 12px; font-weight: 500; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.option-score { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 5px; background: #f0f0f0; color: #555; white-space: nowrap; }
+.option-score.top { background: #E1F5EE; color: #0F6E56; }
+.winner-tag { font-size: 10px; color: #0F6E56; font-weight: 600; margin-top: 2px; }
+.add-option-btn { width: 100%; margin-top: 6px; padding: 6px; background: none; border: 1px dashed #ccc; border-radius: 7px; font-size: 12px; color: #888; cursor: pointer; }
+.add-option-btn:hover { border-color: #534AB7; color: #534AB7; }
+.empty-slot { font-size: 11px; color: #bbb; text-align: center; padding: 4px 0; }
+.hotel-card { background: white; border-radius: 14px; border: 1px solid #ebebeb; margin-bottom: 10px; overflow: hidden; }
+.hotel-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
+.hotel-icon { width: 36px; height: 36px; border-radius: 10px; background: #EEEDFE; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.hotel-header-text { flex: 1; }
+.hotel-header-text h3 { font-size: 14px; font-weight: 600; }
+.hotel-header-text p { font-size: 12px; color: #888; margin-top: 2px; }
+.hotel-body { padding: 12px 16px; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; display: flex; align-items: flex-end; justify-content: center; }
+@media (min-width: 600px) { .modal-overlay { align-items: center; } }
+.modal { background: white; border-radius: 20px 20px 0 0; padding: 1.5rem; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; }
+@media (min-width: 600px) { .modal { border-radius: 16px; } }
+.modal h2 { font-size: 17px; font-weight: 600; margin-bottom: 1rem; }
+.modal-form-group { margin-bottom: 12px; }
+.modal-form-group label { display: block; font-size: 12px; font-weight: 500; color: #555; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+.modal-form-group input, .modal-form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; outline: none; font-family: inherit; }
+.modal-form-group input:focus, .modal-form-group textarea:focus { border-color: #534AB7; }
+.modal-actions { display: flex; gap: 8px; margin-top: 1rem; }
+.btn-primary { flex: 1; padding: 11px; background: #534AB7; color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer; }
+.btn-primary:hover { background: #3C3489; }
+.btn-secondary { padding: 11px 16px; background: #f5f5f5; color: #555; border: none; border-radius: 10px; font-size: 14px; cursor: pointer; }
+.vote-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1rem; }
+.vote-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; border: 1px solid #ebebeb; border-radius: 10px; background: #fafafa; }
+.vote-item-name { font-size: 14px; font-weight: 500; }
+.vote-item-link { font-size: 12px; color: #534AB7; text-decoration: none; }
+.star { width: 26px; height: 26px; border-radius: 6px; border: 1px solid #e0e0e0; background: white; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; font-weight: 600; color: #aaa; }
+.star.selected { background: #534AB7; border-color: #534AB7; color: white; }
+.vote-score-display { font-size: 13px; font-weight: 600; color: #534AB7; min-width: 28px; text-align: center; }
+.vote-progress { height: 4px; background: #f0f0f0; border-radius: 2px; margin-top: 6px; overflow: hidden; }
+.vote-progress-fill { height: 100%; background: #534AB7; border-radius: 2px; }
+.loading { text-align: center; padding: 3rem; color: #aaa; font-size: 14px; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: white; padding: 10px 20px; border-radius: 30px; font-size: 13px; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; }
+.toast.show { opacity: 1; }
+.summary-banner { background: #534AB7; border-radius: 14px; padding: 1.25rem 1.5rem; color: white; margin-bottom: 1.25rem; }
+.summary-banner h2 { font-size: 20px; font-weight: 700; }
+.summary-banner p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+.summary-stats { display: flex; gap: 1.5rem; margin-top: 1rem; }
+.stat-num { font-size: 22px; font-weight: 700; }
+.stat-label { font-size: 11px; opacity: 0.8; }
+@media (max-width: 400px) { .top-bar-title { font-size: 14px; } .nav-tab { padding: 10px 12px; font-size: 12px; } }
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <h1>🇮🇹 🇬🇷 Italy + Mykonos</h1>
+      <p>Summer 2026 · Trip Planner</p>
+    </div>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="login-username" placeholder="sammy, milton, sofia, or dua" autocomplete="username" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" />
+    </div>
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<div id="app">
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div class="top-bar-title">🇮🇹 🇬🇷 Summer 2026</div>
+      <div class="top-bar-right">
+        <div class="user-badge">
+          <div class="avatar" id="user-avatar"></div>
+          <span id="user-name-display"></span>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">Sign out</button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <div class="nav-tabs-inner">
+      <div class="nav-tab active" onclick="showTab('itinerary',this)">Itinerary</div>
+      <div class="nav-tab" onclick="showTab('hotels',this)">Hotels</div>
+      <div class="nav-tab" onclick="showTab('restaurants',this)">Restaurants</div>
+      <div class="nav-tab" onclick="showTab('activities',this)">Activities</div>
+    </div>
+  </div>
+  <div class="main">
+    <div id="tab-itinerary">
+      <div class="summary-banner">
+        <h2>Italy + Mykonos 2026 ✈️</h2>
+        <p>July 19 – July 30 · Sammy, Milton, Sofia & Dua</p>
+        <div class="summary-stats">
+          <div><div class="stat-num">12</div><div class="stat-label">Days</div></div>
+          <div><div class="stat-num" id="stat-options">0</div><div class="stat-label">Options</div></div>
+          <div><div class="stat-num" id="stat-votes">0</div><div class="stat-label">Votes</div></div>
+        </div>
+      </div>
+      <div id="itinerary-list"></div>
+    </div>
+    <div id="tab-hotels" class="hidden"><div id="hotels-list"></div></div>
+    <div id="tab-restaurants" class="hidden"><div id="restaurants-list"></div></div>
+    <div id="tab-activities" class="hidden"><div id="activities-list"></div></div>
+  </div>
+</div>
+
+<div id="add-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <h2 id="add-modal-title">Add Option</h2>
+    <div class="modal-form-group"><label>Name</label><input type="text" id="add-name" placeholder="e.g. La Pergola" /></div>
+    <div class="modal-form-group"><label>Link (optional)</label><input type="url" id="add-link" placeholder="https://..." /></div>
+    <div class="modal-form-group"><label>Notes (optional)</label><textarea id="add-notes" rows="2" placeholder="Any details..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeAddModal()">Cancel</button>
+      <button class="btn-primary" onclick="submitOption()">Add Option</button>
+    </div>
+  </div>
+</div>
+
+<div id="vote-modal" class="modal-overlay hidden">
+  <div class="modal">
+    <h2 id="vote-modal-title">Vote</h2>
+    <div class="vote-list" id="vote-list"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeVoteModal()">Close</button>
+      <button class="btn-primary" onclick="submitVotes()">Save Votes</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, updateDoc, doc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBXp9LcuziUEENL602m2kfl00UyI9TVpVo",
+  authDomain: "italy-mykonos-2026.firebaseapp.com",
+  projectId: "italy-mykonos-2026",
+  storageBucket: "italy-mykonos-2026.firebasestorage.app",
+  messagingSenderId: "416841631175",
+  appId: "1:416841631175:web:3242c0c8e19eeb30c045e2"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+
+const USERS = {
+  "sammy@italy2026.app": "Sammy",
+  "milton@italy2026.app": "Milton",
+  "sofia@italy2026.app": "Sofia",
+  "dua@italy2026.app": "Dua"
+};
+const UM = {
+  "sammy": { e: "sammy@italy2026.app", p: "Sammy2026" },
+  "milton": { e: "milton@italy2026.app", p: "Milton2026" },
+  "sofia": { e: "sofia@italy2026.app", p: "Sofia2026" },
+  "dua": { e: "dua@italy2026.app", p: "Dua2026" }
+};
+
+const TRIP = [
+  { segment: "Italy · July 19–25", days: [
+    { id: "day1", date: "Sun July 19", location: "Rome", note: "Arrive midday by flight", badge: "Day 1" },
+    { id: "day2", date: "Mon July 20", location: "Florence", note: "Morning train from Rome", badge: "Day 2" },
+    { id: "day3", date: "Tue July 21", location: "Naples → Amalfi Coast", note: "Train to Naples, lunch, then Sorrento/Positano/Amalfi", badge: "Day 3" },
+    { id: "day4", date: "Wed July 22", location: "Amalfi Coast", note: "Sorrento / Positano / Amalfi", badge: "Day 4" },
+    { id: "day5", date: "Thu July 23", location: "Back to Rome", note: "Morning departure from Amalfi", badge: "Day 5" },
+    { id: "day6", date: "Fri July 24", location: "Rome", note: "Full day in Rome", badge: "Day 6" },
+    { id: "day7", date: "Sat July 25", location: "Rome → Athens", note: "Day in Rome, evening flight to Athens", badge: "Day 7" }
+  ]},
+  { segment: "Athens · July 26", days: [
+    { id: "day8", date: "Sun July 26", location: "Athens", note: "One night layover", badge: "Day 8" }
+  ]},
+  { segment: "Mykonos · July 27–30", days: [
+    { id: "day9", date: "Mon July 27", location: "Mykonos", note: "Fly Athens → Mykonos", badge: "Day 9" },
+    { id: "day10", date: "Tue July 28", location: "Mykonos", note: "", badge: "Day 10" },
+    { id: "day11", date: "Wed July 29", location: "Mykonos", note: "", badge: "Day 11" },
+    { id: "day12", date: "Thu July 30", location: "Mykonos → Athens", note: "Late night flight back to Athens", badge: "Day 12" }
+  ]}
+];
+
+const ST = ["Breakfast","Lunch","Dinner","Activity"];
+const SL = { "Breakfast":"🌅 Breakfast","Lunch":"☀️ Lunch","Dinner":"🌙 Dinner","Activity":"🎯 Activity" };
+
+const HN = [
+  { id:"hotel-rome1", label:"Rome — Night 1", dates:"July 19", segment:"Italy" },
+  { id:"hotel-florence", label:"Florence", dates:"July 20", segment:"Italy" },
+  { id:"hotel-amalfi1", label:"Amalfi Coast — Night 1", dates:"July 21", segment:"Italy" },
+  { id:"hotel-amalfi2", label:"Amalfi Coast — Night 2", dates:"July 22", segment:"Italy" },
+  { id:"hotel-rome2", label:"Rome — Night 2", dates:"July 23", segment:"Italy" },
+  { id:"hotel-rome3", label:"Rome — Night 3", dates:"July 24", segment:"Italy" },
+  { id:"hotel-athens", label:"Athens", dates:"July 26", segment:"Athens" },
+  { id:"hotel-mykonos", label:"Mykonos", dates:"July 27–30 (3 nights)", segment:"Mykonos" }
+];
+
+let cu=null, cun=null, amc=null, vmc=null, ao={}, us=[];
+
+window.doLogin = async function() {
+  const username = document.getElementById('login-username').value.trim().toLowerCase();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.textContent = '';
+  const user = UM[username];
+  if (!user) { errEl.textContent = 'Username not found.'; return; }
+  if (password !== user.p) { errEl.textContent = 'Incorrect password.'; return; }
+  try {
+    await signInWithEmailAndPassword(auth, user.e, password);
+  } catch(e) {
+    if (e.code === 'auth/user-not-found' || e.code === 'auth/invalid-credential') {
+      try { await createUserWithEmailAndPassword(auth, user.e, password); }
+      catch(e2) { errEl.textContent = 'Error: ' + e2.message; }
+    } else { errEl.textContent = 'Error: ' + e.message; }
+  }
+};
+
+window.doLogout = async function() { await signOut(auth); };
+
+document.getElementById('login-password').addEventListener('keydown', e => { if(e.key==='Enter') window.doLogin(); });
+document.getElementById('login-username').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('login-password').focus(); });
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    cu = user; cun = USERS[user.email] || user.email;
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    const av = document.getElementById('user-avatar');
+    av.textContent = cun[0]; av.className = 'avatar av-' + cun;
+    document.getElementById('user-name-display').textContent = cun;
+    initApp();
+  } else {
+    cu = null; cun = null;
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    us.forEach(u => u()); us = [];
+  }
+});
+
+window.showTab = function(tab, el) {
+  ['itinerary','hotels','restaurants','activities'].forEach(t => document.getElementById('tab-'+t).classList.add('hidden'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.remove('hidden');
+  el.classList.add('active');
+};
+
+function initApp() { renderItinerary(); renderHotels(); subscribeOptions(); }
+
+function subscribeOptions() {
+  const unsub = onSnapshot(collection(db,'options'), snap => {
+    ao = {};
+    snap.forEach(d => { ao[d.id] = { id: d.id, ...d.data() }; });
+    updateStats(); updateAllSlots(); updateHotelSlots(); updateRestTab(); updateActTab();
+  });
+  us.push(unsub);
+}
+
+function updateStats() {
+  let v = 0;
+  Object.values(ao).forEach(o => { if(o.votes) v += Object.keys(o.votes).length; });
+  document.getElementById('stat-options').textContent = Object.values(ao).length;
+  document.getElementById('stat-votes').textContent = v;
+}
+
+function cs(o) {
+  if (!o.votes || !Object.keys(o.votes).length) return null;
+  const v = Object.values(o.votes);
+  return (v.reduce((a,b) => a+b, 0) / v.length).toFixed(1);
+}
+
+function gso(dayId, st) { return Object.values(ao).filter(o => o.dayId===dayId && o.slotType===st); }
+
+function renderItinerary() {
+  const c = document.getElementById('itinerary-list'); c.innerHTML = '';
+  TRIP.forEach(seg => {
+    const sl = document.createElement('div'); sl.className = 'section-label'; sl.textContent = seg.segment; c.appendChild(sl);
+    seg.days.forEach(day => {
+      const card = document.createElement('div'); card.className = 'day-card';
+      card.innerHTML = `<div class="day-header" onclick="toggleDay('${day.id}')"><div class="day-header-left"><h3>${day.date} — ${day.location}</h3><p>${day.note}</p></div><div class="day-badge">${day.badge}</div></div><div class="day-body" id="daybody-${day.id}"><div class="slots-grid" id="slots-${day.id}"></div></div>`;
+      c.appendChild(card); renderDaySlots(day.id);
+    });
+  });
+}
+
+window.toggleDay = function(id) {
+  const b = document.getElementById('daybody-'+id);
+  b.style.display = b.style.display === 'none' ? '' : 'none';
+};
+
+function renderDaySlots(dayId) {
+  const g = document.getElementById('slots-'+dayId); if (!g) return; g.innerHTML = '';
+  ST.forEach(st => {
+    const el = document.createElement('div'); el.className = 'slot';
+    el.innerHTML = `<div class="slot-label">${SL[st]}</div><div class="slot-options" id="slotopts-${dayId}-${st}"><div class="empty-slot">No options yet</div></div><button class="add-option-btn" onclick="openAddModal('${dayId}','${st}','itinerary')">+ Add option</button>`;
+    g.appendChild(el);
+  });
+}
+
+function updateAllSlots() { TRIP.forEach(seg => seg.days.forEach(day => ST.forEach(st => updateSlotOpts(day.id, st)))); }
+
+function updateSlotOpts(dayId, st) {
+  const c = document.getElementById('slotopts-'+dayId+'-'+st); if (!c) return;
+  const opts = gso(dayId, st).sort((a,b) => (cs(b)||0)-(cs(a)||0));
+  c.innerHTML = '';
+  if (!opts.length) { c.innerHTML = '<div class="empty-slot">No options yet</div>'; return; }
+  opts.forEach((opt, i) => {
+    const score = cs(opt), isW = i===0 && score!==null;
+    const el = document.createElement('div'); el.className = 'slot-option' + (isW ? ' winner' : '');
+    el.innerHTML = `<span class="option-name" title="${opt.name}">${opt.name}</span>${score ? `<span class="option-score ${isW?'top':''}">${score}</span>` : '<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
+    el.onclick = () => openVoteModal(dayId, st, 'itinerary');
+    c.appendChild(el);
+    if (isW && opts.length > 1) { const wt = document.createElement('div'); wt.className = 'winner-tag'; wt.textContent = '✓ Leading'; c.appendChild(wt); }
+  });
+}
+
+function renderHotels() {
+  const c = document.getElementById('hotels-list'); c.innerHTML = ''; let lastSeg = '';
+  HN.forEach(h => {
+    if (h.segment !== lastSeg) { const sl = document.createElement('div'); sl.className = 'section-label'; sl.textContent = h.segment; c.appendChild(sl); lastSeg = h.segment; }
+    const card = document.createElement('div'); card.className = 'hotel-card';
+    card.innerHTML = `<div class="hotel-header" onclick="openVoteModal('${h.id}','Hotel','hotels')"><div class="hotel-icon">🏨</div><div class="hotel-header-text"><h3>${h.label}</h3><p>${h.dates}</p></div></div><div class="hotel-body"><div class="slot-options" id="hotel-opts-${h.id}"></div><button class="add-option-btn" onclick="openAddModal('${h.id}','Hotel','hotels')">+ Add hotel option</button></div>`;
+    c.appendChild(card);
+  });
+}
+
+function updateHotelSlots() {
+  HN.forEach(h => {
+    const c = document.getElementById('hotel-opts-'+h.id); if (!c) return;
+    const opts = Object.values(ao).filter(o => o.dayId===h.id && o.slotType==='Hotel').sort((a,b) => (cs(b)||0)-(cs(a)||0));
+    c.innerHTML = '';
+    if (!opts.length) { c.innerHTML = '<div class="empty-slot" style="padding:8px 0">No options yet</div>'; return; }
+    opts.forEach((opt, i) => {
+      const score = cs(opt), isW = i===0 && score!==null;
+      const el = document.createElement('div'); el.className = 'slot-option' + (isW?' winner':''); el.style.cursor = 'pointer';
+      el.innerHTML = `<div style="flex:1;min-width:0"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View →</a>`:''}</div>${score?`<span class="option-score ${isW?'top':''}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
+      el.onclick = () => openVoteModal(h.id, 'Hotel', 'hotels'); c.appendChild(el);
+    });
+  });
+}
+
+function updateRestTab() {
+  const c = document.getElementById('restaurants-list'); if (!c) return; c.innerHTML = '';
+  let hasAny = false;
+  TRIP.forEach(seg => {
+    let segAdded = false;
+    seg.days.forEach(day => {
+      ['Breakfast','Lunch','Dinner'].forEach(type => {
+        const opts = gso(day.id, type); if (!opts.length) return; hasAny = true;
+        if (!segAdded) { const sl = document.createElement('div'); sl.className = 'section-label'; sl.textContent = seg.segment; c.appendChild(sl); segAdded = true; }
+        const card = document.createElement('div'); card.className = 'hotel-card';
+        const icon = type==='Breakfast'?'🥐':type==='Lunch'?'🍝':'🍷';
+        card.innerHTML = `<div class="hotel-header"><div class="hotel-icon">${icon}</div><div class="hotel-header-text"><h3>${day.date} — ${type}</h3><p>${day.location}</p></div></div><div class="hotel-body"><div class="slot-options" id="rest-${day.id}-${type}"></div><button class="add-option-btn" onclick="openAddModal('${day.id}','${type}','restaurants')">+ Add option</button></div>`;
+        c.appendChild(card);
+        const el = document.getElementById('rest-'+day.id+'-'+type); if (!el) return;
+        opts.sort((a,b) => (cs(b)||0)-(cs(a)||0)).forEach((opt,i) => {
+          const score = cs(opt), isW = i===0 && score!==null;
+          const row = document.createElement('div'); row.className = 'slot-option'+(isW?' winner':''); row.style.cursor='pointer';
+          row.innerHTML = `<div style="flex:1"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View →</a>`:''}</div>${score?`<span class="option-score ${isW?'top':''}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
+          row.onclick = () => openVoteModal(day.id, type, 'restaurants'); el.appendChild(row);
+        });
+      });
+    });
+  });
+  if (!hasAny) c.innerHTML = '<div class="loading">No restaurant options yet.<br>Add them from the Itinerary tab!</div>';
+}
+
+function updateActTab() {
+  const c = document.getElementById('activities-list'); if (!c) return; c.innerHTML = '';
+  let hasAny = false;
+  TRIP.forEach(seg => {
+    let segAdded = false;
+    seg.days.forEach(day => {
+      const opts = gso(day.id, 'Activity'); if (!opts.length) return; hasAny = true;
+      if (!segAdded) { const sl = document.createElement('div'); sl.className = 'section-label'; sl.textContent = seg.segment; c.appendChild(sl); segAdded = true; }
+      const card = document.createElement('div'); card.className = 'hotel-card';
+      card.innerHTML = `<div class="hotel-header"><div class="hotel-icon">🎯</div><div class="hotel-header-text"><h3>${day.date}</h3><p>${day.location}</p></div></div><div class="hotel-body"><div class="slot-options" id="act-${day.id}"></div><button class="add-option-btn" onclick="openAddModal('${day.id}','Activity','activities')">+ Add activity</button></div>`;
+      c.appendChild(card);
+      const el = document.getElementById('act-'+day.id); if (!el) return;
+      opts.sort((a,b) => (cs(b)||0)-(cs(a)||0)).forEach((opt,i) => {
+        const score = cs(opt), isW = i===0 && score!==null;
+        const row = document.createElement('div'); row.className = 'slot-option'+(isW?' winner':''); row.style.cursor='pointer';
+        row.innerHTML = `<div style="flex:1"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View →</a>`:''}</div>${score?`<span class="option-score ${isW?'top':''}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
+        row.onclick = () => openVoteModal(day.id, 'Activity', 'activities'); el.appendChild(row);
+      });
+    });
+  });
+  if (!hasAny) c.innerHTML = '<div class="loading">No activities yet.<br>Add them from the Itinerary tab!</div>';
+}
+
+window.openAddModal = function(dayId, slotType, tab) {
+  amc = { dayId, slotType, tab };
+  const titles = { Hotel:'Add Hotel Option', Breakfast:'Add Breakfast Option', Lunch:'Add Lunch Option', Dinner:'Add Dinner Option', Activity:'Add Activity' };
+  document.getElementById('add-modal-title').textContent = titles[slotType] || 'Add Option';
+  document.getElementById('add-name').value = '';
+  document.getElementById('add-link').value = '';
+  document.getElementById('add-notes').value = '';
+  document.getElementById('add-modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('add-name').focus(), 100);
+};
+
+window.closeAddModal = function() { document.getElementById('add-modal').classList.add('hidden'); amc = null; };
+
+window.submitOption = async function() {
+  const name = document.getElementById('add-name').value.trim();
+  if (!name) { showToast('Please enter a name'); return; }
+  const link = document.getElementById('add-link').value.trim();
+  const notes = document.getElementById('add-notes').value.trim();
+  if (!amc) return;
+  try {
+    await addDoc(collection(db,'options'), { dayId: amc.dayId, slotType: amc.slotType, name, link: link||null, notes: notes||null, addedBy: cun, votes: {}, createdAt: serverTimestamp() });
+    closeAddModal(); showToast('Option added! ✓');
+  } catch(e) { showToast('Error: ' + e.message); }
+};
+
+window.openVoteModal = function(dayId, slotType, tab) {
+  vmc = { dayId, slotType, tab };
+  const opts = slotType==='Hotel' ? Object.values(ao).filter(o => o.dayId===dayId && o.slotType==='Hotel') : gso(dayId, slotType);
+  if (!opts.length) { openAddModal(dayId, slotType, tab); return; }
+  const labels = { Hotel:'Vote on Hotels', Breakfast:'Vote — Breakfast', Lunch:'Vote — Lunch', Dinner:'Vote — Dinner', Activity:'Vote — Activities' };
+  document.getElementById('vote-modal-title').textContent = labels[slotType] || 'Vote';
+  const list = document.getElementById('vote-list'); list.innerHTML = '';
+  opts.forEach(opt => {
+    const myVote = opt.votes && opt.votes[cun] ? opt.votes[cun] : 0;
+    const avgScore = cs(opt); const voteCount = opt.votes ? Object.keys(opt.votes).length : 0;
+    const item = document.createElement('div'); item.className = 'vote-item';
+    item.innerHTML = `<div style="flex:1;min-width:0"><div class="vote-item-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank">View link →</a>`:''} ${opt.notes?`<div style="font-size:11px;color:#888;margin-top:2px">${opt.notes}</div>`:''}<div style="font-size:11px;color:#888;margin-top:3px">${voteCount}/4 voted${avgScore?' · avg '+avgScore:''}</div><div class="vote-progress"><div class="vote-progress-fill" style="width:${(voteCount/4)*100}%"></div></div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div id="stars-${opt.id}" style="display:flex;flex-direction:column;gap:3px"></div><div class="vote-score-display" id="score-display-${opt.id}">${myVote||'—'}</div></div>`;
+    list.appendChild(item);
+    const starsEl = item.querySelector('#stars-'+opt.id);
+    const row1 = document.createElement('div'); row1.style.cssText = 'display:flex;gap:3px;';
+    const row2 = document.createElement('div'); row2.style.cssText = 'display:flex;gap:3px;';
+    for (let i=1; i<=10; i++) {
+      const s = document.createElement('div'); s.className = 'star' + (myVote>=i?' selected':'');
+      s.textContent = i; s.dataset.optId = opt.id; s.dataset.val = i;
+      s.onclick = () => {
+        document.querySelectorAll(`.star[data-opt-id="${opt.id}"]`).forEach(el => el.classList.toggle('selected', parseInt(el.dataset.val)<=i));
+        document.getElementById('score-display-'+opt.id).textContent = i;
+      };
+      (i<=5?row1:row2).appendChild(s);
+    }
+    starsEl.appendChild(row1); starsEl.appendChild(row2);
+  });
+  document.getElementById('vote-modal').classList.remove('hidden');
+};
+
+window.closeVoteModal = function() { document.getElementById('vote-modal').classList.add('hidden'); vmc = null; };
+
+window.submitVotes = async function() {
+  if (!vmc) return;
+  const opts = vmc.slotType==='Hotel' ? Object.values(ao).filter(o => o.dayId===vmc.dayId && o.slotType==='Hotel') : gso(vmc.dayId, vmc.slotType);
+  const promises = [];
+  opts.forEach(opt => {
+    const sd = document.getElementById('score-display-'+opt.id);
+    const val = sd ? parseInt(sd.textContent) : null;
+    if (val && !isNaN(val)) promises.push(updateDoc(doc(db,'options',opt.id), { [`votes.${cun}`]: val }));
+  });
+  if (!promises.length) { showToast('No votes to save'); return; }
+  try { await Promise.all(promises); closeVoteModal(); showToast('Votes saved! ✓'); }
+  catch(e) { showToast('Error: ' + e.message); }
+};
+
+function showToast(msg) {
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+document.getElementById('add-modal').addEventListener('click', e => { if(e.target===document.getElementById('add-modal')) window.closeAddModal(); });
+document.getElementById('vote-modal').addEventListener('click', e => { if(e.target===document.getElementById('vote-modal')) window.closeVoteModal(); });
+</script>
+</body>
+</html>
