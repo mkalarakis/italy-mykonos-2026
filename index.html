@@ -105,6 +105,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </style>
 </head>
 <body>
+
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
@@ -123,6 +124,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="login-error" id="login-error"></div>
   </div>
 </div>
+
 <div id="app">
   <div class="top-bar">
     <div class="top-bar-inner">
@@ -159,6 +161,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div id="tab-activities" class="hidden"><div id="activities-list"></div></div>
   </div>
 </div>
+
 <div id="add-modal" class="modal-overlay hidden">
   <div class="modal">
     <h2 id="add-modal-title">Add Option</h2>
@@ -171,6 +174,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
+
 <div id="vote-modal" class="modal-overlay hidden">
   <div class="modal">
     <h2 id="vote-modal-title">Vote</h2>
@@ -181,25 +185,64 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-
 import{getFirestore,collection,addDoc,updateDoc,doc,onSnapshot,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 const fc={apiKey:"AIzaSyBXp9LcuziUEENL602m2kfl00UyI9TVpVo",authDomain:"italy-mykonos-2026.firebaseapp.com",projectId:"italy-mykonos-2026",storageBucket:"italy-mykonos-2026.firebasestorage.app",messagingSenderId:"416841631175",appId:"1:416841631175:web:3242c0c8e19eeb30c045e2"};
 const fa=initializeApp(fc),db=getFirestore(fa);
-const USERS={"sammy@italy2026.app":"Sammy","milton@italy2026.app":"Milton","sofia@italy2026.app":"Sofia","dua@italy2026.app":"Dua"};
-const UM={sammy:{e:"sammy",p:"Sammy2026",name:"Sammy"},milton:{e:"milton",p:"Milton2026",name:"Milton"},sofia:{e:"sofia",p:"Sofia2026",name:"Sofia"},dua:{e:"dua",p:"Dua2026",name:"Dua"}};
-const TRIP=[{segment:"Italy · July 19–25",days:[{id:"day1",date:"Sun July 19",location:"Rome",note:"Arrive midday by flight",badge:"Day 1"},{id:"day2",date:"Mon July 20",location:"Florence",note:"Morning train from Rome",badge:"Day 2"},{id:"day3",date:"Tue July 21",location:"Naples → Amalfi Coast",note:"Train to Naples, lunch, Sorrento/Positano/Amalfi",badge:"Day 3"},{id:"day4",date:"Wed July 22",location:"Amalfi Coast",note:"Sorrento / Positano / Amalfi",badge:"Day 4"},{id:"day5",date:"Thu July 23",location:"Back to Rome",note:"Morning from Amalfi",badge:"Day 5"},{id:"day6",date:"Fri July 24",location:"Rome",note:"Full day in Rome",badge:"Day 6"},{id:"day7",date:"Sat July 25",location:"Rome → Athens",note:"Evening flight to Athens",badge:"Day 7"}]},{segment:"Athens · July 26",days:[{id:"day8",date:"Sun July 26",location:"Athens",note:"One night layover",badge:"Day 8"}]},{segment:"Mykonos · July 27–30",days:[{id:"day9",date:"Mon July 27",location:"Mykonos",note:"Fly Athens → Mykonos",badge:"Day 9"},{id:"day10",date:"Tue July 28",location:"Mykonos",note:"",badge:"Day 10"},{id:"day11",date:"Wed July 29",location:"Mykonos",note:"",badge:"Day 11"},{id:"day12",date:"Thu July 30",location:"Mykonos → Athens",note:"Late night flight back",badge:"Day 12"}]}];
+
+const UM={
+  sammy:{p:"Sammy2026",name:"Sammy"},
+  milton:{p:"Milton2026",name:"Milton"},
+  sofia:{p:"Sofia2026",name:"Sofia"},
+  dua:{p:"Dua2026",name:"Dua"}
+};
+
+const TRIP=[
+  {segment:"Italy \u00b7 July 19\u201325",days:[
+    {id:"day1",date:"Sun July 19",location:"Rome",note:"Arrive midday by flight",badge:"Day 1"},
+    {id:"day2",date:"Mon July 20",location:"Florence",note:"Morning train from Rome",badge:"Day 2"},
+    {id:"day3",date:"Tue July 21",location:"Naples \u2192 Amalfi Coast",note:"Train to Naples, lunch, then Sorrento/Positano/Amalfi",badge:"Day 3"},
+    {id:"day4",date:"Wed July 22",location:"Amalfi Coast",note:"Sorrento / Positano / Amalfi",badge:"Day 4"},
+    {id:"day5",date:"Thu July 23",location:"Back to Rome",note:"Morning departure from Amalfi",badge:"Day 5"},
+    {id:"day6",date:"Fri July 24",location:"Rome",note:"Full day in Rome",badge:"Day 6"},
+    {id:"day7",date:"Sat July 25",location:"Rome \u2192 Athens",note:"Day in Rome, evening flight to Athens",badge:"Day 7"}
+  ]},
+  {segment:"Athens \u00b7 July 26",days:[
+    {id:"day8",date:"Sun July 26",location:"Athens",note:"One night layover",badge:"Day 8"}
+  ]},
+  {segment:"Mykonos \u00b7 July 27\u201330",days:[
+    {id:"day9",date:"Mon July 27",location:"Mykonos",note:"Fly Athens \u2192 Mykonos",badge:"Day 9"},
+    {id:"day10",date:"Tue July 28",location:"Mykonos",note:"",badge:"Day 10"},
+    {id:"day11",date:"Wed July 29",location:"Mykonos",note:"",badge:"Day 11"},
+    {id:"day12",date:"Thu July 30",location:"Mykonos \u2192 Athens",note:"Late night flight back",badge:"Day 12"}
+  ]}
+];
+
 const ST=["Breakfast","Lunch","Dinner","Activity"];
-const SL={Breakfast:"🌅 Breakfast",Lunch:"☀️ Lunch",Dinner:"🌙 Dinner",Activity:"🎯 Activity"};
-const HN=[{id:"hotel-rome1",label:"Rome — Night 1",dates:"July 19",segment:"Italy"},{id:"hotel-florence",label:"Florence",dates:"July 20",segment:"Italy"},{id:"hotel-amalfi1",label:"Amalfi Coast — Night 1",dates:"July 21",segment:"Italy"},{id:"hotel-amalfi2",label:"Amalfi Coast — Night 2",dates:"July 22",segment:"Italy"},{id:"hotel-rome2",label:"Rome — Night 2",dates:"July 23",segment:"Italy"},{id:"hotel-rome3",label:"Rome — Night 3",dates:"July 24",segment:"Italy"},{id:"hotel-athens",label:"Athens",dates:"July 26",segment:"Athens"},{id:"hotel-mykonos",label:"Mykonos",dates:"July 27–30 (3 nights)",segment:"Mykonos"}];
-let cu=null,cun=null,amc=null,vmc=null,ao={},us=[];
+const SL={Breakfast:"\uD83C\uDF05 Breakfast",Lunch:"\u2600\uFE0F Lunch",Dinner:"\uD83C\uDF19 Dinner",Activity:"\uD83C\uDFAF Activity"};
+const HN=[
+  {id:"hotel-rome1",label:"Rome \u2014 Night 1",dates:"July 19",segment:"Italy"},
+  {id:"hotel-florence",label:"Florence",dates:"July 20",segment:"Italy"},
+  {id:"hotel-amalfi1",label:"Amalfi Coast \u2014 Night 1",dates:"July 21",segment:"Italy"},
+  {id:"hotel-amalfi2",label:"Amalfi Coast \u2014 Night 2",dates:"July 22",segment:"Italy"},
+  {id:"hotel-rome2",label:"Rome \u2014 Night 2",dates:"July 23",segment:"Italy"},
+  {id:"hotel-rome3",label:"Rome \u2014 Night 3",dates:"July 24",segment:"Italy"},
+  {id:"hotel-athens",label:"Athens",dates:"July 26",segment:"Athens"},
+  {id:"hotel-mykonos",label:"Mykonos",dates:"July 27\u201330 (3 nights)",segment:"Mykonos"}
+];
+
+let cun=null,amc=null,vmc=null,ao={},us=[];
 const ge=id=>document.getElementById(id);
 const cs=o=>{if(!o.votes||!Object.keys(o.votes).length)return null;const v=Object.values(o.votes);return(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)};
 const gso=(did,st)=>Object.values(ao).filter(o=>o.dayId===did&&o.slotType===st);
 const toast=msg=>{const t=ge("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)};
-ge("login-btn").addEventListener("click",async()=>{
+
+ge("login-btn").addEventListener("click",()=>{
   const u=ge("login-username").value.trim().toLowerCase();
   const p=ge("login-password").value;
   const err=ge("login-error");
@@ -207,27 +250,35 @@ ge("login-btn").addEventListener("click",async()=>{
   const m=UM[u];
   if(!m){err.textContent="Username not found.";return}
   if(p!==m.p){err.textContent="Incorrect password.";return}
-  try{
-    await signInWithEmailAndPassword(auth,m.e,p);
-  }catch(e){
-    if(e.code==="auth/user-not-found"||e.code==="auth/invalid-credential"){
-      try{
-        const{createUserWithEmailAndPassword}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
-        await createUserWithEmailAndPassword(auth,m.e,p);
-      }catch(e2){err.textContent="Setup error: "+e2.message}
-    }else{err.textContent="Login error: "+e.message}
-  }
+  cun=m.name;
+  ge("login-screen").style.display="none";
+  ge("app").style.display="block";
+  const av=ge("user-avatar");av.textContent=cun[0];av.className="avatar av-"+cun;
+  ge("user-name-display").textContent=cun;
+  initApp();
 });
+
 ge("login-password").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-btn").click()});
 ge("login-username").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-password").focus()});
+
 ge("logout-btn").addEventListener("click",()=>{
-  cu=null;cun=null;
+  cun=null;
+  us.forEach(u=>u());us=[];
   ge("login-screen").style.display="flex";
   ge("app").style.display="none";
   ge("login-username").value="";
   ge("login-password").value="";
 });
-document.querySelectorAll(".nav-tab").forEach(tab=>{tab.addEventListener("click",()=>{document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));["itinerary","hotels","restaurants","activities"].forEach(t=>ge("tab-"+t).classList.add("hidden"));tab.classList.add("active");ge("tab-"+tab.dataset.tab).classList.remove("hidden")})});
+
+document.querySelectorAll(".nav-tab").forEach(tab=>{
+  tab.addEventListener("click",()=>{
+    document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
+    ["itinerary","hotels","restaurants","activities"].forEach(t=>ge("tab-"+t).classList.add("hidden"));
+    tab.classList.add("active");
+    ge("tab-"+tab.dataset.tab).classList.remove("hidden");
+  });
+});
+
 ge("cancel-add").addEventListener("click",closeAdd);
 ge("submit-add").addEventListener("click",submitAdd);
 ge("cancel-vote").addEventListener("click",closeVote);
@@ -236,23 +287,200 @@ ge("add-modal").addEventListener("click",e=>{if(e.target===ge("add-modal"))close
 ge("vote-modal").addEventListener("click",e=>{if(e.target===ge("vote-modal"))closeVote()});
 
 function initApp(){renderItinerary();renderHotels();subscribe()}
-function subscribe(){const u=onSnapshot(collection(db,"options"),snap=>{ao={};snap.forEach(d=>{ao[d.id]={id:d.id,...d.data()}});updateStats();updateAllSlots();updateHotelSlots();updateRestTab();updateActTab()});us.push(u)}
-function updateStats(){let v=0;Object.values(ao).forEach(o=>{if(o.votes)v+=Object.keys(o.votes).length});ge("stat-options").textContent=Object.values(ao).length;ge("stat-votes").textContent=v}
-function renderItinerary(){const c=ge("itinerary-list");c.innerHTML="";TRIP.forEach(seg=>{const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);seg.days.forEach(day=>{const card=document.createElement("div");card.className="day-card";card.innerHTML=`<div class="day-header" onclick="toggleDay('${day.id}')"><div class="day-header-left"><h3>${day.date} — ${day.location}</h3><p>${day.note}</p></div><div class="day-badge">${day.badge}</div></div><div class="day-body" id="daybody-${day.id}"><div class="slots-grid" id="slots-${day.id}"></div></div>`;c.appendChild(card);renderSlots(day.id)})})}
+
+function subscribe(){
+  const u=onSnapshot(collection(db,"options"),snap=>{
+    ao={};snap.forEach(d=>{ao[d.id]={id:d.id,...d.data()}});
+    updateStats();updateAllSlots();updateHotelSlots();updateRestTab();updateActTab();
+  });
+  us.push(u);
+}
+
+function updateStats(){
+  let v=0;Object.values(ao).forEach(o=>{if(o.votes)v+=Object.keys(o.votes).length});
+  ge("stat-options").textContent=Object.values(ao).length;
+  ge("stat-votes").textContent=v;
+}
+
+function renderItinerary(){
+  const c=ge("itinerary-list");c.innerHTML="";
+  TRIP.forEach(seg=>{
+    const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);
+    seg.days.forEach(day=>{
+      const card=document.createElement("div");card.className="day-card";
+      card.innerHTML=`<div class="day-header" onclick="toggleDay('${day.id}')"><div class="day-header-left"><h3>${day.date} \u2014 ${day.location}</h3><p>${day.note}</p></div><div class="day-badge">${day.badge}</div></div><div class="day-body" id="daybody-${day.id}"><div class="slots-grid" id="slots-${day.id}"></div></div>`;
+      c.appendChild(card);renderSlots(day.id);
+    });
+  });
+}
+
 window.toggleDay=id=>{const b=ge("daybody-"+id);b.style.display=b.style.display==="none"?"":"none"};
-function renderSlots(did){const g=ge("slots-"+did);if(!g)return;g.innerHTML="";ST.forEach(st=>{const el=document.createElement("div");el.className="slot";el.innerHTML=`<div class="slot-label">${SL[st]}</div><div class="slot-options" id="slotopts-${did}-${st}"><div class="empty-slot">No options yet</div></div><button class="add-option-btn" onclick="openAdd('${did}','${st}')">+ Add option</button>`;g.appendChild(el)})}
+
+function renderSlots(did){
+  const g=ge("slots-"+did);if(!g)return;g.innerHTML="";
+  ST.forEach(st=>{
+    const el=document.createElement("div");el.className="slot";
+    el.innerHTML=`<div class="slot-label">${SL[st]}</div><div class="slot-options" id="slotopts-${did}-${st}"><div class="empty-slot">No options yet</div></div><button class="add-option-btn" onclick="openAdd('${did}','${st}')">+ Add option</button>`;
+    g.appendChild(el);
+  });
+}
+
 function updateAllSlots(){TRIP.forEach(s=>s.days.forEach(d=>ST.forEach(st=>updateSlot(d.id,st))))}
-function updateSlot(did,st){const c=ge("slotopts-"+did+"-"+st);if(!c)return;const opts=gso(did,st).sort((a,b)=>(cs(b)||0)-(cs(a)||0));c.innerHTML="";if(!opts.length){c.innerHTML='<div class="empty-slot">No options yet</div>';return}opts.forEach((opt,i)=>{const score=cs(opt),isW=i===0&&score!==null;const el=document.createElement("div");el.className="slot-option"+(isW?" winner":"");el.innerHTML=`<span class="option-name" title="${opt.name}">${opt.name}</span>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;el.onclick=()=>openVote(did,st);c.appendChild(el);if(isW&&opts.length>1){const w=document.createElement("div");w.className="winner-tag";w.textContent="✓ Leading";c.appendChild(w)}})}
-function renderHotels(){const c=ge("hotels-list");c.innerHTML="";let last="";HN.forEach(h=>{if(h.segment!==last){const sl=document.createElement("div");sl.className="section-label";sl.textContent=h.segment;c.appendChild(sl);last=h.segment}const card=document.createElement("div");card.className="hotel-card";card.innerHTML=`<div class="hotel-header" onclick="openVote('${h.id}','Hotel')"><div class="hotel-icon">🏨</div><div class="hotel-header-text"><h3>${h.label}</h3><p>${h.dates}</p></div></div><div class="hotel-body"><div class="slot-options" id="hotel-opts-${h.id}"></div><button class="add-option-btn" onclick="openAdd('${h.id}','Hotel')">+ Add hotel option</button></div>`;c.appendChild(card)})}
-function updateHotelSlots(){HN.forEach(h=>{const c=ge("hotel-opts-"+h.id);if(!c)return;const opts=Object.values(ao).filter(o=>o.dayId===h.id&&o.slotType==="Hotel").sort((a,b)=>(cs(b)||0)-(cs(a)||0));c.innerHTML="";if(!opts.length){c.innerHTML='<div class="empty-slot" style="padding:8px 0">No options yet</div>';return}opts.forEach((opt,i)=>{const score=cs(opt),isW=i===0&&score!==null;const el=document.createElement("div");el.className="slot-option"+(isW?" winner":"");el.style.cursor="pointer";el.innerHTML=`<div style="flex:1;min-width:0"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View →</a>`:""}</div>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;el.onclick=()=>openVote(h.id,"Hotel");c.appendChild(el)})})}
-function updateRestTab(){const c=ge("restaurants-list");if(!c)return;c.innerHTML="";let any=false;TRIP.forEach(seg=>{let sa=false;seg.days.forEach(day=>{["Breakfast","Lunch","Dinner"].forEach(type=>{const opts=gso(day.id,type);if(!opts.length)return;any=true;if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}const card=document.createElement("div");card.className="hotel-card";const icon=type==="Breakfast"?"🥐":type==="Lunch"?"🍝":"🍷";card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">${icon}</div><div class="hotel-header-text"><h3>${day.date} — ${type}</h3><p>${day.location}</p></div></div><div class="hotel-body"><div class="slot-options" id="rest-${day.id}-${type}"></div><button class="add-option-btn" onclick="openAdd('${day.id}','${type}')">+ Add option</button></div>`;c.appendChild(card);const el=ge("rest-"+day.id+"-"+type);if(!el)return;opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>{const score=cs(opt),isW=i===0&&score!==null;const row=document.createElement("div");row.className="slot-option"+(isW?" winner":"");row.style.cursor="pointer";row.innerHTML=`<div style="flex:1"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View →</a>`:""}</div>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;row.onclick=()=>openVote(day.id,type);el.appendChild(row)})})})});if(!any)c.innerHTML='<div class="loading">No restaurant options yet.<br>Add them from the Itinerary tab!</div>'}
-function updateActTab(){const c=ge("activities-list");if(!c)return;c.innerHTML="";let any=false;TRIP.forEach(seg=>{let sa=false;seg.days.forEach(day=>{const opts=gso(day.id,"Activity");if(!opts.length)return;any=true;if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}const card=document.createElement("div");card.className="hotel-card";card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">🎯</div><div class="hotel-header-text"><h3>${day.date}</h3><p>${day.location}</p></div></div><div class="hotel-body"><div class="slot-options" id="act-${day.id}"></div><button class="add-option-btn" onclick="openAdd('${day.id}','Activity')">+ Add activity</button></div>`;c.appendChild(card);const el=ge("act-"+day.id);if(!el)return;opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>{const score=cs(opt),isW=i===0&&score!==null;const row=document.createElement("div");row.className="slot-option"+(isW?" winner":"");row.style.cursor="pointer";row.innerHTML=`<div style="flex:1"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View →</a>`:""}</div>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;row.onclick=()=>openVote(day.id,"Activity");el.appendChild(row)})})});if(!any)c.innerHTML='<div class="loading">No activities yet.<br>Add them from the Itinerary tab!</div>'}
-window.openAdd=function(did,st){amc={did,st};const titles={Hotel:"Add Hotel Option",Breakfast:"Add Breakfast",Lunch:"Add Lunch",Dinner:"Add Dinner",Activity:"Add Activity"};ge("add-modal-title").textContent=titles[st]||"Add Option";ge("add-name").value="";ge("add-link").value="";ge("add-notes").value="";ge("add-modal").classList.remove("hidden");setTimeout(()=>ge("add-name").focus(),100)};
+
+function updateSlot(did,st){
+  const c=ge("slotopts-"+did+"-"+st);if(!c)return;
+  const opts=gso(did,st).sort((a,b)=>(cs(b)||0)-(cs(a)||0));
+  c.innerHTML="";
+  if(!opts.length){c.innerHTML='<div class="empty-slot">No options yet</div>';return}
+  opts.forEach((opt,i)=>{
+    const score=cs(opt),isW=i===0&&score!==null;
+    const el=document.createElement("div");el.className="slot-option"+(isW?" winner":"");
+    el.innerHTML=`<span class="option-name" title="${opt.name}">${opt.name}</span>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
+    el.onclick=()=>openVote(did,st);c.appendChild(el);
+    if(isW&&opts.length>1){const w=document.createElement("div");w.className="winner-tag";w.textContent="\u2713 Leading";c.appendChild(w)}
+  });
+}
+
+function renderHotels(){
+  const c=ge("hotels-list");c.innerHTML="";let last="";
+  HN.forEach(h=>{
+    if(h.segment!==last){const sl=document.createElement("div");sl.className="section-label";sl.textContent=h.segment;c.appendChild(sl);last=h.segment}
+    const card=document.createElement("div");card.className="hotel-card";
+    card.innerHTML=`<div class="hotel-header" onclick="openVote('${h.id}','Hotel')"><div class="hotel-icon">\uD83C\uDFE8</div><div class="hotel-header-text"><h3>${h.label}</h3><p>${h.dates}</p></div></div><div class="hotel-body"><div class="slot-options" id="hotel-opts-${h.id}"></div><button class="add-option-btn" onclick="openAdd('${h.id}','Hotel')">+ Add hotel option</button></div>`;
+    c.appendChild(card);
+  });
+}
+
+function updateHotelSlots(){
+  HN.forEach(h=>{
+    const c=ge("hotel-opts-"+h.id);if(!c)return;
+    const opts=Object.values(ao).filter(o=>o.dayId===h.id&&o.slotType==="Hotel").sort((a,b)=>(cs(b)||0)-(cs(a)||0));
+    c.innerHTML="";
+    if(!opts.length){c.innerHTML='<div class="empty-slot" style="padding:8px 0">No options yet</div>';return}
+    opts.forEach((opt,i)=>{
+      const score=cs(opt),isW=i===0&&score!==null;
+      const el=document.createElement("div");el.className="slot-option"+(isW?" winner":"");el.style.cursor="pointer";
+      el.innerHTML=`<div style="flex:1;min-width:0"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View \u2192</a>`:""}</div>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
+      el.onclick=()=>openVote(h.id,"Hotel");c.appendChild(el);
+    });
+  });
+}
+
+function updateRestTab(){
+  const c=ge("restaurants-list");if(!c)return;c.innerHTML="";let any=false;
+  TRIP.forEach(seg=>{
+    let sa=false;
+    seg.days.forEach(day=>{
+      ["Breakfast","Lunch","Dinner"].forEach(type=>{
+        const opts=gso(day.id,type);if(!opts.length)return;any=true;
+        if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}
+        const card=document.createElement("div");card.className="hotel-card";
+        const icon=type==="Breakfast"?"\uD83E\uDD50":type==="Lunch"?"\uD83C\uDF5D":"\uD83C\uDF77";
+        card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">${icon}</div><div class="hotel-header-text"><h3>${day.date} \u2014 ${type}</h3><p>${day.location}</p></div></div><div class="hotel-body"><div class="slot-options" id="rest-${day.id}-${type}"></div><button class="add-option-btn" onclick="openAdd('${day.id}','${type}')">+ Add option</button></div>`;
+        c.appendChild(card);
+        const el=ge("rest-"+day.id+"-"+type);if(!el)return;
+        opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>{
+          const score=cs(opt),isW=i===0&&score!==null;
+          const row=document.createElement("div");row.className="slot-option"+(isW?" winner":"");row.style.cursor="pointer";
+          row.innerHTML=`<div style="flex:1"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View \u2192</a>`:""}</div>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
+          row.onclick=()=>openVote(day.id,type);el.appendChild(row);
+        });
+      });
+    });
+  });
+  if(!any)c.innerHTML='<div class="loading">No restaurant options yet.<br>Add them from the Itinerary tab!</div>';
+}
+
+function updateActTab(){
+  const c=ge("activities-list");if(!c)return;c.innerHTML="";let any=false;
+  TRIP.forEach(seg=>{
+    let sa=false;
+    seg.days.forEach(day=>{
+      const opts=gso(day.id,"Activity");if(!opts.length)return;any=true;
+      if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}
+      const card=document.createElement("div");card.className="hotel-card";
+      card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">\uD83C\uDFAF</div><div class="hotel-header-text"><h3>${day.date}</h3><p>${day.location}</p></div></div><div class="hotel-body"><div class="slot-options" id="act-${day.id}"></div><button class="add-option-btn" onclick="openAdd('${day.id}','Activity')">+ Add activity</button></div>`;
+      c.appendChild(card);
+      const el=ge("act-"+day.id);if(!el)return;
+      opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>{
+        const score=cs(opt),isW=i===0&&score!==null;
+        const row=document.createElement("div");row.className="slot-option"+(isW?" winner":"");row.style.cursor="pointer";
+        row.innerHTML=`<div style="flex:1"><div class="option-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank" onclick="event.stopPropagation()">View \u2192</a>`:""}</div>${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#aaa">No votes</span>'}`;
+        row.onclick=()=>openVote(day.id,"Activity");el.appendChild(row);
+      });
+    });
+  });
+  if(!any)c.innerHTML='<div class="loading">No activities yet.<br>Add them from the Itinerary tab!</div>';
+}
+
+window.openAdd=function(did,st){
+  amc={did,st};
+  const titles={Hotel:"Add Hotel Option",Breakfast:"Add Breakfast",Lunch:"Add Lunch",Dinner:"Add Dinner",Activity:"Add Activity"};
+  ge("add-modal-title").textContent=titles[st]||"Add Option";
+  ge("add-name").value="";ge("add-link").value="";ge("add-notes").value="";
+  ge("add-modal").classList.remove("hidden");
+  setTimeout(()=>ge("add-name").focus(),100);
+};
+
 function closeAdd(){ge("add-modal").classList.add("hidden");amc=null}
-async function submitAdd(){const name=ge("add-name").value.trim();if(!name){toast("Please enter a name");return}const link=ge("add-link").value.trim();const notes=ge("add-notes").value.trim();if(!amc)return;try{await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,addedBy:cun,votes:{},createdAt:serverTimestamp()});closeAdd();toast("Added! ✓")}catch(e){toast("Error: "+e.message)}}
-window.openVote=function(did,st){vmc={did,st};const opts=st==="Hotel"?Object.values(ao).filter(o=>o.dayId===did&&o.slotType==="Hotel"):gso(did,st);if(!opts.length){window.openAdd(did,st);return}const labels={Hotel:"Vote on Hotels",Breakfast:"Vote — Breakfast",Lunch:"Vote — Lunch",Dinner:"Vote — Dinner",Activity:"Vote — Activities"};ge("vote-modal-title").textContent=labels[st]||"Vote";const list=ge("vote-list");list.innerHTML="";opts.forEach(opt=>{const myVote=opt.votes&&opt.votes[cun]?opt.votes[cun]:0;const avg=cs(opt);const vc=opt.votes?Object.keys(opt.votes).length:0;const item=document.createElement("div");item.className="vote-item";item.innerHTML=`<div style="flex:1;min-width:0"><div class="vote-item-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank">View →</a>`:""}${opt.notes?`<div style="font-size:11px;color:#888;margin-top:2px">${opt.notes}</div>`:""}<div style="font-size:11px;color:#888;margin-top:3px">${vc}/4 voted${avg?" · avg "+avg:""}</div><div class="vote-progress"><div class="vote-progress-fill" style="width:${(vc/4)*100}%"></div></div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div id="stars-${opt.id}" style="display:flex;flex-direction:column;gap:3px"></div><div class="vote-score-display" id="sd-${opt.id}">${myVote||"—"}</div></div>`;list.appendChild(item);const se=item.querySelector("#stars-"+opt.id);const r1=document.createElement("div");r1.style.cssText="display:flex;gap:3px";const r2=document.createElement("div");r2.style.cssText="display:flex;gap:3px";for(let i=1;i<=10;i++){const s=document.createElement("div");s.className="star"+(myVote>=i?" selected":"");s.textContent=i;s.dataset.oid=opt.id;s.dataset.v=i;s.onclick=()=>{document.querySelectorAll(`.star[data-oid="${opt.id}"]`).forEach(x=>x.classList.toggle("selected",parseInt(x.dataset.v)<=i));ge("sd-"+opt.id).textContent=i};(i<=5?r1:r2).appendChild(s)}se.appendChild(r1);se.appendChild(r2)});ge("vote-modal").classList.remove("hidden")};
+
+async function submitAdd(){
+  const name=ge("add-name").value.trim();
+  if(!name){toast("Please enter a name");return}
+  const link=ge("add-link").value.trim();
+  const notes=ge("add-notes").value.trim();
+  if(!amc)return;
+  try{
+    await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,addedBy:cun,votes:{},createdAt:serverTimestamp()});
+    closeAdd();toast("Added! \u2713");
+  }catch(e){toast("Error: "+e.message)}
+}
+
+window.openVote=function(did,st){
+  vmc={did,st};
+  const opts=st==="Hotel"?Object.values(ao).filter(o=>o.dayId===did&&o.slotType==="Hotel"):gso(did,st);
+  if(!opts.length){window.openAdd(did,st);return}
+  const labels={Hotel:"Vote on Hotels",Breakfast:"Vote \u2014 Breakfast",Lunch:"Vote \u2014 Lunch",Dinner:"Vote \u2014 Dinner",Activity:"Vote \u2014 Activities"};
+  ge("vote-modal-title").textContent=labels[st]||"Vote";
+  const list=ge("vote-list");list.innerHTML="";
+  opts.forEach(opt=>{
+    const myVote=opt.votes&&opt.votes[cun]?opt.votes[cun]:0;
+    const avg=cs(opt);const vc=opt.votes?Object.keys(opt.votes).length:0;
+    const item=document.createElement("div");item.className="vote-item";
+    item.innerHTML=`<div style="flex:1;min-width:0"><div class="vote-item-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank">View \u2192</a>`:""} ${opt.notes?`<div style="font-size:11px;color:#888;margin-top:2px">${opt.notes}</div>`:""}<div style="font-size:11px;color:#888;margin-top:3px">${vc}/4 voted${avg?" \u00b7 avg "+avg:""}</div><div class="vote-progress"><div class="vote-progress-fill" style="width:${(vc/4)*100}%"></div></div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div id="stars-${opt.id}" style="display:flex;flex-direction:column;gap:3px"></div><div class="vote-score-display" id="sd-${opt.id}">${myVote||"\u2014"}</div></div>`;
+    list.appendChild(item);
+    const se=item.querySelector("#stars-"+opt.id);
+    const r1=document.createElement("div");r1.style.cssText="display:flex;gap:3px";
+    const r2=document.createElement("div");r2.style.cssText="display:flex;gap:3px";
+    for(let i=1;i<=10;i++){
+      const s=document.createElement("div");s.className="star"+(myVote>=i?" selected":"");s.textContent=i;
+      s.dataset.oid=opt.id;s.dataset.v=i;
+      s.onclick=()=>{
+        document.querySelectorAll(`.star[data-oid="${opt.id}"]`).forEach(x=>x.classList.toggle("selected",parseInt(x.dataset.v)<=i));
+        ge("sd-"+opt.id).textContent=i;
+      };
+      (i<=5?r1:r2).appendChild(s);
+    }
+    se.appendChild(r1);se.appendChild(r2);
+  });
+  ge("vote-modal").classList.remove("hidden");
+};
+
 function closeVote(){ge("vote-modal").classList.add("hidden");vmc=null}
-async function submitVotes(){if(!vmc)return;const opts=vmc.st==="Hotel"?Object.values(ao).filter(o=>o.dayId===vmc.did&&o.slotType==="Hotel"):gso(vmc.did,vmc.st);const ps=[];opts.forEach(opt=>{const sd=ge("sd-"+opt.id);const val=sd?parseInt(sd.textContent):null;if(val&&!isNaN(val))ps.push(updateDoc(doc(db,"options",opt.id),{[`votes.${cun}`]:val}))});if(!ps.length){toast("No votes to save");return}try{await Promise.all(ps);closeVote();toast("Votes saved! ✓")}catch(e){toast("Error: "+e.message)}}
+
+async function submitVotes(){
+  if(!vmc)return;
+  const opts=vmc.st==="Hotel"?Object.values(ao).filter(o=>o.dayId===vmc.did&&o.slotType==="Hotel"):gso(vmc.did,vmc.st);
+  const ps=[];
+  opts.forEach(opt=>{
+    const sd=ge("sd-"+opt.id);
+    const val=sd?parseInt(sd.textContent):null;
+    if(val&&!isNaN(val))ps.push(updateDoc(doc(db,"options",opt.id),{[`votes.${cun}`]:val}));
+  });
+  if(!ps.length){toast("No votes to save");return}
+  try{await Promise.all(ps);closeVote();toast("Votes saved! \u2713")}
+  catch(e){toast("Error: "+e.message)}
+}
 </script>
 </body>
 </html>
