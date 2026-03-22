@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Italy + Mykonos 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -268,9 +270,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .pack-who{font-size:11px;color:var(--text4)}
 .pack-delete{background:none;border:none;cursor:pointer;color:var(--text4);font-size:13px;padding:2px 4px}
 .pack-delete:hover{color:var(--red)}
-#map-container{border-radius:16px;overflow:hidden;border:1px solid var(--border);margin-bottom:16px}
-#trip-map{width:100%;height:500px}
-@media(max-width:600px){#trip-map{height:360px}}
+#trip-map{width:100%;height:480px;border-radius:16px;border:1px solid var(--border);margin-bottom:16px;z-index:1}
+@media(max-width:600px){#trip-map{height:340px}}
 .map-legend{background:var(--surface);border-radius:14px;border:1px solid var(--border);padding:14px 16px;margin-bottom:12px}
 .map-legend-title{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
 .map-legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -284,6 +285,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .map-day-date{font-size:13px;font-weight:600}
 .map-day-loc{font-size:11px;color:var(--text3);margin-top:1px}
 .map-day-status{font-size:14px}
+.leaflet-popup-content{font-family:-apple-system,sans-serif;font-size:13px;line-height:1.5}
 .confetti-piece{position:fixed;top:-10px;width:8px;height:8px;border-radius:2px;z-index:9999;pointer-events:none;animation:confettiFall linear forwards}
 @keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 .loading{text-align:center;padding:3rem;color:var(--text4);font-size:14px}
@@ -437,8 +439,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <div class="toast" id="toast"></div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiH-CP35HXJESeK_FTH5ku2ye60hzY2JM&callback=initMap" async defer></script>
-
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import{getFirestore,collection,addDoc,updateDoc,deleteDoc,doc,onSnapshot,serverTimestamp,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -487,8 +487,7 @@ const HN=[
 ];
 
 let cun=null,amc=null,vmc=null,ao={},packItems={},feedItems=[],us=[];
-let selectedPrice=null,tripMap=null,mapMarkers=[],mapPolylines=[];
-window._mapReady=false;
+let selectedPrice=null,leafletMap=null,mapMarkers=[];
 const ge=id=>document.getElementById(id);
 const cs=o=>{if(!o.votes||!Object.keys(o.votes).length)return null;const v=Object.values(o.votes);return(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)};
 const gso=(did,st)=>Object.values(ao).filter(o=>o.dayId===did&&o.slotType===st);
@@ -500,13 +499,7 @@ const toast=msg=>{const t=ge("toast");t.textContent=msg;t.classList.add("show");
 let darkMode=localStorage.getItem("dark")==="1";
 function applyDark(){document.documentElement.setAttribute("data-theme",darkMode?"dark":"");ge("dark-toggle").textContent=darkMode?"☀️":"🌙"}
 applyDark();
-ge("dark-toggle").addEventListener("click",()=>{darkMode=!darkMode;localStorage.setItem("dark",darkMode?"1":"0");applyDark();if(tripMap)updateMapStyle()});
-
-function updateMapStyle(){
-  if(!tripMap)return;
-  const darkStyle=[{elementType:"geometry",stylers:[{color:"#1d2c4d"}]},{elementType:"labels.text.fill",stylers:[{color:"#8ec3b9"}]},{featureType:"water",elementType:"geometry",stylers:[{color:"#0e1626"}]}];
-  tripMap.setOptions({styles:darkMode?darkStyle:[]});
-}
+ge("dark-toggle").addEventListener("click",()=>{darkMode=!darkMode;localStorage.setItem("dark",darkMode?"1":"0");applyDark()});
 
 function confetti(){
   const colors=["#534AB7","#1D9E75","#D4537E","#EF9F27","#F5A623","#fff"];
@@ -517,32 +510,39 @@ function confetti(){
   }
 }
 
-window.initMap=function(){
-  window._mapReady=true;
-  if(ge("tab-map")&&!ge("tab-map").classList.contains("hidden"))renderMap();
-};
-
 function renderMap(){
   const c=ge("map-content");if(!c)return;
   c.innerHTML="";
+
   const legend=document.createElement("div");legend.className="map-legend";
   legend.innerHTML=`<div class="map-legend-title">Map Legend</div><div class="map-legend-grid"><div class="map-legend-item"><div class="map-legend-dot" style="background:#534AB7"></div>Italy (Days 1-7)</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#1D9E75"></div>Athens (Day 8)</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#D4537E"></div>Mykonos (Days 9-12)</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#F5A623"></div>Confirmed 🔒</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#1D9E75"></div>Hotels 🏨</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#534AB7"></div>Restaurants &amp; Activities</div></div>`;
   c.appendChild(legend);
-  const mapWrap=document.createElement("div");mapWrap.id="map-container";
-  const mapEl=document.createElement("div");mapEl.id="trip-map";
-  mapWrap.appendChild(mapEl);c.appendChild(mapWrap);
-  if(!window._mapReady||!window.google){
-    mapEl.style.cssText="display:flex;align-items:center;justify-content:center;background:var(--surface2);font-size:14px;color:var(--text3);height:360px";
-    mapEl.textContent="Map loading...";return;
+
+  const mapEl=document.createElement("div");mapEl.id="trip-map";c.appendChild(mapEl);
+
+  // Init Leaflet map
+  if(leafletMap){leafletMap.remove();leafletMap=null;}
+  leafletMap=L.map("trip-map",{zoomControl:true}).setView([40.5,17],5);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+    attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:19
+  }).addTo(leafletMap);
+
+  mapMarkers=[];
+
+  function makeCircleIcon(color,num){
+    return L.divIcon({
+      html:`<div style="background:${color};color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.3)">${num}</div>`,
+      className:"",iconSize:[28,28],iconAnchor:[14,14]
+    });
   }
-  tripMap=new google.maps.Map(mapEl,{
-    center:{lat:40.5,lng:17},zoom:5,
-    styles:darkMode?[{elementType:"geometry",stylers:[{color:"#1d2c4d"}]},{elementType:"labels.text.fill",stylers:[{color:"#8ec3b9"}]},{featureType:"water",elementType:"geometry",stylers:[{color:"#0e1626"}]}]:[],
-    mapTypeControl:false,streetViewControl:false,fullscreenControl:true
-  });
-  mapMarkers.forEach(m=>m.setMap(null));mapMarkers=[];
-  mapPolylines.forEach(p=>p.setMap(null));mapPolylines=[];
-  const infoWindow=new google.maps.InfoWindow();
+  function makePinIcon(color){
+    return L.divIcon({
+      html:`<div style="background:${color};width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,.3)"></div>`,
+      className:"",iconSize:[14,14],iconAnchor:[7,7]
+    });
+  }
+
+  // Route lines
   const uniqueCoords=[];
   ALL_DAYS.forEach(day=>{
     const last=uniqueCoords[uniqueCoords.length-1];
@@ -550,13 +550,12 @@ function renderMap(){
   });
   for(let i=0;i<uniqueCoords.length-1;i++){
     const from=uniqueCoords[i],to=uniqueCoords[i+1];
-    const line=new google.maps.Polyline({
-      path:[{lat:from.lat,lng:from.lng},{lat:to.lat,lng:to.lng}],
-      geodesic:true,strokeColor:to.day.color,strokeOpacity:.6,strokeWeight:2.5,
-      icons:[{icon:{path:google.maps.SymbolPath.FORWARD_CLOSED_ARROW,scale:3,fillColor:to.day.color,fillOpacity:1,strokeWeight:0},offset:"100%"}]
-    });
-    line.setMap(tripMap);mapPolylines.push(line);
+    L.polyline([[from.lat,from.lng],[to.lat,to.lng]],{
+      color:to.day.color,weight:2.5,opacity:.6,dashArray:"6,4"
+    }).addTo(leafletMap);
   }
+
+  // Day markers
   const addedCoords={};
   ALL_DAYS.forEach((day,i)=>{
     const key=`${day.lat},${day.lng}`;
@@ -565,51 +564,42 @@ function renderMap(){
     const hotelOpts=hotelId?Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"):[];
     const topHotel=getBest(hotelOpts);
     const locked=topHotel&&isFullyLocked(topHotel);
-    const lat=day.lat+(offset*0.008),lng=day.lng+(offset*0.008);
+    const lat=day.lat+(offset*0.01),lng=day.lng+(offset*0.01);
     const pinColor=locked?"#F5A623":day.color;
-    const marker=new google.maps.Marker({
-      position:{lat,lng},map:tripMap,
-      label:{text:String(i+1),color:"white",fontSize:"11px",fontWeight:"700"},
-      icon:{path:google.maps.SymbolPath.CIRCLE,scale:16,fillColor:pinColor,fillOpacity:1,strokeColor:"white",strokeWeight:2},
-      title:day.location,zIndex:100-i
-    });
+    const marker=L.marker([lat,lng],{icon:makeCircleIcon(pinColor,i+1)}).addTo(leafletMap);
     const mealOpts=["Breakfast","Lunch","Dinner"].flatMap(st=>gso(day.id,st));
     const topMeal=getBest(mealOpts),topAct=getBest(gso(day.id,"Activity"));
-    let content=`<div style="font-family:-apple-system,sans-serif;max-width:220px;padding:4px"><div style="font-weight:700;font-size:14px;margin-bottom:4px">${day.badge}: ${day.location}</div><div style="font-size:12px;color:#888;margin-bottom:8px">${day.date}</div>`;
-    if(topHotel)content+=`<div style="font-size:12px;margin-bottom:4px">🏨 <strong>${topHotel.name}</strong>${isFullyLocked(topHotel)?" 🔒":""}</div>`;
-    if(topMeal)content+=`<div style="font-size:12px;margin-bottom:4px">🍽 <strong>${topMeal.name}</strong>${isFullyLocked(topMeal)?" 🔒":""}</div>`;
-    if(topAct)content+=`<div style="font-size:12px;margin-bottom:4px">🎯 <strong>${topAct.name}</strong>${isFullyLocked(topAct)?" 🔒":""}</div>`;
-    if(!topHotel&&!topMeal&&!topAct)content+=`<div style="font-size:12px;color:#aaa">No options added yet</div>`;
-    if(day.note)content+=`<div style="font-size:11px;color:#888;margin-top:6px;padding-top:6px;border-top:1px solid #f0f0f0">${day.note}</div>`;
-    content+=`</div>`;
-    marker.addListener("click",()=>{infoWindow.setContent(content);infoWindow.open(tripMap,marker)});
-    mapMarkers.push(marker);
+    let popHtml=`<div style="min-width:160px"><strong style="font-size:14px">${day.badge}: ${day.location}</strong><br><span style="color:#888;font-size:12px">${day.date}</span><br><br>`;
+    if(topHotel)popHtml+=`🏨 <strong>${topHotel.name}</strong>${isFullyLocked(topHotel)?" 🔒":""}<br>`;
+    if(topMeal)popHtml+=`🍽 <strong>${topMeal.name}</strong>${isFullyLocked(topMeal)?" 🔒":""}<br>`;
+    if(topAct)popHtml+=`🎯 <strong>${topAct.name}</strong>${isFullyLocked(topAct)?" 🔒":""}<br>`;
+    if(!topHotel&&!topMeal&&!topAct)popHtml+=`<span style="color:#aaa">No options yet</span><br>`;
+    if(day.note)popHtml+=`<br><span style="color:#888;font-size:11px">${day.note}</span>`;
+    popHtml+=`</div>`;
+    marker.bindPopup(popHtml);
+    mapMarkers.push({marker,day,i});
   });
+
+  // Hotel markers
   Object.values(ao).filter(o=>o.slotType==="Hotel").forEach(opt=>{
     const day=ALL_DAYS.find(d=>HN_MAP[d.id]===opt.dayId);if(!day)return;
     const locked=isFullyLocked(opt);
-    const marker=new google.maps.Marker({
-      position:{lat:day.lat+0.025,lng:day.lng+0.025},map:tripMap,
-      icon:{path:"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",fillColor:locked?"#F5A623":"#1D9E75",fillOpacity:1,strokeColor:"white",strokeWeight:1.5,scale:1.4,anchor:new google.maps.Point(12,22)},
-      title:"🏨 "+opt.name,zIndex:50
-    });
+    const m=L.marker([day.lat+0.03,day.lng+0.03],{icon:makePinIcon(locked?"#F5A623":"#1D9E75")}).addTo(leafletMap);
     const score=cs(opt);
-    marker.addListener("click",()=>{infoWindow.setContent(`<div style="font-family:-apple-system,sans-serif;padding:4px"><div style="font-weight:700;font-size:13px">🏨 ${opt.name}</div><div style="font-size:11px;color:#888;margin-top:3px">${day.location}${score?" · Score: "+score:""}${locked?" · 🔒 Confirmed":""}</div>${opt.notes?`<div style="font-size:11px;color:#555;margin-top:4px">${opt.notes}</div>`:""}</div>`);infoWindow.open(tripMap,marker);});
-    mapMarkers.push(marker);
+    m.bindPopup(`<strong>🏨 ${opt.name}</strong><br><span style="color:#888;font-size:12px">${day.location}${score?" · "+score:""}${locked?" · 🔒":""}</span>`);
   });
+
+  // Meal/activity markers
   Object.values(ao).filter(o=>["Breakfast","Lunch","Dinner","Activity"].includes(o.slotType)).forEach(opt=>{
     const day=ALL_DAYS.find(d=>d.id===opt.dayId);if(!day)return;
     const locked=isFullyLocked(opt),isAct=opt.slotType==="Activity";
     const pinColor=locked?"#F5A623":isAct?"#EF9F27":"#534AB7";
-    const marker=new google.maps.Marker({
-      position:{lat:day.lat-0.025,lng:day.lng+(Math.random()-.5)*0.05},map:tripMap,
-      icon:{path:"M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",fillColor:pinColor,fillOpacity:.9,strokeColor:"white",strokeWeight:1,scale:1.1,anchor:new google.maps.Point(12,22)},
-      title:`${isAct?"🎯":"🍽"} ${opt.name}`,zIndex:40
-    });
+    const m=L.marker([day.lat-0.03,day.lng+(Math.random()-.5)*0.06],{icon:makePinIcon(pinColor)}).addTo(leafletMap);
     const score=cs(opt);
-    marker.addListener("click",()=>{infoWindow.setContent(`<div style="font-family:-apple-system,sans-serif;padding:4px"><div style="font-weight:700;font-size:13px">${isAct?"🎯":"🍽"} ${opt.name}</div><div style="font-size:11px;color:#888;margin-top:3px">${opt.slotType} · ${day.location}${score?" · Score: "+score:""}${locked?" · 🔒 Confirmed":""}</div>${opt.notes?`<div style="font-size:11px;color:#555;margin-top:4px">${opt.notes}</div>`:""}</div>`);infoWindow.open(tripMap,marker);});
-    mapMarkers.push(marker);
+    m.bindPopup(`<strong>${isAct?"🎯":"🍽"} ${opt.name}</strong><br><span style="color:#888;font-size:12px">${opt.slotType} · ${day.location}${score?" · "+score:""}${locked?" · 🔒":""}</span>`);
   });
+
+  // Day list
   const title=document.createElement("div");title.className="section-label";title.textContent="All Stops";c.appendChild(title);
   const dayList=document.createElement("div");dayList.className="map-day-list";
   ALL_DAYS.forEach((day,i)=>{
@@ -622,8 +612,9 @@ function renderMap(){
     const item=document.createElement("div");item.className="map-day-item";
     item.innerHTML=`<div class="map-day-num" style="background:${locked?"#F5A623":day.color}">${i+1}</div><div class="map-day-info"><div class="map-day-date">${day.date} — ${day.location}</div><div class="map-day-loc">${topHotel?"🏨 "+topHotel.name+" · ":""}${mealCount} meal options · ${actCount} activities</div></div><div class="map-day-status">${locked?"🔒":"○"}</div>`;
     item.addEventListener("click",()=>{
-      if(tripMap){tripMap.panTo({lat:day.lat,lng:day.lng});tripMap.setZoom(12);}
-      const marker=mapMarkers[i];if(marker)google.maps.event.trigger(marker,"click");
+      if(leafletMap){leafletMap.setView([day.lat,day.lng],10);}
+      const found=mapMarkers.find(m=>m.i===i);
+      if(found)found.marker.openPopup();
     });
     dayList.appendChild(item);
   });
