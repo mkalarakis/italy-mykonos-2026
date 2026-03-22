@@ -208,7 +208,14 @@ ge("login-btn").addEventListener("click",async()=>{
   if(!m){err.textContent="Username not found.";return}
   if(p!==m.p){err.textContent="Incorrect password.";return}
   try{await signInWithEmailAndPassword(auth,m.e,p)}
-  catch(e){err.textContent="Login error: "+e.message}
+  catch(e){
+    if(e.code==='auth/user-not-found'||e.code==='auth/invalid-credential'){
+      try{
+        const{createUserWithEmailAndPassword}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+        await createUserWithEmailAndPassword(auth,m.e,p);
+      }catch(e2){err.textContent="Error: "+e2.message}
+    }else{err.textContent="Login error: "+e.message}
+  }
 });
 ge("login-password").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-btn").click()});
 ge("login-username").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-password").focus()});
