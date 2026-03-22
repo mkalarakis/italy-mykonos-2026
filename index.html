@@ -24,21 +24,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .top-bar-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
 .top-bar-title{font-size:16px;font-weight:600}
 .top-bar-right{display:flex;align-items:center;gap:10px}
-.user-badge{display:flex;align-items:center;gap:6px;font-size:13px;color:#555}
-.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid transparent}
+.avatars-strip{display:flex;gap:8px;align-items:center}
+.avatar-item{display:flex;flex-direction:column;align-items:center;gap:2px;transition:opacity .2s}
+.avatar-item span{font-size:9px;color:#aaa;font-weight:500}
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid transparent}
 .av-Sammy{background:#EEEDFE;color:#3C3489;border-color:#534AB7}
 .av-Milton{background:#E1F5EE;color:#085041;border-color:#1D9E75}
 .av-Sofia{background:#FBEAF0;color:#72243E;border-color:#D4537E}
 .av-Dua{background:#FAEEDA;color:#633806;border-color:#EF9F27}
 .logout-btn{font-size:12px;color:#888;cursor:pointer;background:none;border:none;padding:4px 8px;border-radius:6px}
 .logout-btn:hover{background:#f5f5f5}
-.avatars-strip{display:flex;gap:8px;align-items:center}
-.avatar-item{display:flex;flex-direction:column;align-items:center;gap:2px}
-.avatar-item span{font-size:9px;color:#aaa;font-weight:500}
 .nav-tabs{background:white;border-bottom:1px solid #ebebeb;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .nav-tabs::-webkit-scrollbar{display:none}
 .nav-tabs-inner{max-width:900px;margin:0 auto;display:flex;padding:0 1rem}
-.nav-tab{padding:12px 16px;font-size:13px;font-weight:500;color:#888;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+.nav-tab{padding:12px 14px;font-size:13px;font-weight:500;color:#888;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
 .nav-tab.active{color:#534AB7;border-bottom-color:#534AB7}
 .nav-tab:hover{color:#534AB7}
 .main{max-width:900px;margin:0 auto;padding:1.25rem 1rem}
@@ -57,22 +56,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .slot{border:1px solid #ebebeb;border-radius:10px;padding:10px;background:#fafafa}
 .slot-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#aaa;font-weight:600;margin-bottom:6px}
 .slot-options{display:flex;flex-direction:column;gap:5px}
-.slot-option{background:white;border:1px solid #ebebeb;border-radius:7px;overflow:hidden}
-.slot-option.winner{border-color:#1D9E75}
-.slot-option-row{display:flex;align-items:center;gap:6px;padding:6px 8px;cursor:pointer}
-.slot-option.winner .slot-option-row{background:#f0fdf7}
-.option-name{font-size:12px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.option-right{display:flex;align-items:center;gap:4px;flex-shrink:0}
-.option-score{font-size:11px;font-weight:600;padding:2px 6px;border-radius:5px;background:#f0f0f0;color:#555;white-space:nowrap}
-.option-score.top{background:#E1F5EE;color:#0F6E56}
-.expand-btn{background:none;border:none;cursor:pointer;font-size:10px;color:#bbb;padding:2px 3px;line-height:1;flex-shrink:0}
-.expand-btn:hover{color:#534AB7}
-.option-details{display:none;padding:6px 10px 8px;border-top:1px solid #f0f0f0;background:#f8f8f8;font-size:11px;color:#666}
-.option-details.open{display:block}
-.option-details a{color:#534AB7;text-decoration:none;word-break:break-all}
-.option-details a:hover{text-decoration:underline}
-.detail-row{display:flex;gap:6px;margin-top:3px;align-items:flex-start}
-.detail-label{font-weight:600;color:#bbb;min-width:36px;flex-shrink:0}
+.opt-card{background:white;border:1px solid #ebebeb;border-radius:7px;overflow:hidden}
+.opt-card.winner{border-color:#1D9E75}
+.opt-row{display:flex;align-items:center;gap:5px;padding:6px 8px}
+.opt-card.winner .opt-row{background:#f0fdf7}
+.opt-name{font-size:12px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.opt-score{font-size:11px;font-weight:600;padding:2px 6px;border-radius:5px;background:#f0f0f0;color:#555;white-space:nowrap;flex-shrink:0}
+.opt-score.top{background:#E1F5EE;color:#0F6E56}
+.opt-expand{background:none;border:none;cursor:pointer;font-size:10px;color:#ccc;padding:1px 3px;flex-shrink:0}
+.opt-expand:hover{color:#534AB7}
+.opt-delete{background:none;border:none;cursor:pointer;font-size:11px;color:#ddd;padding:1px 3px;flex-shrink:0}
+.opt-delete:hover{color:#e74c3c}
+.opt-details{display:none;padding:5px 8px 7px;border-top:1px solid #f0f0f0;background:#f9f9f9;font-size:11px;color:#666}
+.opt-details.open{display:block}
+.opt-details a{color:#534AB7;text-decoration:none;word-break:break-all}
+.opt-details a:hover{text-decoration:underline}
+.det-row{display:flex;gap:5px;margin-top:3px;align-items:flex-start}
+.det-lbl{font-weight:600;color:#bbb;min-width:34px;flex-shrink:0;font-size:10px;text-transform:uppercase}
 .winner-tag{font-size:10px;color:#0F6E56;font-weight:600;padding:0 8px 4px}
 .add-option-btn{width:100%;margin-top:6px;padding:6px;background:none;border:1px dashed #ccc;border-radius:7px;font-size:12px;color:#888;cursor:pointer}
 .add-option-btn:hover{border-color:#534AB7;color:#534AB7}
@@ -84,15 +84,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .hotel-header-text h3{font-size:14px;font-weight:600}
 .hotel-header-text p{font-size:12px;color:#888;margin-top:2px}
 .hotel-body{padding:12px 16px}
-.big-option{background:white;border:1px solid #ebebeb;border-radius:8px;overflow:hidden;margin-bottom:6px}
-.big-option.winner{border-color:#1D9E75}
-.big-option-row{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer}
-.big-option.winner .big-option-row{background:#f0fdf7}
-.big-option-name{font-size:13px;font-weight:500;flex:1}
-.big-option-details{display:none;padding:6px 12px 9px;border-top:1px solid #f0f0f0;background:#f8f8f8;font-size:12px;color:#666}
-.big-option-details.open{display:block}
-.big-option-details a{color:#534AB7;text-decoration:none;word-break:break-all}
-.big-option-details a:hover{text-decoration:underline}
+.big-opt{background:white;border:1px solid #ebebeb;border-radius:8px;overflow:hidden;margin-bottom:6px}
+.big-opt.winner{border-color:#1D9E75}
+.big-opt-row{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer}
+.big-opt.winner .big-opt-row{background:#f0fdf7}
+.big-opt-name{font-size:13px;font-weight:500;flex:1}
+.big-opt-details{display:none;padding:6px 12px 9px;border-top:1px solid #f0f0f0;background:#f9f9f9;font-size:12px;color:#666}
+.big-opt-details.open{display:block}
+.big-opt-details a{color:#534AB7;text-decoration:none;word-break:break-all}
+.big-opt-details a:hover{text-decoration:underline}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;display:flex;align-items:flex-end;justify-content:center}
 @media(min-width:600px){.modal-overlay{align-items:center}}
 .modal{background:white;border-radius:20px 20px 0 0;padding:1.5rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
@@ -124,7 +124,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .summary-stats{display:flex;gap:1.5rem;margin-top:1rem}
 .stat-num{font-size:22px;font-weight:700}
 .stat-label{font-size:11px;opacity:.8}
-@media(max-width:400px){.top-bar-title{font-size:14px}.nav-tab{padding:10px 12px;font-size:12px}}
+/* LEADERBOARD */
+.lb-card{background:white;border-radius:14px;border:1px solid #ebebeb;margin-bottom:12px;overflow:hidden}
+.lb-person{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #f5f5f5}
+.lb-person:last-child{border-bottom:none}
+.lb-rank{font-size:18px;font-weight:700;width:28px;text-align:center;color:#aaa}
+.lb-rank.gold{color:#F5A623}
+.lb-rank.silver{color:#9B9B9B}
+.lb-rank.bronze{color:#CD7F32}
+.lb-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;border:2px solid transparent;flex-shrink:0}
+.lb-info{flex:1}
+.lb-name{font-size:15px;font-weight:600}
+.lb-sub{font-size:12px;color:#888;margin-top:1px}
+.lb-score{font-size:20px;font-weight:700;color:#534AB7}
+.lb-score-label{font-size:10px;color:#aaa;text-align:right}
+.lb-bar-wrap{background:#f0f0f0;border-radius:4px;height:6px;margin-top:6px;overflow:hidden}
+.lb-bar{height:100%;border-radius:4px;transition:width .5s}
+.lb-section-title{font-size:13px;font-weight:600;color:#555;padding:12px 16px 4px;border-bottom:1px solid #f5f5f5}
+.lb-stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-bottom:1px solid #f5f5f5}
+.lb-stat{padding:10px 16px;text-align:center;border-right:1px solid #f5f5f5}
+.lb-stat:last-child{border-right:none}
+.lb-stat-num{font-size:18px;font-weight:700;color:#534AB7}
+.lb-stat-lbl{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+@media(max-width:400px){.top-bar-title{font-size:14px}.nav-tab{padding:10px 10px;font-size:12px}}
 </style>
 </head>
 <body>
@@ -153,11 +175,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="top-bar-inner">
       <div class="top-bar-title">&#127470;&#127481; &#127468;&#127479; Summer 2026</div>
       <div class="top-bar-right">
-        <div class="avatars-strip" id="avatars-strip">
-          <div class="avatar-item"><div class="avatar av-Sammy">S</div><span>Sammy</span></div>
-          <div class="avatar-item"><div class="avatar av-Milton">M</div><span>Milton</span></div>
-          <div class="avatar-item"><div class="avatar av-Sofia">So</div><span>Sofia</span></div>
-          <div class="avatar-item"><div class="avatar av-Dua">D</div><span>Dua</span></div>
+        <div class="avatars-strip">
+          <div class="avatar-item" id="avi-Sammy"><div class="avatar av-Sammy">S</div><span>Sammy</span></div>
+          <div class="avatar-item" id="avi-Milton"><div class="avatar av-Milton">M</div><span>Milton</span></div>
+          <div class="avatar-item" id="avi-Sofia"><div class="avatar av-Sofia">So</div><span>Sofia</span></div>
+          <div class="avatar-item" id="avi-Dua"><div class="avatar av-Dua">D</div><span>Dua</span></div>
         </div>
         <button class="logout-btn" id="logout-btn">Sign out</button>
       </div>
@@ -169,6 +191,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="nav-tab" data-tab="hotels">Hotels</div>
       <div class="nav-tab" data-tab="restaurants">Restaurants</div>
       <div class="nav-tab" data-tab="activities">Activities</div>
+      <div class="nav-tab" data-tab="leaderboard">&#127942; Scores</div>
     </div>
   </div>
   <div class="main">
@@ -187,6 +210,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div id="tab-hotels" class="hidden"><div id="hotels-list"></div></div>
     <div id="tab-restaurants" class="hidden"><div id="restaurants-list"></div></div>
     <div id="tab-activities" class="hidden"><div id="activities-list"></div></div>
+    <div id="tab-leaderboard" class="hidden"><div id="leaderboard-content"></div></div>
   </div>
 </div>
 
@@ -218,17 +242,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import{getFirestore,collection,addDoc,updateDoc,doc,onSnapshot,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import{getFirestore,collection,addDoc,updateDoc,deleteDoc,doc,onSnapshot,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const fc={apiKey:"AIzaSyBXp9LcuziUEENL602m2kfl00UyI9TVpVo",authDomain:"italy-mykonos-2026.firebaseapp.com",projectId:"italy-mykonos-2026",storageBucket:"italy-mykonos-2026.firebasestorage.app",messagingSenderId:"416841631175",appId:"1:416841631175:web:3242c0c8e19eeb30c045e2"};
 const fa=initializeApp(fc),db=getFirestore(fa);
 
-const UM={
-  sammy:{p:"Sammy2026",name:"Sammy"},
-  milton:{p:"Milton2026",name:"Milton"},
-  sofia:{p:"Sofia2026",name:"Sofia"},
-  dua:{p:"Dua2026",name:"Dua"}
-};
+const UM={sammy:{p:"Sammy2026",name:"Sammy"},milton:{p:"Milton2026",name:"Milton"},sofia:{p:"Sofia2026",name:"Sofia"},dua:{p:"Dua2026",name:"Dua"}};
+const USERS=["Sammy","Milton","Sofia","Dua"];
+const USER_COLORS={Sammy:"#534AB7",Milton:"#1D9E75",Sofia:"#D4537E",Dua:"#EF9F27"};
 
 const TRIP=[
   {segment:"Italy \u00b7 July 19\u201325",days:[
@@ -240,9 +261,7 @@ const TRIP=[
     {id:"day6",date:"Fri July 24",location:"Rome",note:"Full day in Rome",badge:"Day 6"},
     {id:"day7",date:"Sat July 25",location:"Rome \u2192 Athens",note:"Day in Rome, evening flight to Athens",badge:"Day 7"}
   ]},
-  {segment:"Athens \u00b7 July 26",days:[
-    {id:"day8",date:"Sun July 26",location:"Athens",note:"One night layover",badge:"Day 8"}
-  ]},
+  {segment:"Athens \u00b7 July 26",days:[{id:"day8",date:"Sun July 26",location:"Athens",note:"One night layover",badge:"Day 8"}]},
   {segment:"Mykonos \u00b7 July 27\u201330",days:[
     {id:"day9",date:"Mon July 27",location:"Mykonos",note:"Fly Athens \u2192 Mykonos",badge:"Day 9"},
     {id:"day10",date:"Tue July 28",location:"Mykonos",note:"",badge:"Day 10"},
@@ -277,15 +296,62 @@ window.toggleDetails=function(id){
   if(b)b.textContent=open?"\u25B2":"\u25BC";
 };
 
-function detailsHTML(opt,cls){
-  const has=opt.link||opt.notes||opt.addedBy;
-  if(!has)return"";
-  let h=`<div class="${cls} hidden" id="det-${opt.id}">`;
-  if(opt.link)h+=`<div class="detail-row"><span class="detail-label">Link</span><a href="${opt.link}" target="_blank">${opt.link}</a></div>`;
-  if(opt.notes)h+=`<div class="detail-row"><span class="detail-label">Notes</span><span>${opt.notes}</span></div>`;
-  if(opt.addedBy)h+=`<div class="detail-row"><span class="detail-label">By</span><span>${opt.addedBy}</span></div>`;
-  h+=`</div>`;
-  return h;
+window.deleteOption=async function(id){
+  if(!confirm("Delete this option?"))return;
+  try{await deleteDoc(doc(db,"options",id));toast("Deleted");}
+  catch(e){toast("Error: "+e.message)}
+};
+
+function scoreRowHTML(opt){
+  const score=cs(opt),isW=false;
+  return `<span class="opt-score ${isW?"top":""}" style="background:#f5f5f5;color:#aaa">${score||"-"}</span>`;
+}
+
+function buildOptCard(opt,did,st,isW){
+  const score=cs(opt);
+  const hasExtra=opt.link||opt.notes||opt.addedBy;
+  const isMine=opt.addedBy===cun;
+  const el=document.createElement("div");
+  el.className="opt-card"+(isW?" winner":"");
+  el.id="optcard-"+opt.id;
+  el.innerHTML=`
+    <div class="opt-row">
+      <span class="opt-name" title="${opt.name}">${opt.name}</span>
+      ${score?`<span class="opt-score ${isW?"top":""}">${score}</span>`:'<span class="opt-score" style="background:#f5f5f5;color:#bbb">-</span>'}
+      ${hasExtra?`<button class="opt-expand" id="exp-${opt.id}" onclick="event.stopPropagation();toggleDetails('${opt.id}')">\u25BC</button>`:""}
+      ${isMine?`<button class="opt-delete" onclick="event.stopPropagation();deleteOption('${opt.id}')" title="Delete">&#128465;</button>`:""}
+    </div>
+    <div class="opt-details" id="det-${opt.id}">
+      ${opt.link?`<div class="det-row"><span class="det-lbl">Link</span><a href="${opt.link}" target="_blank">${opt.link}</a></div>`:""}
+      ${opt.notes?`<div class="det-row"><span class="det-lbl">Notes</span><span>${opt.notes}</span></div>`:""}
+      ${opt.addedBy?`<div class="det-row"><span class="det-lbl">By</span><span>${opt.addedBy}</span></div>`:""}
+    </div>
+  `;
+  el.querySelector(".opt-row").addEventListener("click",()=>openVote(did,st));
+  return el;
+}
+
+function buildBigOpt(opt,did,st,isW){
+  const score=cs(opt);
+  const hasExtra=opt.link||opt.notes||opt.addedBy;
+  const isMine=opt.addedBy===cun;
+  const el=document.createElement("div");
+  el.className="big-opt"+(isW?" winner":"");
+  el.innerHTML=`
+    <div class="big-opt-row">
+      <div class="big-opt-name">${opt.name}</div>
+      ${score?`<span class="opt-score ${isW?"top":""}">${score}</span>`:'<span class="opt-score" style="background:#f5f5f5;color:#bbb">-</span>'}
+      ${hasExtra?`<button class="opt-expand" id="exp-${opt.id}" onclick="event.stopPropagation();toggleDetails('${opt.id}')">\u25BC</button>`:""}
+      ${isMine?`<button class="opt-delete" onclick="event.stopPropagation();deleteOption('${opt.id}')" title="Delete">&#128465;</button>`:""}
+    </div>
+    <div class="big-opt-details" id="det-${opt.id}">
+      ${opt.link?`<div class="det-row"><span class="det-lbl">Link</span><a href="${opt.link}" target="_blank">${opt.link}</a></div>`:""}
+      ${opt.notes?`<div class="det-row"><span class="det-lbl">Notes</span><span>${opt.notes}</span></div>`:""}
+      ${opt.addedBy?`<div class="det-row"><span class="det-lbl">By</span><span>${opt.addedBy}</span></div>`:""}
+    </div>
+  `;
+  el.querySelector(".big-opt-row").addEventListener("click",()=>openVote(did,st));
+  return el;
 }
 
 ge("login-btn").addEventListener("click",()=>{
@@ -299,9 +365,9 @@ ge("login-btn").addEventListener("click",()=>{
   cun=m.name;
   ge("login-screen").style.display="none";
   ge("app").style.display="block";
-  // Highlight current user avatar
-  document.querySelectorAll(".avatar-item").forEach(el=>{
-    el.style.opacity=el.querySelector(".avatar").className.includes(cun)?"1":"0.4";
+  USERS.forEach(n=>{
+    const el=ge("avi-"+n);
+    if(el)el.style.opacity=n===cun?"1":"0.4";
   });
   initApp();
 });
@@ -313,15 +379,14 @@ ge("logout-btn").addEventListener("click",()=>{
   cun=null;us.forEach(u=>u());us=[];
   ge("login-screen").style.display="flex";
   ge("app").style.display="none";
-  ge("login-username").value="";
-  ge("login-password").value="";
-  document.querySelectorAll(".avatar-item").forEach(el=>el.style.opacity="1");
+  ge("login-username").value="";ge("login-password").value="";
+  USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity="1";});
 });
 
 document.querySelectorAll(".nav-tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
     document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
-    ["itinerary","hotels","restaurants","activities"].forEach(t=>ge("tab-"+t).classList.add("hidden"));
+    ["itinerary","hotels","restaurants","activities","leaderboard"].forEach(t=>ge("tab-"+t).classList.add("hidden"));
     tab.classList.add("active");
     ge("tab-"+tab.dataset.tab).classList.remove("hidden");
   });
@@ -339,7 +404,7 @@ function initApp(){renderItinerary();renderHotels();subscribe()}
 function subscribe(){
   const u=onSnapshot(collection(db,"options"),snap=>{
     ao={};snap.forEach(d=>{ao[d.id]={id:d.id,...d.data()}});
-    updateStats();updateAllSlots();updateHotelSlots();updateRestTab();updateActTab();
+    updateStats();updateAllSlots();updateHotelSlots();updateRestTab();updateActTab();updateLeaderboard();
   });
   us.push(u);
 }
@@ -348,6 +413,114 @@ function updateStats(){
   let v=0;Object.values(ao).forEach(o=>{if(o.votes)v+=Object.keys(o.votes).length});
   ge("stat-options").textContent=Object.values(ao).length;
   ge("stat-votes").textContent=v;
+}
+
+// LEADERBOARD
+function updateLeaderboard(){
+  const c=ge("leaderboard-content");if(!c)return;
+  const opts=Object.values(ao);
+
+  // Per-user stats
+  const stats={};
+  USERS.forEach(u=>{stats[u]={added:0,voted:0,totalGiven:0,totalReceived:0,votedOn:0}});
+
+  opts.forEach(opt=>{
+    if(opt.addedBy&&stats[opt.addedBy]){
+      stats[opt.addedBy].added++;
+      // avg score received
+      if(opt.votes){
+        const vals=Object.values(opt.votes);
+        if(vals.length){
+          stats[opt.addedBy].totalReceived+=vals.reduce((a,b)=>a+b,0)/vals.length;
+          stats[opt.addedBy].votedOn++;
+        }
+      }
+    }
+    if(opt.votes){
+      Object.entries(opt.votes).forEach(([voter,score])=>{
+        if(stats[voter]){
+          stats[voter].voted++;
+          stats[voter].totalGiven+=score;
+        }
+      });
+    }
+  });
+
+  // Overall score = avg of all avg scores received for your suggestions
+  USERS.forEach(u=>{
+    stats[u].avgReceived=stats[u].votedOn>0?(stats[u].totalReceived/stats[u].votedOn).toFixed(1):null;
+    stats[u].avgGiven=stats[u].voted>0?(stats[u].totalGiven/stats[u].voted).toFixed(1):null;
+  });
+
+  const ranked=[...USERS].sort((a,b)=>{
+    const sa=parseFloat(stats[a].avgReceived||0),sb=parseFloat(stats[b].avgReceived||0);
+    return sb-sa;
+  });
+  const maxScore=parseFloat(stats[ranked[0]].avgReceived||1)||1;
+
+  c.innerHTML="";
+
+  // Overall ranking card
+  const rankCard=document.createElement("div");rankCard.className="lb-card";
+  const totalOpts=opts.length;
+  const totalVotes=opts.reduce((s,o)=>s+(o.votes?Object.keys(o.votes).length:0),0);
+  rankCard.innerHTML=`
+    <div class="lb-section-title">&#127942; Overall Leaderboard</div>
+    <div class="lb-stat-grid">
+      <div class="lb-stat"><div class="lb-stat-num">${totalOpts}</div><div class="lb-stat-lbl">Options</div></div>
+      <div class="lb-stat"><div class="lb-stat-num">${totalVotes}</div><div class="lb-stat-lbl">Votes cast</div></div>
+      <div class="lb-stat"><div class="lb-stat-num">${USERS.filter(u=>stats[u].voted>0).length}/4</div><div class="lb-stat-lbl">Voters active</div></div>
+    </div>
+  `;
+  ranked.forEach((name,i)=>{
+    const s=stats[name];
+    const rankClass=i===0?"gold":i===1?"silver":i===2?"bronze":"";
+    const rankEmoji=i===0?"\uD83E\uDD47":i===1?"\uD83E\uDD48":i===2?"\uD83E\uDD49":`${i+1}`;
+    const color=USER_COLORS[name];
+    const barW=s.avgReceived?(parseFloat(s.avgReceived)/10*100).toFixed(0):0;
+    const row=document.createElement("div");row.className="lb-person";
+    row.innerHTML=`
+      <div class="lb-rank ${rankClass}">${rankEmoji}</div>
+      <div class="lb-avatar av-${name}">${name[0]}</div>
+      <div class="lb-info">
+        <div class="lb-name">${name}</div>
+        <div class="lb-sub">${s.added} options added &middot; ${s.voted} votes cast</div>
+        <div class="lb-bar-wrap"><div class="lb-bar" style="width:${barW}%;background:${color}"></div></div>
+      </div>
+      <div style="text-align:right">
+        <div class="lb-score">${s.avgReceived||"—"}</div>
+        <div class="lb-score-label">avg score</div>
+      </div>
+    `;
+    rankCard.appendChild(row);
+  });
+  c.appendChild(rankCard);
+
+  // Per-person breakdown
+  USERS.forEach(name=>{
+    const s=stats[name];
+    const myOpts=opts.filter(o=>o.addedBy===name);
+    if(!myOpts.length)return;
+    const card=document.createElement("div");card.className="lb-card";
+    card.innerHTML=`<div class="lb-section-title" style="color:${USER_COLORS[name]}">${name}'s suggestions</div>`;
+    myOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach(opt=>{
+      const score=cs(opt);
+      const vc=opt.votes?Object.keys(opt.votes).length:0;
+      const row=document.createElement("div");
+      row.style.cssText="display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid #f5f5f5;font-size:13px";
+      row.innerHTML=`
+        <div style="flex:1;font-weight:500">${opt.name}</div>
+        <div style="font-size:11px;color:#aaa">${vc}/4 votes</div>
+        <div style="font-weight:700;color:${USER_COLORS[name]};min-width:32px;text-align:right">${score||"—"}</div>
+      `;
+      card.appendChild(row);
+    });
+    c.appendChild(card);
+  });
+
+  if(opts.length===0){
+    c.innerHTML='<div class="loading">No options added yet.<br>Start adding restaurants, hotels and activities!</div>';
+  }
 }
 
 function renderItinerary(){
@@ -377,49 +550,14 @@ function updateAllSlots(){TRIP.forEach(s=>s.days.forEach(d=>ST.forEach(st=>updat
 
 function updateSlot(did,st){
   const c=ge("slotopts-"+did+"-"+st);if(!c)return;
-  const opts=gso(did,st).sort((a,b)=>(cs(b)||0)-(cs(a)||0));
+  const opts=gso(did,st).sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
   c.innerHTML="";
   if(!opts.length){c.innerHTML='<div class="empty-slot">No options yet</div>';return}
   opts.forEach((opt,i)=>{
-    const score=cs(opt),isW=i===0&&score!==null;
-    const has=opt.link||opt.notes||opt.addedBy;
-    const el=document.createElement("div");el.className="slot-option"+(isW?" winner":"");
-    el.innerHTML=`
-      <div class="slot-option-row">
-        <span class="option-name" title="${opt.name}">${opt.name}</span>
-        <div class="option-right">
-          ${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#bbb">-</span>'}
-          ${has?`<button class="expand-btn" id="exp-${opt.id}" onclick="event.stopPropagation();toggleDetails('${opt.id}')">\u25BC</button>`:""}
-        </div>
-      </div>
-      ${detailsHTML(opt,"option-details")}
-    `;
-    el.querySelector(".slot-option-row").addEventListener("click",()=>openVote(did,st));
-    c.appendChild(el);
+    const isW=i===0&&cs(opt)!==null;
+    c.appendChild(buildOptCard(opt,did,st,isW));
     if(isW&&opts.length>1){const w=document.createElement("div");w.className="winner-tag";w.textContent="\u2713 Leading";c.appendChild(w)}
   });
-}
-
-function makeBigOption(opt,did,st,isW){
-  const score=cs(opt);
-  const has=opt.link||opt.notes||opt.addedBy;
-  const el=document.createElement("div");el.className="big-option"+(isW?" winner":"");
-  el.innerHTML=`
-    <div class="big-option-row">
-      <div class="big-option-name">${opt.name}</div>
-      <div class="option-right">
-        ${score?`<span class="option-score ${isW?"top":""}">${score}</span>`:'<span class="option-score" style="background:#f5f5f5;color:#bbb">-</span>'}
-        ${has?`<button class="expand-btn" id="exp-${opt.id}" onclick="event.stopPropagation();toggleDetails('${opt.id}')">\u25BC</button>`:""}
-      </div>
-    </div>
-    <div class="big-option-details hidden" id="det-${opt.id}">
-      ${opt.link?`<div class="detail-row"><span class="detail-label">Link</span><a href="${opt.link}" target="_blank">${opt.link}</a></div>`:""}
-      ${opt.notes?`<div class="detail-row"><span class="detail-label">Notes</span><span>${opt.notes}</span></div>`:""}
-      ${opt.addedBy?`<div class="detail-row"><span class="detail-label">By</span><span>${opt.addedBy}</span></div>`:""}
-    </div>
-  `;
-  el.querySelector(".big-option-row").addEventListener("click",()=>openVote(did,st));
-  return el;
 }
 
 function renderHotels(){
@@ -435,10 +573,9 @@ function renderHotels(){
 function updateHotelSlots(){
   HN.forEach(h=>{
     const c=ge("hbody-"+h.id);if(!c)return;
-    const opts=Object.values(ao).filter(o=>o.dayId===h.id&&o.slotType==="Hotel").sort((a,b)=>(cs(b)||0)-(cs(a)||0));
+    const opts=Object.values(ao).filter(o=>o.dayId===h.id&&o.slotType==="Hotel").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
     c.innerHTML="";
-    if(!opts.length){c.innerHTML='<div class="empty-slot" style="padding:8px 0">No options yet</div>';}
-    else{opts.forEach((opt,i)=>c.appendChild(makeBigOption(opt,h.id,"Hotel",i===0&&cs(opt)!==null)))}
+    opts.forEach((opt,i)=>c.appendChild(buildBigOpt(opt,h.id,"Hotel",i===0&&cs(opt)!==null)));
     const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add hotel option";btn.onclick=()=>openAdd(h.id,"Hotel");c.appendChild(btn);
   });
 }
@@ -456,7 +593,7 @@ function updateRestTab(){
         card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">${icon}</div><div class="hotel-header-text"><h3>${day.date} \u2014 ${type}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="rb-${day.id}-${type}"></div>`;
         c.appendChild(card);
         const body=ge("rb-"+day.id+"-"+type);
-        opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>body.appendChild(makeBigOption(opt,day.id,type,i===0&&cs(opt)!==null)));
+        opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildBigOpt(opt,day.id,type,i===0&&cs(opt)!==null)));
         const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add option";btn.onclick=()=>openAdd(day.id,type);body.appendChild(btn);
       });
     });
@@ -475,7 +612,7 @@ function updateActTab(){
       card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">\uD83C\uDFAF</div><div class="hotel-header-text"><h3>${day.date}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="ab-${day.id}"></div>`;
       c.appendChild(card);
       const body=ge("ab-"+day.id);
-      opts.sort((a,b)=>(cs(b)||0)-(cs(a)||0)).forEach((opt,i)=>body.appendChild(makeBigOption(opt,day.id,"Activity",i===0&&cs(opt)!==null)));
+      opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildBigOpt(opt,day.id,"Activity",i===0&&cs(opt)!==null)));
       const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>openAdd(day.id,"Activity");body.appendChild(btn);
     });
   });
