@@ -184,12 +184,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="toast" id="toast"></div>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import{getAuth,signInWithEmailAndPassword,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
 import{getFirestore,collection,addDoc,updateDoc,doc,onSnapshot,serverTimestamp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 const fc={apiKey:"AIzaSyBXp9LcuziUEENL602m2kfl00UyI9TVpVo",authDomain:"italy-mykonos-2026.firebaseapp.com",projectId:"italy-mykonos-2026",storageBucket:"italy-mykonos-2026.firebasestorage.app",messagingSenderId:"416841631175",appId:"1:416841631175:web:3242c0c8e19eeb30c045e2"};
-const fa=initializeApp(fc),auth=getAuth(fa),db=getFirestore(fa);
+const fa=initializeApp(fc),db=getFirestore(fa);
 const USERS={"sammy@italy2026.app":"Sammy","milton@italy2026.app":"Milton","sofia@italy2026.app":"Sofia","dua@italy2026.app":"Dua"};
-const UM={sammy:{e:"sammy@italy2026.app",p:"Sammy2026"},milton:{e:"milton@italy2026.app",p:"Milton2026"},sofia:{e:"sofia@italy2026.app",p:"Sofia2026"},dua:{e:"dua@italy2026.app",p:"Dua2026"}};
+const UM={sammy:{e:"sammy",p:"Sammy2026",name:"Sammy"},milton:{e:"milton",p:"Milton2026",name:"Milton"},sofia:{e:"sofia",p:"Sofia2026",name:"Sofia"},dua:{e:"dua",p:"Dua2026",name:"Dua"}};
 const TRIP=[{segment:"Italy · July 19–25",days:[{id:"day1",date:"Sun July 19",location:"Rome",note:"Arrive midday by flight",badge:"Day 1"},{id:"day2",date:"Mon July 20",location:"Florence",note:"Morning train from Rome",badge:"Day 2"},{id:"day3",date:"Tue July 21",location:"Naples → Amalfi Coast",note:"Train to Naples, lunch, Sorrento/Positano/Amalfi",badge:"Day 3"},{id:"day4",date:"Wed July 22",location:"Amalfi Coast",note:"Sorrento / Positano / Amalfi",badge:"Day 4"},{id:"day5",date:"Thu July 23",location:"Back to Rome",note:"Morning from Amalfi",badge:"Day 5"},{id:"day6",date:"Fri July 24",location:"Rome",note:"Full day in Rome",badge:"Day 6"},{id:"day7",date:"Sat July 25",location:"Rome → Athens",note:"Evening flight to Athens",badge:"Day 7"}]},{segment:"Athens · July 26",days:[{id:"day8",date:"Sun July 26",location:"Athens",note:"One night layover",badge:"Day 8"}]},{segment:"Mykonos · July 27–30",days:[{id:"day9",date:"Mon July 27",location:"Mykonos",note:"Fly Athens → Mykonos",badge:"Day 9"},{id:"day10",date:"Tue July 28",location:"Mykonos",note:"",badge:"Day 10"},{id:"day11",date:"Wed July 29",location:"Mykonos",note:"",badge:"Day 11"},{id:"day12",date:"Thu July 30",location:"Mykonos → Athens",note:"Late night flight back",badge:"Day 12"}]}];
 const ST=["Breakfast","Lunch","Dinner","Activity"];
 const SL={Breakfast:"🌅 Breakfast",Lunch:"☀️ Lunch",Dinner:"🌙 Dinner",Activity:"🎯 Activity"};
@@ -220,7 +220,13 @@ ge("login-btn").addEventListener("click",async()=>{
 });
 ge("login-password").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-btn").click()});
 ge("login-username").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-password").focus()});
-ge("logout-btn").addEventListener("click",()=>signOut(auth));
+ge("logout-btn").addEventListener("click",()=>{
+  cu=null;cun=null;
+  ge("login-screen").style.display="flex";
+  ge("app").style.display="none";
+  ge("login-username").value="";
+  ge("login-password").value="";
+});
 document.querySelectorAll(".nav-tab").forEach(tab=>{tab.addEventListener("click",()=>{document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));["itinerary","hotels","restaurants","activities"].forEach(t=>ge("tab-"+t).classList.add("hidden"));tab.classList.add("active");ge("tab-"+tab.dataset.tab).classList.remove("hidden")})});
 ge("cancel-add").addEventListener("click",closeAdd);
 ge("submit-add").addEventListener("click",submitAdd);
@@ -228,10 +234,7 @@ ge("cancel-vote").addEventListener("click",closeVote);
 ge("submit-vote").addEventListener("click",submitVotes);
 ge("add-modal").addEventListener("click",e=>{if(e.target===ge("add-modal"))closeAdd()});
 ge("vote-modal").addEventListener("click",e=>{if(e.target===ge("vote-modal"))closeVote()});
-onAuthStateChanged(auth,user=>{
-  if(user){cu=user;cun=USERS[user.email]||user.email;ge("login-screen").style.display="none";ge("app").style.display="block";const av=ge("user-avatar");av.textContent=cun[0];av.className="avatar av-"+cun;ge("user-name-display").textContent=cun;initApp()}
-  else{cu=null;cun=null;ge("login-screen").style.display="flex";ge("app").style.display="none";us.forEach(u=>u());us=[]}
-});
+
 function initApp(){renderItinerary();renderHotels();subscribe()}
 function subscribe(){const u=onSnapshot(collection(db,"options"),snap=>{ao={};snap.forEach(d=>{ao[d.id]={id:d.id,...d.data()}});updateStats();updateAllSlots();updateHotelSlots();updateRestTab();updateActTab()});us.push(u)}
 function updateStats(){let v=0;Object.values(ao).forEach(o=>{if(o.votes)v+=Object.keys(o.votes).length});ge("stat-options").textContent=Object.values(ao).length;ge("stat-votes").textContent=v}
