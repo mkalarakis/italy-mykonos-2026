@@ -44,39 +44,60 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .hidden{display:none!important}
 .section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#888;margin:1.5rem 0 .75rem}
 .section-label:first-child{margin-top:0}
+
+/* DAY CARDS - CLEAN VIEW */
 .day-card{background:white;border-radius:14px;border:1px solid #ebebeb;margin-bottom:12px;overflow:hidden}
-.day-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer}
-.day-header:hover{background:#fafafa}
+.day-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #f0f0f0}
 .day-header-left h3{font-size:14px;font-weight:600}
 .day-header-left p{font-size:12px;color:#888;margin-top:2px}
 .day-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:#EEEDFE;color:#3C3489;font-weight:500}
-.day-body{padding:12px 16px}
-.slots-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(min-width:600px){.slots-grid{grid-template-columns:repeat(4,1fr)}}
-.slot{border:1px solid #ebebeb;border-radius:10px;padding:10px;background:#fafafa}
-.slot-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#aaa;font-weight:600;margin-bottom:6px}
-.slot-options{display:flex;flex-direction:column;gap:5px}
-.opt-card{background:white;border:1px solid #ebebeb;border-radius:7px;overflow:hidden}
+.day-boxes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px 12px}
+.day-box{border:1px solid #ebebeb;border-radius:10px;padding:10px 12px;cursor:pointer;transition:all .15s;background:#fafafa;position:relative}
+.day-box:hover{border-color:#534AB7;background:#f5f4ff}
+.day-box-icon{font-size:20px;margin-bottom:4px}
+.day-box-label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.05em}
+.day-box-count{font-size:11px;color:#aaa;margin-top:2px}
+.day-box-winner{font-size:11px;font-weight:600;color:#0F6E56;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.day-box-score{position:absolute;top:8px;right:8px;font-size:11px;font-weight:700;padding:2px 6px;border-radius:20px;background:#E1F5EE;color:#0F6E56}
+
+/* DETAIL PANEL */
+.detail-panel{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:flex-end;justify-content:center}
+@media(min-width:600px){.detail-panel{align-items:center}}
+.detail-sheet{background:white;border-radius:20px 20px 0 0;width:100%;max-width:560px;max-height:85vh;overflow-y:auto;display:flex;flex-direction:column}
+@media(min-width:600px){.detail-sheet{border-radius:16px;max-height:80vh}}
+.detail-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #f0f0f0;position:sticky;top:0;background:white;z-index:1}
+.detail-title{font-size:17px;font-weight:700}
+.detail-subtitle{font-size:12px;color:#888;margin-top:2px}
+.detail-close{background:none;border:none;font-size:20px;cursor:pointer;color:#aaa;padding:2px 6px;border-radius:6px}
+.detail-close:hover{background:#f5f5f5;color:#333}
+.detail-body{padding:16px 20px;flex:1}
+.detail-section{margin-bottom:16px}
+.detail-section-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:8px}
+
+/* OPTION CARDS */
+.opt-card{background:white;border:1px solid #ebebeb;border-radius:8px;overflow:hidden;margin-bottom:6px}
 .opt-card.winner{border-color:#1D9E75}
-.opt-row{display:flex;align-items:center;gap:5px;padding:6px 8px}
+.opt-row{display:flex;align-items:center;gap:6px;padding:8px 10px;cursor:pointer}
 .opt-card.winner .opt-row{background:#f0fdf7}
-.opt-name{font-size:12px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.opt-score{font-size:11px;font-weight:600;padding:2px 6px;border-radius:5px;background:#f0f0f0;color:#555;white-space:nowrap;flex-shrink:0}
+.opt-name{font-size:13px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.opt-score{font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px;background:#f0f0f0;color:#555;white-space:nowrap;flex-shrink:0}
 .opt-score.top{background:#E1F5EE;color:#0F6E56}
-.opt-expand{background:none;border:none;cursor:pointer;font-size:10px;color:#ccc;padding:1px 3px;flex-shrink:0}
+.opt-expand{background:none;border:none;cursor:pointer;font-size:11px;color:#ccc;padding:2px 4px;flex-shrink:0;line-height:1}
 .opt-expand:hover{color:#534AB7}
-.opt-delete{background:none;border:none;cursor:pointer;font-size:11px;color:#ddd;padding:1px 3px;flex-shrink:0}
+.opt-delete{background:none;border:none;cursor:pointer;font-size:12px;color:#ddd;padding:2px 4px;flex-shrink:0;line-height:1}
 .opt-delete:hover{color:#e74c3c}
-.opt-details{display:none;padding:5px 8px 7px;border-top:1px solid #f0f0f0;background:#f9f9f9;font-size:11px;color:#666}
+.opt-details{display:none;padding:6px 10px 8px;border-top:1px solid #f0f0f0;background:#f9f9f9}
 .opt-details.open{display:block}
-.opt-details a{color:#534AB7;text-decoration:none;word-break:break-all}
+.opt-details a{color:#534AB7;text-decoration:none;font-size:12px;word-break:break-all}
 .opt-details a:hover{text-decoration:underline}
-.det-row{display:flex;gap:5px;margin-top:3px;align-items:flex-start}
-.det-lbl{font-weight:600;color:#bbb;min-width:34px;flex-shrink:0;font-size:10px;text-transform:uppercase}
-.winner-tag{font-size:10px;color:#0F6E56;font-weight:600;padding:0 8px 4px}
-.add-option-btn{width:100%;margin-top:6px;padding:6px;background:none;border:1px dashed #ccc;border-radius:7px;font-size:12px;color:#888;cursor:pointer}
+.det-row{display:flex;gap:6px;margin-top:4px;align-items:flex-start;font-size:12px}
+.det-lbl{font-weight:600;color:#bbb;min-width:36px;flex-shrink:0;font-size:11px;text-transform:uppercase;padding-top:1px}
+.winner-tag{font-size:11px;color:#0F6E56;font-weight:600;padding:2px 10px 6px}
+.add-option-btn{width:100%;margin-top:8px;padding:8px;background:none;border:1px dashed #ccc;border-radius:8px;font-size:13px;color:#888;cursor:pointer}
 .add-option-btn:hover{border-color:#534AB7;color:#534AB7}
-.empty-slot{font-size:11px;color:#bbb;text-align:center;padding:4px 0}
+.empty-state{text-align:center;padding:1.5rem;color:#bbb;font-size:13px}
+
+/* HOTEL / REST / ACT TABS */
 .hotel-card{background:white;border-radius:14px;border:1px solid #ebebeb;margin-bottom:10px;overflow:hidden}
 .hotel-header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer}
 .hotel-icon{width:36px;height:36px;border-radius:10px;background:#EEEDFE;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
@@ -84,15 +105,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .hotel-header-text h3{font-size:14px;font-weight:600}
 .hotel-header-text p{font-size:12px;color:#888;margin-top:2px}
 .hotel-body{padding:12px 16px}
-.big-opt{background:white;border:1px solid #ebebeb;border-radius:8px;overflow:hidden;margin-bottom:6px}
-.big-opt.winner{border-color:#1D9E75}
-.big-opt-row{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer}
-.big-opt.winner .big-opt-row{background:#f0fdf7}
-.big-opt-name{font-size:13px;font-weight:500;flex:1}
-.big-opt-details{display:none;padding:6px 12px 9px;border-top:1px solid #f0f0f0;background:#f9f9f9;font-size:12px;color:#666}
-.big-opt-details.open{display:block}
-.big-opt-details a{color:#534AB7;text-decoration:none;word-break:break-all}
-.big-opt-details a:hover{text-decoration:underline}
+
+/* VOTE MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;display:flex;align-items:flex-end;justify-content:center}
 @media(min-width:600px){.modal-overlay{align-items:center}}
 .modal{background:white;border-radius:20px 20px 0 0;padding:1.5rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
@@ -124,6 +138,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .summary-stats{display:flex;gap:1.5rem;margin-top:1rem}
 .stat-num{font-size:22px;font-weight:700}
 .stat-label{font-size:11px;opacity:.8}
+
 /* LEADERBOARD */
 .lb-card{background:white;border-radius:14px;border:1px solid #ebebeb;margin-bottom:12px;overflow:hidden}
 .lb-person{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #f5f5f5}
@@ -139,7 +154,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .lb-score{font-size:20px;font-weight:700;color:#534AB7}
 .lb-score-label{font-size:10px;color:#aaa;text-align:right}
 .lb-bar-wrap{background:#f0f0f0;border-radius:4px;height:6px;margin-top:6px;overflow:hidden}
-.lb-bar{height:100%;border-radius:4px;transition:width .5s}
+.lb-bar{height:100%;border-radius:4px}
 .lb-section-title{font-size:13px;font-weight:600;color:#555;padding:12px 16px 4px;border-bottom:1px solid #f5f5f5}
 .lb-stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-bottom:1px solid #f5f5f5}
 .lb-stat{padding:10px 16px;text-align:center;border-right:1px solid #f5f5f5}
@@ -214,6 +229,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
+<!-- DETAIL PANEL -->
+<div id="detail-panel" class="detail-panel hidden">
+  <div class="detail-sheet">
+    <div class="detail-header">
+      <div>
+        <div class="detail-title" id="detail-title">Details</div>
+        <div class="detail-subtitle" id="detail-subtitle"></div>
+      </div>
+      <button class="detail-close" id="detail-close">&#x2715;</button>
+    </div>
+    <div class="detail-body" id="detail-body"></div>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
 <div id="add-modal" class="modal-overlay hidden">
   <div class="modal">
     <h2 id="add-modal-title">Add Option</h2>
@@ -227,6 +257,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
+<!-- VOTE MODAL -->
 <div id="vote-modal" class="modal-overlay hidden">
   <div class="modal">
     <h2 id="vote-modal-title">Vote</h2>
@@ -270,8 +301,16 @@ const TRIP=[
   ]}
 ];
 
-const ST=["Breakfast","Lunch","Dinner","Activity"];
-const SL={Breakfast:"\uD83C\uDF05 Breakfast",Lunch:"\u2600\uFE0F Lunch",Dinner:"\uD83C\uDF19 Dinner",Activity:"\uD83C\uDFAF Activity"};
+const HN_MAP={
+  day1:"hotel-rome1",day2:"hotel-florence",day3:"hotel-amalfi1",day4:"hotel-amalfi2",
+  day5:"hotel-rome2",day6:"hotel-rome3",day7:null,day8:"hotel-athens",
+  day9:"hotel-mykonos",day10:"hotel-mykonos",day11:"hotel-mykonos",day12:null
+};
+const HN_LABELS={
+  "hotel-rome1":"Rome \u2014 Night 1","hotel-florence":"Florence","hotel-amalfi1":"Amalfi Coast \u2014 Night 1",
+  "hotel-amalfi2":"Amalfi Coast \u2014 Night 2","hotel-rome2":"Rome \u2014 Night 2","hotel-rome3":"Rome \u2014 Night 3",
+  "hotel-athens":"Athens","hotel-mykonos":"Mykonos (3 nights)"
+};
 const HN=[
   {id:"hotel-rome1",label:"Rome \u2014 Night 1",dates:"July 19",segment:"Italy"},
   {id:"hotel-florence",label:"Florence",dates:"July 20",segment:"Italy"},
@@ -289,71 +328,60 @@ const cs=o=>{if(!o.votes||!Object.keys(o.votes).length)return null;const v=Objec
 const gso=(did,st)=>Object.values(ao).filter(o=>o.dayId===did&&o.slotType===st);
 const toast=msg=>{const t=ge("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)};
 
-window.toggleDetails=function(id){
-  const d=ge("det-"+id),b=ge("exp-"+id);
+// TOGGLE DROPDOWN DETAILS - fixed version
+window.toggleDetails=function(id,e){
+  if(e)e.stopPropagation();
+  const d=ge("det-"+id);
+  const b=ge("exp-"+id);
   if(!d)return;
-  const open=d.classList.toggle("open");
-  if(b)b.textContent=open?"\u25B2":"\u25BC";
+  const isOpen=d.classList.contains("open");
+  d.classList.toggle("open",!isOpen);
+  if(b)b.textContent=isOpen?"\u25BC":"\u25B2";
 };
 
-window.deleteOption=async function(id){
+window.deleteOption=async function(id,e){
+  if(e)e.stopPropagation();
   if(!confirm("Delete this option?"))return;
   try{await deleteDoc(doc(db,"options",id));toast("Deleted");}
-  catch(e){toast("Error: "+e.message)}
+  catch(err){toast("Error: "+err.message)}
 };
-
-function scoreRowHTML(opt){
-  const score=cs(opt),isW=false;
-  return `<span class="opt-score ${isW?"top":""}" style="background:#f5f5f5;color:#aaa">${score||"-"}</span>`;
-}
 
 function buildOptCard(opt,did,st,isW){
   const score=cs(opt);
-  const hasExtra=opt.link||opt.notes||opt.addedBy;
+  const hasExtra=!!(opt.link||opt.notes||opt.addedBy);
   const isMine=opt.addedBy===cun;
   const el=document.createElement("div");
   el.className="opt-card"+(isW?" winner":"");
-  el.id="optcard-"+opt.id;
-  el.innerHTML=`
-    <div class="opt-row">
-      <span class="opt-name" title="${opt.name}">${opt.name}</span>
-      ${score?`<span class="opt-score ${isW?"top":""}">${score}</span>`:'<span class="opt-score" style="background:#f5f5f5;color:#bbb">-</span>'}
-      ${hasExtra?`<button class="opt-expand" id="exp-${opt.id}" onclick="event.stopPropagation();toggleDetails('${opt.id}')">\u25BC</button>`:""}
-      ${isMine?`<button class="opt-delete" onclick="event.stopPropagation();deleteOption('${opt.id}')" title="Delete">&#128465;</button>`:""}
-    </div>
-    <div class="opt-details" id="det-${opt.id}">
-      ${opt.link?`<div class="det-row"><span class="det-lbl">Link</span><a href="${opt.link}" target="_blank">${opt.link}</a></div>`:""}
-      ${opt.notes?`<div class="det-row"><span class="det-lbl">Notes</span><span>${opt.notes}</span></div>`:""}
-      ${opt.addedBy?`<div class="det-row"><span class="det-lbl">By</span><span>${opt.addedBy}</span></div>`:""}
-    </div>
-  `;
-  el.querySelector(".opt-row").addEventListener("click",()=>openVote(did,st));
+  const detDiv=document.createElement("div");
+  detDiv.className="opt-details";
+  detDiv.id="det-"+opt.id;
+  if(opt.link)detDiv.innerHTML+=`<div class="det-row"><span class="det-lbl">Link</span><a href="${opt.link}" target="_blank" onclick="event.stopPropagation()">${opt.link}</a></div>`;
+  if(opt.notes)detDiv.innerHTML+=`<div class="det-row"><span class="det-lbl">Notes</span><span>${opt.notes}</span></div>`;
+  if(opt.addedBy)detDiv.innerHTML+=`<div class="det-row"><span class="det-lbl">By</span><span>${opt.addedBy}</span></div>`;
+
+  const row=document.createElement("div");
+  row.className="opt-row";
+  row.innerHTML=`<span class="opt-name" title="${opt.name}">${opt.name}</span>
+    ${score?`<span class="opt-score ${isW?"top":""}">${score}</span>`:'<span class="opt-score" style="background:#f5f5f5;color:#bbb">-</span>'}`;
+  if(hasExtra){
+    const expBtn=document.createElement("button");
+    expBtn.className="opt-expand";expBtn.id="exp-"+opt.id;expBtn.textContent="\u25BC";
+    expBtn.addEventListener("click",function(e){e.stopPropagation();window.toggleDetails(opt.id);});
+    row.appendChild(expBtn);
+  }
+  if(isMine){
+    const delBtn=document.createElement("button");
+    delBtn.className="opt-delete";delBtn.title="Delete";delBtn.innerHTML="&#128465;";
+    delBtn.addEventListener("click",function(e){e.stopPropagation();window.deleteOption(opt.id);});
+    row.appendChild(delBtn);
+  }
+  row.addEventListener("click",()=>openVote(did,st));
+  el.appendChild(row);
+  if(hasExtra)el.appendChild(detDiv);
   return el;
 }
 
-function buildBigOpt(opt,did,st,isW){
-  const score=cs(opt);
-  const hasExtra=opt.link||opt.notes||opt.addedBy;
-  const isMine=opt.addedBy===cun;
-  const el=document.createElement("div");
-  el.className="big-opt"+(isW?" winner":"");
-  el.innerHTML=`
-    <div class="big-opt-row">
-      <div class="big-opt-name">${opt.name}</div>
-      ${score?`<span class="opt-score ${isW?"top":""}">${score}</span>`:'<span class="opt-score" style="background:#f5f5f5;color:#bbb">-</span>'}
-      ${hasExtra?`<button class="opt-expand" id="exp-${opt.id}" onclick="event.stopPropagation();toggleDetails('${opt.id}')">\u25BC</button>`:""}
-      ${isMine?`<button class="opt-delete" onclick="event.stopPropagation();deleteOption('${opt.id}')" title="Delete">&#128465;</button>`:""}
-    </div>
-    <div class="big-opt-details" id="det-${opt.id}">
-      ${opt.link?`<div class="det-row"><span class="det-lbl">Link</span><a href="${opt.link}" target="_blank">${opt.link}</a></div>`:""}
-      ${opt.notes?`<div class="det-row"><span class="det-lbl">Notes</span><span>${opt.notes}</span></div>`:""}
-      ${opt.addedBy?`<div class="det-row"><span class="det-lbl">By</span><span>${opt.addedBy}</span></div>`:""}
-    </div>
-  `;
-  el.querySelector(".big-opt-row").addEventListener("click",()=>openVote(did,st));
-  return el;
-}
-
+// LOGIN
 ge("login-btn").addEventListener("click",()=>{
   const u=ge("login-username").value.trim().toLowerCase();
   const p=ge("login-password").value;
@@ -365,24 +393,19 @@ ge("login-btn").addEventListener("click",()=>{
   cun=m.name;
   ge("login-screen").style.display="none";
   ge("app").style.display="block";
-  USERS.forEach(n=>{
-    const el=ge("avi-"+n);
-    if(el)el.style.opacity=n===cun?"1":"0.4";
-  });
+  USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity=n===cun?"1":"0.4";});
   initApp();
 });
-
 ge("login-password").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-btn").click()});
 ge("login-username").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-password").focus()});
-
 ge("logout-btn").addEventListener("click",()=>{
   cun=null;us.forEach(u=>u());us=[];
-  ge("login-screen").style.display="flex";
-  ge("app").style.display="none";
+  ge("login-screen").style.display="flex";ge("app").style.display="none";
   ge("login-username").value="";ge("login-password").value="";
   USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity="1";});
 });
 
+// NAV TABS
 document.querySelectorAll(".nav-tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
     document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
@@ -392,19 +415,37 @@ document.querySelectorAll(".nav-tab").forEach(tab=>{
   });
 });
 
+// ADD MODAL
 ge("cancel-add").addEventListener("click",closeAdd);
 ge("submit-add").addEventListener("click",submitAdd);
+ge("add-modal").addEventListener("click",e=>{if(e.target===ge("add-modal"))closeAdd()});
+
+// VOTE MODAL
 ge("cancel-vote").addEventListener("click",closeVote);
 ge("submit-vote").addEventListener("click",submitVotes);
-ge("add-modal").addEventListener("click",e=>{if(e.target===ge("add-modal"))closeAdd()});
 ge("vote-modal").addEventListener("click",e=>{if(e.target===ge("vote-modal"))closeVote()});
+
+// DETAIL PANEL
+ge("detail-close").addEventListener("click",closeDetail);
+ge("detail-panel").addEventListener("click",e=>{if(e.target===ge("detail-panel"))closeDetail()});
+
+function closeDetail(){ge("detail-panel").classList.add("hidden")}
+
+function openDetail(title,subtitle,bodyFn){
+  ge("detail-title").textContent=title;
+  ge("detail-subtitle").textContent=subtitle||"";
+  const body=ge("detail-body");
+  body.innerHTML="";
+  bodyFn(body);
+  ge("detail-panel").classList.remove("hidden");
+}
 
 function initApp(){renderItinerary();renderHotels();subscribe()}
 
 function subscribe(){
   const u=onSnapshot(collection(db,"options"),snap=>{
     ao={};snap.forEach(d=>{ao[d.id]={id:d.id,...d.data()}});
-    updateStats();updateAllSlots();updateHotelSlots();updateRestTab();updateActTab();updateLeaderboard();
+    updateStats();renderItinerary();updateHotelSlots();updateRestTab();updateActTab();updateLeaderboard();
   });
   us.push(u);
 }
@@ -415,157 +456,105 @@ function updateStats(){
   ge("stat-votes").textContent=v;
 }
 
-// LEADERBOARD
-function updateLeaderboard(){
-  const c=ge("leaderboard-content");if(!c)return;
-  const opts=Object.values(ao);
-
-  // Per-user stats
-  const stats={};
-  USERS.forEach(u=>{stats[u]={added:0,voted:0,totalGiven:0,totalReceived:0,votedOn:0}});
-
-  opts.forEach(opt=>{
-    if(opt.addedBy&&stats[opt.addedBy]){
-      stats[opt.addedBy].added++;
-      // avg score received
-      if(opt.votes){
-        const vals=Object.values(opt.votes);
-        if(vals.length){
-          stats[opt.addedBy].totalReceived+=vals.reduce((a,b)=>a+b,0)/vals.length;
-          stats[opt.addedBy].votedOn++;
-        }
-      }
-    }
-    if(opt.votes){
-      Object.entries(opt.votes).forEach(([voter,score])=>{
-        if(stats[voter]){
-          stats[voter].voted++;
-          stats[voter].totalGiven+=score;
-        }
-      });
-    }
-  });
-
-  // Overall score = avg of all avg scores received for your suggestions
-  USERS.forEach(u=>{
-    stats[u].avgReceived=stats[u].votedOn>0?(stats[u].totalReceived/stats[u].votedOn).toFixed(1):null;
-    stats[u].avgGiven=stats[u].voted>0?(stats[u].totalGiven/stats[u].voted).toFixed(1):null;
-  });
-
-  const ranked=[...USERS].sort((a,b)=>{
-    const sa=parseFloat(stats[a].avgReceived||0),sb=parseFloat(stats[b].avgReceived||0);
-    return sb-sa;
-  });
-  const maxScore=parseFloat(stats[ranked[0]].avgReceived||1)||1;
-
-  c.innerHTML="";
-
-  // Overall ranking card
-  const rankCard=document.createElement("div");rankCard.className="lb-card";
-  const totalOpts=opts.length;
-  const totalVotes=opts.reduce((s,o)=>s+(o.votes?Object.keys(o.votes).length:0),0);
-  rankCard.innerHTML=`
-    <div class="lb-section-title">&#127942; Overall Leaderboard</div>
-    <div class="lb-stat-grid">
-      <div class="lb-stat"><div class="lb-stat-num">${totalOpts}</div><div class="lb-stat-lbl">Options</div></div>
-      <div class="lb-stat"><div class="lb-stat-num">${totalVotes}</div><div class="lb-stat-lbl">Votes cast</div></div>
-      <div class="lb-stat"><div class="lb-stat-num">${USERS.filter(u=>stats[u].voted>0).length}/4</div><div class="lb-stat-lbl">Voters active</div></div>
-    </div>
-  `;
-  ranked.forEach((name,i)=>{
-    const s=stats[name];
-    const rankClass=i===0?"gold":i===1?"silver":i===2?"bronze":"";
-    const rankEmoji=i===0?"\uD83E\uDD47":i===1?"\uD83E\uDD48":i===2?"\uD83E\uDD49":`${i+1}`;
-    const color=USER_COLORS[name];
-    const barW=s.avgReceived?(parseFloat(s.avgReceived)/10*100).toFixed(0):0;
-    const row=document.createElement("div");row.className="lb-person";
-    row.innerHTML=`
-      <div class="lb-rank ${rankClass}">${rankEmoji}</div>
-      <div class="lb-avatar av-${name}">${name[0]}</div>
-      <div class="lb-info">
-        <div class="lb-name">${name}</div>
-        <div class="lb-sub">${s.added} options added &middot; ${s.voted} votes cast</div>
-        <div class="lb-bar-wrap"><div class="lb-bar" style="width:${barW}%;background:${color}"></div></div>
-      </div>
-      <div style="text-align:right">
-        <div class="lb-score">${s.avgReceived||"—"}</div>
-        <div class="lb-score-label">avg score</div>
-      </div>
-    `;
-    rankCard.appendChild(row);
-  });
-  c.appendChild(rankCard);
-
-  // Per-person breakdown
-  USERS.forEach(name=>{
-    const s=stats[name];
-    const myOpts=opts.filter(o=>o.addedBy===name);
-    if(!myOpts.length)return;
-    const card=document.createElement("div");card.className="lb-card";
-    card.innerHTML=`<div class="lb-section-title" style="color:${USER_COLORS[name]}">${name}'s suggestions</div>`;
-    myOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach(opt=>{
-      const score=cs(opt);
-      const vc=opt.votes?Object.keys(opt.votes).length:0;
-      const row=document.createElement("div");
-      row.style.cssText="display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid #f5f5f5;font-size:13px";
-      row.innerHTML=`
-        <div style="flex:1;font-weight:500">${opt.name}</div>
-        <div style="font-size:11px;color:#aaa">${vc}/4 votes</div>
-        <div style="font-weight:700;color:${USER_COLORS[name]};min-width:32px;text-align:right">${score||"—"}</div>
-      `;
-      card.appendChild(row);
-    });
-    c.appendChild(card);
-  });
-
-  if(opts.length===0){
-    c.innerHTML='<div class="loading">No options added yet.<br>Start adding restaurants, hotels and activities!</div>';
-  }
-}
-
+// ITINERARY - clean 3-box view
 function renderItinerary(){
   const c=ge("itinerary-list");c.innerHTML="";
   TRIP.forEach(seg=>{
     const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);
     seg.days.forEach(day=>{
       const card=document.createElement("div");card.className="day-card";
-      card.innerHTML=`<div class="day-header" onclick="toggleDay('${day.id}')"><div class="day-header-left"><h3>${day.date} \u2014 ${day.location}</h3><p>${day.note}</p></div><div class="day-badge">${day.badge}</div></div><div class="day-body" id="daybody-${day.id}"><div class="slots-grid" id="slots-${day.id}"></div></div>`;
-      c.appendChild(card);renderSlots(day.id);
+      const hotelId=HN_MAP[day.id];
+      const hotelOpts=hotelId?Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"):[];
+      const mealOpts=["Breakfast","Lunch","Dinner"].flatMap(st=>gso(day.id,st));
+      const actOpts=gso(day.id,"Activity");
+      const topHotel=hotelOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0];
+      const topMeal=mealOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0];
+      const topAct=actOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0];
+
+      card.innerHTML=`
+        <div class="day-header">
+          <div class="day-header-left">
+            <h3>${day.date} \u2014 ${day.location}</h3>
+            <p>${day.note}</p>
+          </div>
+          <div class="day-badge">${day.badge}</div>
+        </div>
+        <div class="day-boxes">
+          <div class="day-box" id="box-hotel-${day.id}">
+            <div class="day-box-icon">\uD83C\uDFE8</div>
+            <div class="day-box-label">Hotel</div>
+            <div class="day-box-count">${hotelOpts.length} option${hotelOpts.length!==1?"s":""}</div>
+            ${topHotel?`<div class="day-box-winner">${topHotel.name}</div>`:""}
+            ${topHotel&&cs(topHotel)?`<div class="day-box-score">${cs(topHotel)}</div>`:""}
+          </div>
+          <div class="day-box" id="box-meals-${day.id}">
+            <div class="day-box-icon">\uD83C\uDF7D\uFE0F</div>
+            <div class="day-box-label">Meals</div>
+            <div class="day-box-count">${mealOpts.length} option${mealOpts.length!==1?"s":""}</div>
+            ${topMeal?`<div class="day-box-winner">${topMeal.name}</div>`:""}
+            ${topMeal&&cs(topMeal)?`<div class="day-box-score">${cs(topMeal)}</div>`:""}
+          </div>
+          <div class="day-box" id="box-act-${day.id}">
+            <div class="day-box-icon">\uD83C\uDFAF</div>
+            <div class="day-box-label">Activities</div>
+            <div class="day-box-count">${actOpts.length} option${actOpts.length!==1?"s":""}</div>
+            ${topAct?`<div class="day-box-winner">${topAct.name}</div>`:""}
+            ${topAct&&cs(topAct)?`<div class="day-box-score">${cs(topAct)}</div>`:""}
+          </div>
+        </div>
+      `;
+      c.appendChild(card);
+
+      // Hotel box click
+      const hotelBox=card.querySelector("#box-hotel-"+day.id);
+      hotelBox.addEventListener("click",()=>{
+        if(!hotelId){toast("No hotel night for this day");return}
+        openDetail("\uD83C\uDFE8 Hotel",day.date+" \u2014 "+day.location,body=>{
+          const opts=Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
+          if(!opts.length){body.innerHTML='<div class="empty-state">No hotel options yet</div>';}
+          else{opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,hotelId,"Hotel",i===0&&cs(opt)!==null)))}
+          const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add hotel option";btn.onclick=()=>{closeDetail();openAdd(hotelId,"Hotel")};body.appendChild(btn);
+        });
+      });
+
+      // Meals box click
+      const mealsBox=card.querySelector("#box-meals-"+day.id);
+      mealsBox.addEventListener("click",()=>{
+        openDetail("\uD83C\uDF7D\uFE0F Meals",day.date+" \u2014 "+day.location,body=>{
+          ["Breakfast","Lunch","Dinner"].forEach(type=>{
+            const icon=type==="Breakfast"?"\uD83C\uDF05":type==="Lunch"?"\u2600\uFE0F":"\uD83C\uDF19";
+            const sec=document.createElement("div");sec.className="detail-section";
+            sec.innerHTML=`<div class="detail-section-title">${icon} ${type}</div>`;
+            const opts=gso(day.id,type).sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
+            if(!opts.length){sec.innerHTML+=`<div class="empty-state" style="padding:.75rem 0;font-size:12px">No options yet</div>`;}
+            else{opts.forEach((opt,i)=>sec.appendChild(buildOptCard(opt,day.id,type,i===0&&cs(opt)!==null)))}
+            const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent=`+ Add ${type.toLowerCase()} option`;btn.onclick=()=>{closeDetail();openAdd(day.id,type)};sec.appendChild(btn);
+            body.appendChild(sec);
+          });
+        });
+      });
+
+      // Activities box click
+      const actBox=card.querySelector("#box-act-"+day.id);
+      actBox.addEventListener("click",()=>{
+        openDetail("\uD83C\uDFAF Activities",day.date+" \u2014 "+day.location,body=>{
+          const opts=gso(day.id,"Activity").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
+          if(!opts.length){body.innerHTML='<div class="empty-state">No activities yet</div>';}
+          else{opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,"Activity",i===0&&cs(opt)!==null)))}
+          const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>{closeDetail();openAdd(day.id,"Activity")};body.appendChild(btn);
+        });
+      });
     });
   });
 }
 
-window.toggleDay=id=>{const b=ge("daybody-"+id);b.style.display=b.style.display==="none"?"":"none"};
-
-function renderSlots(did){
-  const g=ge("slots-"+did);if(!g)return;g.innerHTML="";
-  ST.forEach(st=>{
-    const el=document.createElement("div");el.className="slot";
-    el.innerHTML=`<div class="slot-label">${SL[st]}</div><div class="slot-options" id="slotopts-${did}-${st}"><div class="empty-slot">No options yet</div></div><button class="add-option-btn" onclick="openAdd('${did}','${st}')">+ Add option</button>`;
-    g.appendChild(el);
-  });
-}
-
-function updateAllSlots(){TRIP.forEach(s=>s.days.forEach(d=>ST.forEach(st=>updateSlot(d.id,st))))}
-
-function updateSlot(did,st){
-  const c=ge("slotopts-"+did+"-"+st);if(!c)return;
-  const opts=gso(did,st).sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
-  c.innerHTML="";
-  if(!opts.length){c.innerHTML='<div class="empty-slot">No options yet</div>';return}
-  opts.forEach((opt,i)=>{
-    const isW=i===0&&cs(opt)!==null;
-    c.appendChild(buildOptCard(opt,did,st,isW));
-    if(isW&&opts.length>1){const w=document.createElement("div");w.className="winner-tag";w.textContent="\u2713 Leading";c.appendChild(w)}
-  });
-}
-
+// HOTELS TAB
 function renderHotels(){
   const c=ge("hotels-list");c.innerHTML="";let last="";
   HN.forEach(h=>{
     if(h.segment!==last){const sl=document.createElement("div");sl.className="section-label";sl.textContent=h.segment;c.appendChild(sl);last=h.segment}
     const card=document.createElement("div");card.className="hotel-card";
-    card.innerHTML=`<div class="hotel-header" onclick="openVote('${h.id}','Hotel')"><div class="hotel-icon">\uD83C\uDFE8</div><div class="hotel-header-text"><h3>${h.label}</h3><p>${h.dates}</p></div></div><div class="hotel-body" id="hbody-${h.id}"></div>`;
+    card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">\uD83C\uDFE8</div><div class="hotel-header-text"><h3>${h.label}</h3><p>${h.dates}</p></div></div><div class="hotel-body" id="hbody-${h.id}"></div>`;
     c.appendChild(card);
   });
 }
@@ -575,11 +564,12 @@ function updateHotelSlots(){
     const c=ge("hbody-"+h.id);if(!c)return;
     const opts=Object.values(ao).filter(o=>o.dayId===h.id&&o.slotType==="Hotel").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
     c.innerHTML="";
-    opts.forEach((opt,i)=>c.appendChild(buildBigOpt(opt,h.id,"Hotel",i===0&&cs(opt)!==null)));
+    opts.forEach((opt,i)=>c.appendChild(buildOptCard(opt,h.id,"Hotel",i===0&&cs(opt)!==null)));
     const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add hotel option";btn.onclick=()=>openAdd(h.id,"Hotel");c.appendChild(btn);
   });
 }
 
+// RESTAURANTS TAB
 function updateRestTab(){
   const c=ge("restaurants-list");if(!c)return;c.innerHTML="";let any=false;
   TRIP.forEach(seg=>{
@@ -593,7 +583,7 @@ function updateRestTab(){
         card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">${icon}</div><div class="hotel-header-text"><h3>${day.date} \u2014 ${type}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="rb-${day.id}-${type}"></div>`;
         c.appendChild(card);
         const body=ge("rb-"+day.id+"-"+type);
-        opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildBigOpt(opt,day.id,type,i===0&&cs(opt)!==null)));
+        opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,type,i===0&&cs(opt)!==null)));
         const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add option";btn.onclick=()=>openAdd(day.id,type);body.appendChild(btn);
       });
     });
@@ -601,6 +591,7 @@ function updateRestTab(){
   if(!any)c.innerHTML='<div class="loading">No restaurant options yet.<br>Add them from the Itinerary tab!</div>';
 }
 
+// ACTIVITIES TAB
 function updateActTab(){
   const c=ge("activities-list");if(!c)return;c.innerHTML="";let any=false;
   TRIP.forEach(seg=>{
@@ -612,13 +603,66 @@ function updateActTab(){
       card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">\uD83C\uDFAF</div><div class="hotel-header-text"><h3>${day.date}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="ab-${day.id}"></div>`;
       c.appendChild(card);
       const body=ge("ab-"+day.id);
-      opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildBigOpt(opt,day.id,"Activity",i===0&&cs(opt)!==null)));
+      opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,"Activity",i===0&&cs(opt)!==null)));
       const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>openAdd(day.id,"Activity");body.appendChild(btn);
     });
   });
   if(!any)c.innerHTML='<div class="loading">No activities yet.<br>Add them from the Itinerary tab!</div>';
 }
 
+// LEADERBOARD
+function updateLeaderboard(){
+  const c=ge("leaderboard-content");if(!c)return;
+  const opts=Object.values(ao);
+  const stats={};
+  USERS.forEach(u=>{stats[u]={added:0,voted:0,totalGiven:0,totalReceived:0,votedOn:0}});
+  opts.forEach(opt=>{
+    if(opt.addedBy&&stats[opt.addedBy]){
+      stats[opt.addedBy].added++;
+      if(opt.votes){
+        const vals=Object.values(opt.votes);
+        if(vals.length){stats[opt.addedBy].totalReceived+=vals.reduce((a,b)=>a+b,0)/vals.length;stats[opt.addedBy].votedOn++;}
+      }
+    }
+    if(opt.votes){Object.entries(opt.votes).forEach(([voter,score])=>{if(stats[voter]){stats[voter].voted++;stats[voter].totalGiven+=score;}})}
+  });
+  USERS.forEach(u=>{
+    stats[u].avgReceived=stats[u].votedOn>0?(stats[u].totalReceived/stats[u].votedOn).toFixed(1):null;
+    stats[u].avgGiven=stats[u].voted>0?(stats[u].totalGiven/stats[u].voted).toFixed(1):null;
+  });
+  const ranked=[...USERS].sort((a,b)=>(parseFloat(stats[b].avgReceived||0))-(parseFloat(stats[a].avgReceived||0)));
+  c.innerHTML="";
+  const rankCard=document.createElement("div");rankCard.className="lb-card";
+  const totalOpts=opts.length,totalVotes=opts.reduce((s,o)=>s+(o.votes?Object.keys(o.votes).length:0),0);
+  rankCard.innerHTML=`<div class="lb-section-title">\uD83C\uDFC6 Overall Leaderboard</div><div class="lb-stat-grid"><div class="lb-stat"><div class="lb-stat-num">${totalOpts}</div><div class="lb-stat-lbl">Options</div></div><div class="lb-stat"><div class="lb-stat-num">${totalVotes}</div><div class="lb-stat-lbl">Votes cast</div></div><div class="lb-stat"><div class="lb-stat-num">${USERS.filter(u=>stats[u].voted>0).length}/4</div><div class="lb-stat-lbl">Active</div></div></div>`;
+  ranked.forEach((name,i)=>{
+    const s=stats[name];
+    const rankEmoji=i===0?"\uD83E\uDD47":i===1?"\uD83E\uDD48":i===2?"\uD83E\uDD49":`${i+1}`;
+    const rankClass=i===0?"gold":i===1?"silver":i===2?"bronze":"";
+    const color=USER_COLORS[name];
+    const barW=s.avgReceived?(parseFloat(s.avgReceived)/10*100).toFixed(0):0;
+    const row=document.createElement("div");row.className="lb-person";
+    row.innerHTML=`<div class="lb-rank ${rankClass}">${rankEmoji}</div><div class="lb-avatar av-${name}">${name[0]}</div><div class="lb-info"><div class="lb-name">${name}</div><div class="lb-sub">${s.added} added &middot; ${s.voted} votes cast</div><div class="lb-bar-wrap"><div class="lb-bar" style="width:${barW}%;background:${color}"></div></div></div><div style="text-align:right"><div class="lb-score">${s.avgReceived||"\u2014"}</div><div class="lb-score-label">avg score</div></div>`;
+    rankCard.appendChild(row);
+  });
+  c.appendChild(rankCard);
+  USERS.forEach(name=>{
+    const myOpts=opts.filter(o=>o.addedBy===name);if(!myOpts.length)return;
+    const card=document.createElement("div");card.className="lb-card";
+    card.innerHTML=`<div class="lb-section-title" style="color:${USER_COLORS[name]}">${name}'s suggestions</div>`;
+    myOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach(opt=>{
+      const score=cs(opt),vc=opt.votes?Object.keys(opt.votes).length:0;
+      const row=document.createElement("div");
+      row.style.cssText="display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid #f5f5f5;font-size:13px";
+      row.innerHTML=`<div style="flex:1;font-weight:500">${opt.name}</div><div style="font-size:11px;color:#aaa">${vc}/4 votes</div><div style="font-weight:700;color:${USER_COLORS[name]};min-width:32px;text-align:right">${score||"\u2014"}</div>`;
+      card.appendChild(row);
+    });
+    c.appendChild(card);
+  });
+  if(!opts.length)c.innerHTML='<div class="loading">No options yet.<br>Start adding from the Itinerary tab!</div>';
+}
+
+// ADD MODAL
 window.openAdd=function(did,st){
   amc={did,st};
   const titles={Hotel:"Add Hotel Option",Breakfast:"Add Breakfast",Lunch:"Add Lunch",Dinner:"Add Dinner",Activity:"Add Activity"};
@@ -627,14 +671,11 @@ window.openAdd=function(did,st){
   ge("add-modal").classList.remove("hidden");
   setTimeout(()=>ge("add-name").focus(),100);
 };
-
 function closeAdd(){ge("add-modal").classList.add("hidden");amc=null}
-
 async function submitAdd(){
   const name=ge("add-name").value.trim();
   if(!name){toast("Please enter a name");return}
-  const link=ge("add-link").value.trim();
-  const notes=ge("add-notes").value.trim();
+  const link=ge("add-link").value.trim(),notes=ge("add-notes").value.trim();
   if(!amc)return;
   try{
     await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,addedBy:cun,votes:{},createdAt:serverTimestamp()});
@@ -642,6 +683,7 @@ async function submitAdd(){
   }catch(e){toast("Error: "+e.message)}
 }
 
+// VOTE MODAL
 window.openVote=function(did,st){
   vmc={did,st};
   const opts=st==="Hotel"?Object.values(ao).filter(o=>o.dayId===did&&o.slotType==="Hotel"):gso(did,st);
@@ -651,20 +693,9 @@ window.openVote=function(did,st){
   const list=ge("vote-list");list.innerHTML="";
   opts.forEach(opt=>{
     const myVote=opt.votes&&opt.votes[cun]?opt.votes[cun]:0;
-    const avg=cs(opt);const vc=opt.votes?Object.keys(opt.votes).length:0;
+    const avg=cs(opt),vc=opt.votes?Object.keys(opt.votes).length:0;
     const item=document.createElement("div");item.className="vote-item";
-    item.innerHTML=`
-      <div style="flex:1;min-width:0">
-        <div class="vote-item-name">${opt.name}</div>
-        ${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank">View link \u2192</a>`:""}
-        ${opt.notes?`<div style="font-size:11px;color:#888;margin-top:2px">${opt.notes}</div>`:""}
-        <div style="font-size:11px;color:#888;margin-top:3px">${vc}/4 voted${avg?" \u00b7 avg "+avg:""}</div>
-        <div class="vote-progress"><div class="vote-progress-fill" style="width:${(vc/4)*100}%"></div></div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div id="stars-${opt.id}" style="display:flex;flex-direction:column;gap:3px"></div>
-        <div class="vote-score-display" id="sd-${opt.id}">${myVote||"\u2014"}</div>
-      </div>`;
+    item.innerHTML=`<div style="flex:1;min-width:0"><div class="vote-item-name">${opt.name}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank">View link \u2192</a>`:""} ${opt.notes?`<div style="font-size:11px;color:#888;margin-top:2px">${opt.notes}</div>`:""}<div style="font-size:11px;color:#888;margin-top:3px">${vc}/4 voted${avg?" \u00b7 avg "+avg:""}</div><div class="vote-progress"><div class="vote-progress-fill" style="width:${(vc/4)*100}%"></div></div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div id="stars-${opt.id}" style="display:flex;flex-direction:column;gap:3px"></div><div class="vote-score-display" id="sd-${opt.id}">${myVote||"\u2014"}</div></div>`;
     list.appendChild(item);
     const se=item.querySelector("#stars-"+opt.id);
     const r1=document.createElement("div");r1.style.cssText="display:flex;gap:3px";
@@ -672,26 +703,20 @@ window.openVote=function(did,st){
     for(let i=1;i<=10;i++){
       const s=document.createElement("div");s.className="star"+(myVote>=i?" selected":"");s.textContent=i;
       s.dataset.oid=opt.id;s.dataset.v=i;
-      s.onclick=()=>{
-        document.querySelectorAll(`.star[data-oid="${opt.id}"]`).forEach(x=>x.classList.toggle("selected",parseInt(x.dataset.v)<=i));
-        ge("sd-"+opt.id).textContent=i;
-      };
+      s.onclick=()=>{document.querySelectorAll(`.star[data-oid="${opt.id}"]`).forEach(x=>x.classList.toggle("selected",parseInt(x.dataset.v)<=i));ge("sd-"+opt.id).textContent=i;};
       (i<=5?r1:r2).appendChild(s);
     }
     se.appendChild(r1);se.appendChild(r2);
   });
   ge("vote-modal").classList.remove("hidden");
 };
-
 function closeVote(){ge("vote-modal").classList.add("hidden");vmc=null}
-
 async function submitVotes(){
   if(!vmc)return;
   const opts=vmc.st==="Hotel"?Object.values(ao).filter(o=>o.dayId===vmc.did&&o.slotType==="Hotel"):gso(vmc.did,vmc.st);
   const ps=[];
   opts.forEach(opt=>{
-    const sd=ge("sd-"+opt.id);
-    const val=sd?parseInt(sd.textContent):null;
+    const sd=ge("sd-"+opt.id),val=sd?parseInt(sd.textContent):null;
     if(val&&!isNaN(val))ps.push(updateDoc(doc(db,"options",opt.id),{[`votes.${cun}`]:val}));
   });
   if(!ps.length){toast("No votes to save");return}
