@@ -71,8 +71,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .detail-section-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:8px}
 .opt-card{background:white;border:1px solid #ebebeb;border-radius:8px;overflow:hidden;margin-bottom:6px}
 .opt-card.winner{border-color:#1D9E75}
+.opt-card.locked-in{border-color:#F5A623;background:#FFFBF0}
 .opt-row{display:flex;align-items:center;gap:6px;padding:8px 10px;cursor:pointer}
 .opt-card.winner .opt-row{background:#f0fdf7}
+.opt-card.locked-in .opt-row{background:#FFFBF0}
 .opt-name{font-size:13px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .opt-score{font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px;background:#f0f0f0;color:#555;white-space:nowrap;flex-shrink:0}
 .opt-score.top{background:#E1F5EE;color:#0F6E56}
@@ -87,6 +89,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .det-row{display:flex;gap:6px;margin-top:4px;align-items:flex-start;font-size:12px}
 .det-lbl{font-weight:600;color:#bbb;min-width:36px;flex-shrink:0;font-size:11px;text-transform:uppercase;padding-top:1px}
 .winner-tag{font-size:11px;color:#0F6E56;font-weight:600;padding:2px 10px 6px}
+
+/* LOCK ROW */
+.lock-row{display:flex;align-items:center;gap:8px;padding:6px 10px 8px;border-top:1px solid #f5f5f5}
+.lock-circles{display:flex;gap:5px;align-items:center}
+.lock-circle{width:22px;height:22px;border-radius:50%;border:2px solid #e0e0e0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#ccc;cursor:default;transition:all .2s;flex-shrink:0}
+.lock-circle.mine{cursor:pointer}
+.lock-circle.mine:hover{transform:scale(1.1)}
+.lock-circle.locked{border-color:transparent;color:white}
+.lock-circle.lc-Sammy{background:#534AB7;border-color:#534AB7}
+.lock-circle.lc-Milton{background:#1D9E75;border-color:#1D9E75}
+.lock-circle.lc-Sofia{background:#D4537E;border-color:#D4537E}
+.lock-circle.lc-Dua{background:#EF9F27;border-color:#EF9F27}
+.lock-icon{font-size:16px;margin-left:4px;transition:all .3s}
+.lock-icon.all-locked{animation:goldenPop .4s ease}
+.lock-label{font-size:11px;color:#aaa;margin-left:2px}
+@keyframes goldenPop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+
 .add-option-btn{width:100%;margin-top:8px;padding:8px;background:none;border:1px dashed #ccc;border-radius:8px;font-size:13px;color:#888;cursor:pointer}
 .add-option-btn:hover{border-color:#534AB7;color:#534AB7}
 .empty-state{text-align:center;padding:1.5rem;color:#bbb;font-size:13px}
@@ -149,6 +168,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .lb-stat:last-child{border-right:none}
 .lb-stat-num{font-size:18px;font-weight:700;color:#534AB7}
 .lb-stat-lbl{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+
+/* FINAL PLAN */
 .final-hero{background:linear-gradient(135deg,#0f0c29 0%,#302b63 50%,#24243e 100%);border-radius:16px;padding:2rem 1.5rem;color:white;margin-bottom:1.5rem;text-align:center}
 .final-hero h1{font-size:26px;font-weight:700;letter-spacing:-.5px}
 .final-hero p{font-size:14px;opacity:.65;margin-top:6px}
@@ -169,18 +190,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .final-day-location{font-size:12px;color:#888;margin-top:1px}
 .final-day-badge{font-size:10px;padding:3px 9px;border-radius:20px;background:#f0f0f0;color:#888;font-weight:600}
 .final-items{padding:8px 12px;display:flex;flex-direction:column;gap:5px}
-.final-item{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px}
+.final-item{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;position:relative}
 .final-item-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .final-item-info{flex:1;min-width:0}
 .final-item-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
 .final-item-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .final-item-sub{font-size:11px;color:#aaa;margin-top:1px}
+.final-item-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .final-item-score{font-size:13px;font-weight:700;flex-shrink:0}
 .final-item-pending{font-size:12px;font-style:italic;color:#ccc}
 .fi-hotel{background:#E8F8F2}.fi-hotel .final-item-icon{background:#1D9E75;color:white}.fi-hotel .final-item-label{color:#1D9E75}.fi-hotel .final-item-score{color:#1D9E75}
 .fi-meal{background:#EEEDFE}.fi-meal .final-item-icon{background:#534AB7;color:white}.fi-meal .final-item-label{color:#534AB7}.fi-meal .final-item-score{color:#534AB7}
 .fi-act{background:#FEF6E8}.fi-act .final-item-icon{background:#EF9F27;color:white}.fi-act .final-item-label{color:#EF9F27}.fi-act .final-item-score{color:#EF9F27}
 .fi-pending{background:#f9f9f9}.fi-pending .final-item-icon{background:#ebebeb;color:#ccc}.fi-pending .final-item-label{color:#ccc}.fi-pending .final-item-name{color:#ccc}
+.fi-locked{border:2px solid #F5A623!important;background:#FFFBF0!important}
+.fi-locked .final-item-icon{box-shadow:0 0 0 2px #F5A62333}
+
+/* FINAL LOCK CIRCLES */
+.final-lock-circles{display:flex;gap:4px;align-items:center}
+.flc{width:18px;height:18px;border-radius:50%;border:2px solid #e0e0e0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#ddd;flex-shrink:0}
+.flc.locked{color:white;border-color:transparent}
+.flc.lc-Sammy{background:#534AB7}
+.flc.lc-Milton{background:#1D9E75}
+.flc.lc-Sofia{background:#D4537E}
+.flc.lc-Dua{background:#EF9F27}
+.final-lock-icon{font-size:16px;margin-left:2px}
 @media(max-width:400px){.top-bar-title{font-size:14px}.nav-tab{padding:10px 9px;font-size:11px}}
 </style>
 </head>
@@ -336,7 +370,8 @@ let cun=null,amc=null,vmc=null,ao={},us=[];
 const ge=id=>document.getElementById(id);
 const cs=o=>{if(!o.votes||!Object.keys(o.votes).length)return null;const v=Object.values(o.votes);return(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)};
 const gso=(did,st)=>Object.values(ao).filter(o=>o.dayId===did&&o.slotType===st);
-const getBest=opts=>{if(!opts.length)return null;return [...opts].sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0]};
+const getBest=opts=>{if(!opts.length)return null;return[...opts].sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0]};
+const isFullyLocked=o=>o.lockedBy&&USERS.every(u=>o.lockedBy[u]);
 const toast=msg=>{const t=ge("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)};
 
 window.toggleDetails=function(id){
@@ -352,12 +387,66 @@ window.deleteOption=async function(id){
   catch(e){toast("Error: "+e.message)}
 };
 
+window.toggleLock=async function(optId){
+  const opt=ao[optId];if(!opt||!cun)return;
+  const alreadyLocked=opt.lockedBy&&opt.lockedBy[cun];
+  try{
+    await updateDoc(doc(db,"options",optId),{[`lockedBy.${cun}`]:alreadyLocked?null:true});
+    if(!alreadyLocked){
+      const newLocked={...((opt.lockedBy)||{}), [cun]:true};
+      if(USERS.every(u=>newLocked[u]))toast("\uD83D\uDD12 Locked in by everyone! \uD83C\uDF89");
+      else toast("\uD83D\uDD12 You locked in!");
+    } else {
+      toast("Lock removed");
+    }
+  }catch(e){toast("Error: "+e.message)}
+};
+
+function buildLockRow(opt){
+  const lockedBy=opt.lockedBy||{};
+  const allLocked=isFullyLocked(opt);
+  const row=document.createElement("div");
+  row.className="lock-row";
+
+  const circles=document.createElement("div");
+  circles.className="lock-circles";
+
+  USERS.forEach(name=>{
+    const locked=!!(lockedBy[name]);
+    const c=document.createElement("div");
+    c.className="lock-circle"+(locked?` locked lc-${name}`:"")+(name===cun?" mine":"");
+    c.title=locked?`${name} locked in`:`${name} hasn't locked in`;
+    c.textContent=name[0];
+    if(name===cun){
+      c.addEventListener("click",e=>{e.stopPropagation();window.toggleLock(opt.id)});
+    }
+    circles.appendChild(c);
+  });
+
+  const lockIcon=document.createElement("span");
+  lockIcon.className="lock-icon"+(allLocked?" all-locked":"");
+  lockIcon.textContent=allLocked?"\uD83D\uDD12":"\uD83D\uDD13";
+
+  const label=document.createElement("span");
+  label.className="lock-label";
+  const lockedCount=USERS.filter(u=>lockedBy[u]).length;
+  label.textContent=allLocked?"Confirmed!":`${lockedCount}/4 confirmed`;
+  if(allLocked){label.style.color="#F5A623";label.style.fontWeight="600";}
+
+  row.appendChild(circles);
+  row.appendChild(lockIcon);
+  row.appendChild(label);
+  return row;
+}
+
 function buildOptCard(opt,did,st,isW){
   const score=cs(opt);
   const hasExtra=!!(opt.link||opt.notes||opt.addedBy);
   const isMine=opt.addedBy===cun;
+  const locked=isFullyLocked(opt);
+
   const el=document.createElement("div");
-  el.className="opt-card"+(isW?" winner":"");
+  el.className="opt-card"+(locked?" locked-in":isW?" winner":"");
 
   const row=document.createElement("div");
   row.className="opt-row";
@@ -395,6 +484,8 @@ function buildOptCard(opt,did,st,isW){
     if(opt.addedBy){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">By</span><span>${opt.addedBy}</span>`;det.appendChild(r);}
     el.appendChild(det);
   }
+
+  el.appendChild(buildLockRow(opt));
   return el;
 }
 
@@ -420,7 +511,6 @@ ge("logout-btn").addEventListener("click",()=>{
   USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity="1"});
 });
 
-// TABS
 const ALL_TABS=["itinerary","hotels","restaurants","activities","leaderboard","final"];
 document.querySelectorAll(".nav-tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
@@ -431,7 +521,6 @@ document.querySelectorAll(".nav-tab").forEach(tab=>{
   });
 });
 
-// MODALS
 ge("cancel-add").addEventListener("click",closeAdd);
 ge("submit-add").addEventListener("click",submitAdd);
 ge("add-modal").addEventListener("click",e=>{if(e.target===ge("add-modal"))closeAdd()});
@@ -466,7 +555,6 @@ function updateStats(){
   ge("stat-votes").textContent=v;
 }
 
-// ITINERARY
 function renderItinerary(){
   const c=ge("itinerary-list");c.innerHTML="";
   TRIP.forEach(seg=>{
@@ -477,6 +565,9 @@ function renderItinerary(){
       const mealOpts=["Breakfast","Lunch","Dinner"].flatMap(st=>gso(day.id,st));
       const actOpts=gso(day.id,"Activity");
       const topHotel=getBest(hotelOpts),topMeal=getBest(mealOpts),topAct=getBest(actOpts);
+      const hotelLocked=topHotel&&isFullyLocked(topHotel);
+      const mealLocked=topMeal&&isFullyLocked(topMeal);
+      const actLocked=topAct&&isFullyLocked(topAct);
 
       const card=document.createElement("div");card.className="day-card";
       card.innerHTML=`
@@ -485,22 +576,22 @@ function renderItinerary(){
           <div class="day-badge">${day.badge}</div>
         </div>
         <div class="day-boxes">
-          <div class="day-box" id="box-hotel-${day.id}">
-            <div class="day-box-icon">\uD83C\uDFE8</div>
+          <div class="day-box${hotelLocked?" locked-in":""}" id="box-hotel-${day.id}" style="${hotelLocked?"border-color:#F5A623;background:#FFFBF0":""}">
+            <div class="day-box-icon">${hotelLocked?"\uD83D\uDD12":"\uD83C\uDFE8"}</div>
             <div class="day-box-label">Hotel</div>
             <div class="day-box-count">${hotelOpts.length} option${hotelOpts.length!==1?"s":""}</div>
             ${topHotel?`<div class="day-box-winner">${topHotel.name}</div>`:""}
             ${topHotel&&cs(topHotel)?`<div class="day-box-score">${cs(topHotel)}</div>`:""}
           </div>
-          <div class="day-box" id="box-meals-${day.id}">
-            <div class="day-box-icon">\uD83C\uDF7D\uFE0F</div>
+          <div class="day-box${mealLocked?" locked-in":""}" id="box-meals-${day.id}" style="${mealLocked?"border-color:#F5A623;background:#FFFBF0":""}">
+            <div class="day-box-icon">${mealLocked?"\uD83D\uDD12":"\uD83C\uDF7D\uFE0F"}</div>
             <div class="day-box-label">Meals</div>
             <div class="day-box-count">${mealOpts.length} option${mealOpts.length!==1?"s":""}</div>
             ${topMeal?`<div class="day-box-winner">${topMeal.name}</div>`:""}
             ${topMeal&&cs(topMeal)?`<div class="day-box-score">${cs(topMeal)}</div>`:""}
           </div>
-          <div class="day-box" id="box-act-${day.id}">
-            <div class="day-box-icon">\uD83C\uDFAF</div>
+          <div class="day-box${actLocked?" locked-in":""}" id="box-act-${day.id}" style="${actLocked?"border-color:#F5A623;background:#FFFBF0":""}">
+            <div class="day-box-icon">${actLocked?"\uD83D\uDD12":"\uD83C\uDFAF"}</div>
             <div class="day-box-label">Activities</div>
             <div class="day-box-count">${actOpts.length} option${actOpts.length!==1?"s":""}</div>
             ${topAct?`<div class="day-box-winner">${topAct.name}</div>`:""}
@@ -509,18 +600,16 @@ function renderItinerary(){
         </div>`;
       c.appendChild(card);
 
-      // Hotel box
       card.querySelector("#box-hotel-"+day.id).addEventListener("click",()=>{
         if(!hotelId){toast("No hotel for this day");return}
         openDetail("\uD83C\uDFE8 Hotel",day.date+" \u2014 "+day.location,body=>{
           const opts=Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
-          if(!opts.length){body.innerHTML='<div class="empty-state">No hotel options yet</div>';}
+          if(!opts.length)body.innerHTML='<div class="empty-state">No hotel options yet</div>';
           else opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,hotelId,"Hotel",i===0&&cs(opt)!==null)));
           const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add hotel option";btn.onclick=()=>{closeDetail();openAdd(hotelId,"Hotel")};body.appendChild(btn);
         });
       });
 
-      // Meals box
       card.querySelector("#box-meals-"+day.id).addEventListener("click",()=>{
         openDetail("\uD83C\uDF7D\uFE0F Meals",day.date+" \u2014 "+day.location,body=>{
           ["Breakfast","Lunch","Dinner"].forEach(type=>{
@@ -536,11 +625,10 @@ function renderItinerary(){
         });
       });
 
-      // Activities box
       card.querySelector("#box-act-"+day.id).addEventListener("click",()=>{
         openDetail("\uD83C\uDFAF Activities",day.date+" \u2014 "+day.location,body=>{
           const opts=gso(day.id,"Activity").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
-          if(!opts.length){body.innerHTML='<div class="empty-state">No activities yet</div>';}
+          if(!opts.length)body.innerHTML='<div class="empty-state">No activities yet</div>';
           else opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,"Activity",i===0&&cs(opt)!==null)));
           const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>{closeDetail();openAdd(day.id,"Activity")};body.appendChild(btn);
         });
@@ -549,7 +637,6 @@ function renderItinerary(){
   });
 }
 
-// HOTELS TAB
 function renderHotels(){
   const c=ge("hotels-list");c.innerHTML="";let last="";
   HN.forEach(h=>{
@@ -568,7 +655,6 @@ function updateHotelSlots(){
   });
 }
 
-// RESTAURANTS TAB
 function updateRestTab(){
   const c=ge("restaurants-list");if(!c)return;c.innerHTML="";let any=false;
   TRIP.forEach(seg=>{
@@ -590,7 +676,6 @@ function updateRestTab(){
   if(!any)c.innerHTML='<div class="loading">No restaurant options yet.<br>Add them from the Itinerary tab!</div>';
 }
 
-// ACTIVITIES TAB
 function updateActTab(){
   const c=ge("activities-list");if(!c)return;c.innerHTML="";let any=false;
   TRIP.forEach(seg=>{
@@ -609,7 +694,6 @@ function updateActTab(){
   if(!any)c.innerHTML='<div class="loading">No activities yet.<br>Add them from the Itinerary tab!</div>';
 }
 
-// LEADERBOARD
 function updateLeaderboard(){
   const c=ge("leaderboard-content");if(!c)return;
   const opts=Object.values(ao);
@@ -622,9 +706,7 @@ function updateLeaderboard(){
     }
     if(opt.votes)Object.entries(opt.votes).forEach(([voter,score])=>{if(stats[voter]){stats[voter].voted++;stats[voter].totalGiven+=score;}});
   });
-  USERS.forEach(u=>{
-    stats[u].avgReceived=stats[u].votedOn>0?(stats[u].totalReceived/stats[u].votedOn).toFixed(1):null;
-  });
+  USERS.forEach(u=>{stats[u].avgReceived=stats[u].votedOn>0?(stats[u].totalReceived/stats[u].votedOn).toFixed(1):null;});
   const ranked=[...USERS].sort((a,b)=>(parseFloat(stats[b].avgReceived||0))-(parseFloat(stats[a].avgReceived||0)));
   c.innerHTML="";
   const totalOpts=opts.length,totalVotes=opts.reduce((s,o)=>s+(o.votes?Object.keys(o.votes).length:0),0);
@@ -646,8 +728,9 @@ function updateLeaderboard(){
     card.innerHTML=`<div class="lb-section-title" style="color:${UC[name]}">${name}'s suggestions</div>`;
     myOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach(opt=>{
       const score=cs(opt),vc=opt.votes?Object.keys(opt.votes).length:0;
+      const locked=isFullyLocked(opt);
       const row=document.createElement("div");row.style.cssText="display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid #f5f5f5;font-size:13px";
-      row.innerHTML=`<div style="flex:1;font-weight:500">${opt.name}</div><div style="font-size:11px;color:#aaa">${vc}/4 votes</div><div style="font-weight:700;color:${UC[name]};min-width:32px;text-align:right">${score||"\u2014"}</div>`;
+      row.innerHTML=`<div style="flex:1;font-weight:500">${opt.name}${locked?' \uD83D\uDD12':''}</div><div style="font-size:11px;color:#aaa">${vc}/4 votes</div><div style="font-weight:700;color:${UC[name]};min-width:32px;text-align:right">${score||"\u2014"}</div>`;
       card.appendChild(row);
     });
     c.appendChild(card);
@@ -655,48 +738,54 @@ function updateLeaderboard(){
   if(!opts.length)c.innerHTML='<div class="loading">No options yet.<br>Start adding from the Itinerary tab!</div>';
 }
 
-// FINAL PLAN
 function updateFinalPlan(){
   const c=ge("final-content");if(!c)return;c.innerHTML="";
-
   const hero=document.createElement("div");hero.className="final-hero";
-  hero.innerHTML=`
-    <h1>&#127470;&#127481; Italy + &#127468;&#127479; Mykonos</h1>
-    <p>Summer 2026 &middot; The Final Plan</p>
-    <div class="final-hero-dates">
-      <div class="final-hero-date"><div class="final-hero-date-num">July 19</div><div class="final-hero-date-label">Departure</div></div>
-      <div class="final-hero-date"><div class="final-hero-date-num">12</div><div class="final-hero-date-label">Days</div></div>
-      <div class="final-hero-date"><div class="final-hero-date-num">July 30</div><div class="final-hero-date-label">Return</div></div>
-    </div>
-    <div class="final-travelers">
-      <div class="final-traveler"><div class="final-traveler-av av-Sammy">S</div><span class="final-traveler-name">Sammy</span></div>
-      <div class="final-traveler"><div class="final-traveler-av av-Milton">M</div><span class="final-traveler-name">Milton</span></div>
-      <div class="final-traveler"><div class="final-traveler-av av-Sofia">So</div><span class="final-traveler-name">Sofia</span></div>
-      <div class="final-traveler"><div class="final-traveler-av av-Dua">D</div><span class="final-traveler-name">Dua</span></div>
-    </div>`;
+  hero.innerHTML=`<h1>&#127470;&#127481; Italy + &#127468;&#127479; Mykonos</h1><p>Summer 2026 &middot; The Final Plan</p><div class="final-hero-dates"><div><div class="final-hero-date-num">July 19</div><div class="final-hero-date-label">Departure</div></div><div><div class="final-hero-date-num">12</div><div class="final-hero-date-label">Days</div></div><div><div class="final-hero-date-num">July 30</div><div class="final-hero-date-label">Return</div></div></div><div class="final-travelers"><div class="final-traveler"><div class="final-traveler-av av-Sammy">S</div><span class="final-traveler-name">Sammy</span></div><div class="final-traveler"><div class="final-traveler-av av-Milton">M</div><span class="final-traveler-name">Milton</span></div><div class="final-traveler"><div class="final-traveler-av av-Sofia">So</div><span class="final-traveler-name">Sofia</span></div><div class="final-traveler"><div class="final-traveler-av av-Dua">D</div><span class="final-traveler-name">Dua</span></div></div>`;
   c.appendChild(hero);
 
   function makeFinalItem(typeClass,icon,label,opt){
     const el=document.createElement("div");
     if(opt){
-      el.className=`final-item ${typeClass}`;
       const score=cs(opt);
-      el.innerHTML=`
-        <div class="final-item-icon">${icon}</div>
-        <div class="final-item-info">
-          <div class="final-item-label">${label}</div>
-          <div class="final-item-name">${opt.name}</div>
-          <div class="final-item-sub">${score?"Score: "+score+" \u00b7 ":""}${opt.addedBy?"Added by "+opt.addedBy:""}</div>
-        </div>
-        <div class="final-item-score">${score||""}</div>`;
+      const locked=isFullyLocked(opt);
+      const lockedBy=opt.lockedBy||{};
+      const lockedCount=USERS.filter(u=>lockedBy[u]).length;
+      el.className=`final-item ${typeClass}${locked?" fi-locked":""}`;
+
+      const iconDiv=document.createElement("div");iconDiv.className="final-item-icon";iconDiv.textContent=locked?"\uD83D\uDD12":icon;
+      const info=document.createElement("div");info.className="final-item-info";
+      info.innerHTML=`<div class="final-item-label">${label}</div><div class="final-item-name">${opt.name}</div><div class="final-item-sub">${score?"Score: "+score+"\u2009\u00b7\u2009":""}${opt.addedBy?"Added by "+opt.addedBy:""}</div>`;
+
+      const right=document.createElement("div");right.className="final-item-right";
+
+      // Lock circles
+      const circles=document.createElement("div");circles.className="final-lock-circles";
+      USERS.forEach(name=>{
+        const isLocked=!!(lockedBy[name]);
+        const dot=document.createElement("div");
+        dot.className="flc"+(isLocked?` locked lc-${name}`:"");
+        dot.title=isLocked?`${name} confirmed`:`${name} hasn't confirmed`;
+        dot.textContent=name[0];
+        circles.appendChild(dot);
+      });
+
+      const lockIcon=document.createElement("span");
+      lockIcon.className="final-lock-icon";
+      lockIcon.textContent=locked?"\uD83D\uDD12":"\uD83D\uDD13";
+      lockIcon.style.filter=locked?"drop-shadow(0 0 3px #F5A623)":"none";
+      lockIcon.title=locked?"All confirmed!":lockedCount+"/4 confirmed";
+
+      if(score){const sc=document.createElement("span");sc.className="final-item-score";sc.textContent=score;right.appendChild(sc);}
+      right.appendChild(circles);
+      right.appendChild(lockIcon);
+
+      el.appendChild(iconDiv);
+      el.appendChild(info);
+      el.appendChild(right);
     } else {
       el.className="final-item fi-pending";
-      el.innerHTML=`
-        <div class="final-item-icon">&#8230;</div>
-        <div class="final-item-info">
-          <div class="final-item-label">${label}</div>
-          <div class="final-item-pending">Not selected yet</div>
-        </div>`;
+      el.innerHTML=`<div class="final-item-icon">\u2026</div><div class="final-item-info"><div class="final-item-label">${label}</div><div class="final-item-pending">Not selected yet</div></div>`;
     }
     return el;
   }
@@ -704,46 +793,23 @@ function updateFinalPlan(){
   TRIP.forEach(seg=>{
     const segEl=document.createElement("div");segEl.className="final-segment";
     segEl.innerHTML=`<div class="final-segment-header"><div class="final-segment-line"></div><div class="final-segment-label">${seg.segment}</div><div class="final-segment-line"></div></div>`;
-
     seg.days.forEach(day=>{
       const dayEl=document.createElement("div");dayEl.className="final-day";
       dayEl.innerHTML=`<div class="final-day-header"><div><div class="final-day-date">${day.date}</div><div class="final-day-location">${day.location}</div></div><div class="final-day-badge">${day.badge}</div></div>`;
       const items=document.createElement("div");items.className="final-items";
-
-      // Hotel
       const hotelId=HN_MAP[day.id];
-      if(hotelId){
-        const hotelOpts=Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel");
-        items.appendChild(makeFinalItem("fi-hotel","\uD83C\uDFE8","Hotel",getBest(hotelOpts)));
-      }
-
-      // Breakfast
-      const topB=getBest(gso(day.id,"Breakfast"));
-      if(topB)items.appendChild(makeFinalItem("fi-meal","\uD83C\uDF05","Breakfast",topB));
-
-      // Lunch
-      const topL=getBest(gso(day.id,"Lunch"));
-      if(topL)items.appendChild(makeFinalItem("fi-meal","\u2600\uFE0F","Lunch",topL));
-
-      // Dinner
-      const topD=getBest(gso(day.id,"Dinner"));
-      if(topD)items.appendChild(makeFinalItem("fi-meal","\uD83C\uDF19","Dinner",topD));
-
-      // Show pending meals row only if none added
+      if(hotelId){const opts=Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel");items.appendChild(makeFinalItem("fi-hotel","\uD83C\uDFE8","Hotel",getBest(opts)));}
+      const topB=getBest(gso(day.id,"Breakfast"));if(topB)items.appendChild(makeFinalItem("fi-meal","\uD83C\uDF05","Breakfast",topB));
+      const topL=getBest(gso(day.id,"Lunch"));if(topL)items.appendChild(makeFinalItem("fi-meal","\u2600\uFE0F","Lunch",topL));
+      const topD=getBest(gso(day.id,"Dinner"));if(topD)items.appendChild(makeFinalItem("fi-meal","\uD83C\uDF19","Dinner",topD));
       if(!topB&&!topL&&!topD)items.appendChild(makeFinalItem("fi-meal","\uD83C\uDF7D\uFE0F","Meals",null));
-
-      // Activity
-      const topA=getBest(gso(day.id,"Activity"));
-      items.appendChild(makeFinalItem("fi-act","\uD83C\uDFAF","Activity",topA));
-
-      dayEl.appendChild(items);
-      segEl.appendChild(dayEl);
+      const topA=getBest(gso(day.id,"Activity"));items.appendChild(makeFinalItem("fi-act","\uD83C\uDFAF","Activity",topA));
+      dayEl.appendChild(items);segEl.appendChild(dayEl);
     });
     c.appendChild(segEl);
   });
 }
 
-// ADD MODAL
 window.openAdd=function(did,st){
   amc={did,st};
   const titles={Hotel:"Add Hotel Option",Breakfast:"Add Breakfast",Lunch:"Add Lunch",Dinner:"Add Dinner",Activity:"Add Activity"};
@@ -756,11 +822,10 @@ function closeAdd(){ge("add-modal").classList.add("hidden");amc=null}
 async function submitAdd(){
   const name=ge("add-name").value.trim();if(!name){toast("Please enter a name");return}
   const link=ge("add-link").value.trim(),notes=ge("add-notes").value.trim();if(!amc)return;
-  try{await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,addedBy:cun,votes:{},createdAt:serverTimestamp()});closeAdd();toast("Added! \u2713");}
+  try{await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,addedBy:cun,votes:{},lockedBy:{},createdAt:serverTimestamp()});closeAdd();toast("Added! \u2713");}
   catch(e){toast("Error: "+e.message)}
 }
 
-// VOTE MODAL
 window.openVote=function(did,st){
   vmc={did,st};
   const opts=st==="Hotel"?Object.values(ao).filter(o=>o.dayId===did&&o.slotType==="Hotel"):gso(did,st);
