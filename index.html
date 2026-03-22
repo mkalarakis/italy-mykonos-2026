@@ -37,30 +37,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .nav-tabs{background:white;border-bottom:1px solid #ebebeb;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .nav-tabs::-webkit-scrollbar{display:none}
 .nav-tabs-inner{max-width:900px;margin:0 auto;display:flex;padding:0 1rem}
-.nav-tab{padding:12px 14px;font-size:13px;font-weight:500;color:#888;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+.nav-tab{padding:12px 13px;font-size:13px;font-weight:500;color:#888;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
 .nav-tab.active{color:#534AB7;border-bottom-color:#534AB7}
 .nav-tab:hover{color:#534AB7}
 .main{max-width:900px;margin:0 auto;padding:1.25rem 1rem}
 .hidden{display:none!important}
 .section-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#888;margin:1.5rem 0 .75rem}
 .section-label:first-child{margin-top:0}
-
-/* DAY CARDS - CLEAN VIEW */
 .day-card{background:white;border-radius:14px;border:1px solid #ebebeb;margin-bottom:12px;overflow:hidden}
 .day-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #f0f0f0}
 .day-header-left h3{font-size:14px;font-weight:600}
 .day-header-left p{font-size:12px;color:#888;margin-top:2px}
 .day-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:#EEEDFE;color:#3C3489;font-weight:500}
 .day-boxes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px 12px}
-.day-box{border:1px solid #ebebeb;border-radius:10px;padding:10px 12px;cursor:pointer;transition:all .15s;background:#fafafa;position:relative}
+.day-box{border:1px solid #ebebeb;border-radius:10px;padding:10px 12px;cursor:pointer;transition:all .15s;background:#fafafa;position:relative;min-height:80px}
 .day-box:hover{border-color:#534AB7;background:#f5f4ff}
 .day-box-icon{font-size:20px;margin-bottom:4px}
 .day-box-label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.05em}
 .day-box-count{font-size:11px;color:#aaa;margin-top:2px}
 .day-box-winner{font-size:11px;font-weight:600;color:#0F6E56;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .day-box-score{position:absolute;top:8px;right:8px;font-size:11px;font-weight:700;padding:2px 6px;border-radius:20px;background:#E1F5EE;color:#0F6E56}
-
-/* DETAIL PANEL */
 .detail-panel{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:flex-end;justify-content:center}
 @media(min-width:600px){.detail-panel{align-items:center}}
 .detail-sheet{background:white;border-radius:20px 20px 0 0;width:100%;max-width:560px;max-height:85vh;overflow-y:auto;display:flex;flex-direction:column}
@@ -68,13 +64,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .detail-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #f0f0f0;position:sticky;top:0;background:white;z-index:1}
 .detail-title{font-size:17px;font-weight:700}
 .detail-subtitle{font-size:12px;color:#888;margin-top:2px}
-.detail-close{background:none;border:none;font-size:20px;cursor:pointer;color:#aaa;padding:2px 6px;border-radius:6px}
+.detail-close{background:none;border:none;font-size:20px;cursor:pointer;color:#aaa;padding:2px 8px;border-radius:6px}
 .detail-close:hover{background:#f5f5f5;color:#333}
 .detail-body{padding:16px 20px;flex:1}
 .detail-section{margin-bottom:16px}
 .detail-section-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#aaa;margin-bottom:8px}
-
-/* OPTION CARDS */
 .opt-card{background:white;border:1px solid #ebebeb;border-radius:8px;overflow:hidden;margin-bottom:6px}
 .opt-card.winner{border-color:#1D9E75}
 .opt-row{display:flex;align-items:center;gap:6px;padding:8px 10px;cursor:pointer}
@@ -96,17 +90,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .add-option-btn{width:100%;margin-top:8px;padding:8px;background:none;border:1px dashed #ccc;border-radius:8px;font-size:13px;color:#888;cursor:pointer}
 .add-option-btn:hover{border-color:#534AB7;color:#534AB7}
 .empty-state{text-align:center;padding:1.5rem;color:#bbb;font-size:13px}
-
-/* HOTEL / REST / ACT TABS */
 .hotel-card{background:white;border-radius:14px;border:1px solid #ebebeb;margin-bottom:10px;overflow:hidden}
-.hotel-header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #f0f0f0;cursor:pointer}
+.hotel-header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #f0f0f0}
 .hotel-icon{width:36px;height:36px;border-radius:10px;background:#EEEDFE;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .hotel-header-text{flex:1}
 .hotel-header-text h3{font-size:14px;font-weight:600}
 .hotel-header-text p{font-size:12px;color:#888;margin-top:2px}
 .hotel-body{padding:12px 16px}
-
-/* VOTE MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:999;display:flex;align-items:flex-end;justify-content:center}
 @media(min-width:600px){.modal-overlay{align-items:center}}
 .modal{background:white;border-radius:20px 20px 0 0;padding:1.5rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
@@ -138,8 +128,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .summary-stats{display:flex;gap:1.5rem;margin-top:1rem}
 .stat-num{font-size:22px;font-weight:700}
 .stat-label{font-size:11px;opacity:.8}
-
-/* LEADERBOARD */
 .lb-card{background:white;border-radius:14px;border:1px solid #ebebeb;margin-bottom:12px;overflow:hidden}
 .lb-person{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #f5f5f5}
 .lb-person:last-child{border-bottom:none}
@@ -161,7 +149,39 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .lb-stat:last-child{border-right:none}
 .lb-stat-num{font-size:18px;font-weight:700;color:#534AB7}
 .lb-stat-lbl{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-@media(max-width:400px){.top-bar-title{font-size:14px}.nav-tab{padding:10px 10px;font-size:12px}}
+.final-hero{background:linear-gradient(135deg,#0f0c29 0%,#302b63 50%,#24243e 100%);border-radius:16px;padding:2rem 1.5rem;color:white;margin-bottom:1.5rem;text-align:center}
+.final-hero h1{font-size:26px;font-weight:700;letter-spacing:-.5px}
+.final-hero p{font-size:14px;opacity:.65;margin-top:6px}
+.final-hero-dates{display:flex;justify-content:center;gap:2rem;margin-top:1.25rem}
+.final-hero-date-num{font-size:20px;font-weight:700}
+.final-hero-date-label{font-size:10px;opacity:.55;text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.final-travelers{display:flex;justify-content:center;gap:14px;margin-top:1.25rem}
+.final-traveler{display:flex;flex-direction:column;align-items:center;gap:4px}
+.final-traveler-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;border:2px solid rgba(255,255,255,.25)}
+.final-traveler-name{font-size:10px;opacity:.65}
+.final-segment{margin-bottom:2rem}
+.final-segment-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.final-segment-line{flex:1;height:1px;background:#e0e0e0}
+.final-segment-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#aaa;white-space:nowrap}
+.final-day{background:white;border-radius:14px;border:1px solid #ebebeb;margin-bottom:10px;overflow:hidden}
+.final-day-header{padding:12px 16px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;justify-content:space-between}
+.final-day-date{font-size:13px;font-weight:700}
+.final-day-location{font-size:12px;color:#888;margin-top:1px}
+.final-day-badge{font-size:10px;padding:3px 9px;border-radius:20px;background:#f0f0f0;color:#888;font-weight:600}
+.final-items{padding:8px 12px;display:flex;flex-direction:column;gap:5px}
+.final-item{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px}
+.final-item-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.final-item-info{flex:1;min-width:0}
+.final-item-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.final-item-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.final-item-sub{font-size:11px;color:#aaa;margin-top:1px}
+.final-item-score{font-size:13px;font-weight:700;flex-shrink:0}
+.final-item-pending{font-size:12px;font-style:italic;color:#ccc}
+.fi-hotel{background:#E8F8F2}.fi-hotel .final-item-icon{background:#1D9E75;color:white}.fi-hotel .final-item-label{color:#1D9E75}.fi-hotel .final-item-score{color:#1D9E75}
+.fi-meal{background:#EEEDFE}.fi-meal .final-item-icon{background:#534AB7;color:white}.fi-meal .final-item-label{color:#534AB7}.fi-meal .final-item-score{color:#534AB7}
+.fi-act{background:#FEF6E8}.fi-act .final-item-icon{background:#EF9F27;color:white}.fi-act .final-item-label{color:#EF9F27}.fi-act .final-item-score{color:#EF9F27}
+.fi-pending{background:#f9f9f9}.fi-pending .final-item-icon{background:#ebebeb;color:#ccc}.fi-pending .final-item-label{color:#ccc}.fi-pending .final-item-name{color:#ccc}
+@media(max-width:400px){.top-bar-title{font-size:14px}.nav-tab{padding:10px 9px;font-size:11px}}
 </style>
 </head>
 <body>
@@ -207,6 +227,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="nav-tab" data-tab="restaurants">Restaurants</div>
       <div class="nav-tab" data-tab="activities">Activities</div>
       <div class="nav-tab" data-tab="leaderboard">&#127942; Scores</div>
+      <div class="nav-tab" data-tab="final">&#10024; Final Plan</div>
     </div>
   </div>
   <div class="main">
@@ -226,10 +247,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div id="tab-restaurants" class="hidden"><div id="restaurants-list"></div></div>
     <div id="tab-activities" class="hidden"><div id="activities-list"></div></div>
     <div id="tab-leaderboard" class="hidden"><div id="leaderboard-content"></div></div>
+    <div id="tab-final" class="hidden"><div id="final-content"></div></div>
   </div>
 </div>
 
-<!-- DETAIL PANEL -->
 <div id="detail-panel" class="detail-panel hidden">
   <div class="detail-sheet">
     <div class="detail-header">
@@ -243,7 +264,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- ADD MODAL -->
 <div id="add-modal" class="modal-overlay hidden">
   <div class="modal">
     <h2 id="add-modal-title">Add Option</h2>
@@ -257,7 +277,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- VOTE MODAL -->
 <div id="vote-modal" class="modal-overlay hidden">
   <div class="modal">
     <h2 id="vote-modal-title">Vote</h2>
@@ -280,13 +299,13 @@ const fa=initializeApp(fc),db=getFirestore(fa);
 
 const UM={sammy:{p:"Sammy2026",name:"Sammy"},milton:{p:"Milton2026",name:"Milton"},sofia:{p:"Sofia2026",name:"Sofia"},dua:{p:"Dua2026",name:"Dua"}};
 const USERS=["Sammy","Milton","Sofia","Dua"];
-const USER_COLORS={Sammy:"#534AB7",Milton:"#1D9E75",Sofia:"#D4537E",Dua:"#EF9F27"};
+const UC={Sammy:"#534AB7",Milton:"#1D9E75",Sofia:"#D4537E",Dua:"#EF9F27"};
 
 const TRIP=[
   {segment:"Italy \u00b7 July 19\u201325",days:[
     {id:"day1",date:"Sun July 19",location:"Rome",note:"Arrive midday by flight",badge:"Day 1"},
     {id:"day2",date:"Mon July 20",location:"Florence",note:"Morning train from Rome",badge:"Day 2"},
-    {id:"day3",date:"Tue July 21",location:"Naples \u2192 Amalfi Coast",note:"Train to Naples, lunch, then Sorrento/Positano/Amalfi",badge:"Day 3"},
+    {id:"day3",date:"Tue July 21",location:"Naples \u2192 Amalfi Coast",note:"Train to Naples, lunch, Sorrento/Positano/Amalfi",badge:"Day 3"},
     {id:"day4",date:"Wed July 22",location:"Amalfi Coast",note:"Sorrento / Positano / Amalfi",badge:"Day 4"},
     {id:"day5",date:"Thu July 23",location:"Back to Rome",note:"Morning departure from Amalfi",badge:"Day 5"},
     {id:"day6",date:"Fri July 24",location:"Rome",note:"Full day in Rome",badge:"Day 6"},
@@ -301,16 +320,7 @@ const TRIP=[
   ]}
 ];
 
-const HN_MAP={
-  day1:"hotel-rome1",day2:"hotel-florence",day3:"hotel-amalfi1",day4:"hotel-amalfi2",
-  day5:"hotel-rome2",day6:"hotel-rome3",day7:null,day8:"hotel-athens",
-  day9:"hotel-mykonos",day10:"hotel-mykonos",day11:"hotel-mykonos",day12:null
-};
-const HN_LABELS={
-  "hotel-rome1":"Rome \u2014 Night 1","hotel-florence":"Florence","hotel-amalfi1":"Amalfi Coast \u2014 Night 1",
-  "hotel-amalfi2":"Amalfi Coast \u2014 Night 2","hotel-rome2":"Rome \u2014 Night 2","hotel-rome3":"Rome \u2014 Night 3",
-  "hotel-athens":"Athens","hotel-mykonos":"Mykonos (3 nights)"
-};
+const HN_MAP={day1:"hotel-rome1",day2:"hotel-florence",day3:"hotel-amalfi1",day4:"hotel-amalfi2",day5:"hotel-rome2",day6:"hotel-rome3",day7:null,day8:"hotel-athens",day9:"hotel-mykonos",day10:"hotel-mykonos",day11:"hotel-mykonos",day12:null};
 const HN=[
   {id:"hotel-rome1",label:"Rome \u2014 Night 1",dates:"July 19",segment:"Italy"},
   {id:"hotel-florence",label:"Florence",dates:"July 20",segment:"Italy"},
@@ -326,24 +336,20 @@ let cun=null,amc=null,vmc=null,ao={},us=[];
 const ge=id=>document.getElementById(id);
 const cs=o=>{if(!o.votes||!Object.keys(o.votes).length)return null;const v=Object.values(o.votes);return(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)};
 const gso=(did,st)=>Object.values(ao).filter(o=>o.dayId===did&&o.slotType===st);
+const getBest=opts=>{if(!opts.length)return null;return [...opts].sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0]};
 const toast=msg=>{const t=ge("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)};
 
-// TOGGLE DROPDOWN DETAILS - fixed version
-window.toggleDetails=function(id,e){
-  if(e)e.stopPropagation();
-  const d=ge("det-"+id);
-  const b=ge("exp-"+id);
+window.toggleDetails=function(id){
+  const d=ge("det-"+id),b=ge("exp-"+id);
   if(!d)return;
-  const isOpen=d.classList.contains("open");
-  d.classList.toggle("open",!isOpen);
-  if(b)b.textContent=isOpen?"\u25BC":"\u25B2";
+  const open=d.classList.toggle("open");
+  if(b)b.textContent=open?"\u25B2":"\u25BC";
 };
 
-window.deleteOption=async function(id,e){
-  if(e)e.stopPropagation();
+window.deleteOption=async function(id){
   if(!confirm("Delete this option?"))return;
   try{await deleteDoc(doc(db,"options",id));toast("Deleted");}
-  catch(err){toast("Error: "+err.message)}
+  catch(e){toast("Error: "+e.message)}
 };
 
 function buildOptCard(opt,did,st,isW){
@@ -352,32 +358,43 @@ function buildOptCard(opt,did,st,isW){
   const isMine=opt.addedBy===cun;
   const el=document.createElement("div");
   el.className="opt-card"+(isW?" winner":"");
-  const detDiv=document.createElement("div");
-  detDiv.className="opt-details";
-  detDiv.id="det-"+opt.id;
-  if(opt.link)detDiv.innerHTML+=`<div class="det-row"><span class="det-lbl">Link</span><a href="${opt.link}" target="_blank" onclick="event.stopPropagation()">${opt.link}</a></div>`;
-  if(opt.notes)detDiv.innerHTML+=`<div class="det-row"><span class="det-lbl">Notes</span><span>${opt.notes}</span></div>`;
-  if(opt.addedBy)detDiv.innerHTML+=`<div class="det-row"><span class="det-lbl">By</span><span>${opt.addedBy}</span></div>`;
 
   const row=document.createElement("div");
   row.className="opt-row";
-  row.innerHTML=`<span class="opt-name" title="${opt.name}">${opt.name}</span>
-    ${score?`<span class="opt-score ${isW?"top":""}">${score}</span>`:'<span class="opt-score" style="background:#f5f5f5;color:#bbb">-</span>'}`;
+
+  const nameSpan=document.createElement("span");
+  nameSpan.className="opt-name";nameSpan.title=opt.name;nameSpan.textContent=opt.name;
+  row.appendChild(nameSpan);
+
+  const scoreSpan=document.createElement("span");
+  scoreSpan.className="opt-score"+(isW?" top":"");
+  scoreSpan.textContent=score||"-";
+  if(!score){scoreSpan.style.background="#f5f5f5";scoreSpan.style.color="#bbb";}
+  row.appendChild(scoreSpan);
+
   if(hasExtra){
     const expBtn=document.createElement("button");
     expBtn.className="opt-expand";expBtn.id="exp-"+opt.id;expBtn.textContent="\u25BC";
-    expBtn.addEventListener("click",function(e){e.stopPropagation();window.toggleDetails(opt.id);});
+    expBtn.addEventListener("click",e=>{e.stopPropagation();window.toggleDetails(opt.id)});
     row.appendChild(expBtn);
   }
   if(isMine){
     const delBtn=document.createElement("button");
     delBtn.className="opt-delete";delBtn.title="Delete";delBtn.innerHTML="&#128465;";
-    delBtn.addEventListener("click",function(e){e.stopPropagation();window.deleteOption(opt.id);});
+    delBtn.addEventListener("click",e=>{e.stopPropagation();window.deleteOption(opt.id)});
     row.appendChild(delBtn);
   }
   row.addEventListener("click",()=>openVote(did,st));
   el.appendChild(row);
-  if(hasExtra)el.appendChild(detDiv);
+
+  if(hasExtra){
+    const det=document.createElement("div");
+    det.className="opt-details";det.id="det-"+opt.id;
+    if(opt.link){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">Link</span><a href="${opt.link}" target="_blank" onclick="event.stopPropagation()">${opt.link}</a>`;det.appendChild(r);}
+    if(opt.notes){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">Notes</span><span>${opt.notes}</span>`;det.appendChild(r);}
+    if(opt.addedBy){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">By</span><span>${opt.addedBy}</span>`;det.appendChild(r);}
+    el.appendChild(det);
+  }
   return el;
 }
 
@@ -385,15 +402,13 @@ function buildOptCard(opt,did,st,isW){
 ge("login-btn").addEventListener("click",()=>{
   const u=ge("login-username").value.trim().toLowerCase();
   const p=ge("login-password").value;
-  const err=ge("login-error");
-  err.textContent="";
+  const err=ge("login-error");err.textContent="";
   const m=UM[u];
   if(!m){err.textContent="Username not found.";return}
   if(p!==m.p){err.textContent="Incorrect password.";return}
   cun=m.name;
-  ge("login-screen").style.display="none";
-  ge("app").style.display="block";
-  USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity=n===cun?"1":"0.4";});
+  ge("login-screen").style.display="none";ge("app").style.display="block";
+  USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity=n===cun?"1":"0.4"});
   initApp();
 });
 ge("login-password").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-btn").click()});
@@ -402,40 +417,35 @@ ge("logout-btn").addEventListener("click",()=>{
   cun=null;us.forEach(u=>u());us=[];
   ge("login-screen").style.display="flex";ge("app").style.display="none";
   ge("login-username").value="";ge("login-password").value="";
-  USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity="1";});
+  USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity="1"});
 });
 
-// NAV TABS
+// TABS
+const ALL_TABS=["itinerary","hotels","restaurants","activities","leaderboard","final"];
 document.querySelectorAll(".nav-tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
     document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
-    ["itinerary","hotels","restaurants","activities","leaderboard"].forEach(t=>ge("tab-"+t).classList.add("hidden"));
+    ALL_TABS.forEach(t=>ge("tab-"+t).classList.add("hidden"));
     tab.classList.add("active");
     ge("tab-"+tab.dataset.tab).classList.remove("hidden");
   });
 });
 
-// ADD MODAL
+// MODALS
 ge("cancel-add").addEventListener("click",closeAdd);
 ge("submit-add").addEventListener("click",submitAdd);
 ge("add-modal").addEventListener("click",e=>{if(e.target===ge("add-modal"))closeAdd()});
-
-// VOTE MODAL
 ge("cancel-vote").addEventListener("click",closeVote);
 ge("submit-vote").addEventListener("click",submitVotes);
 ge("vote-modal").addEventListener("click",e=>{if(e.target===ge("vote-modal"))closeVote()});
-
-// DETAIL PANEL
 ge("detail-close").addEventListener("click",closeDetail);
 ge("detail-panel").addEventListener("click",e=>{if(e.target===ge("detail-panel"))closeDetail()});
 
 function closeDetail(){ge("detail-panel").classList.add("hidden")}
-
 function openDetail(title,subtitle,bodyFn){
   ge("detail-title").textContent=title;
   ge("detail-subtitle").textContent=subtitle||"";
-  const body=ge("detail-body");
-  body.innerHTML="";
+  const body=ge("detail-body");body.innerHTML="";
   bodyFn(body);
   ge("detail-panel").classList.remove("hidden");
 }
@@ -445,7 +455,7 @@ function initApp(){renderItinerary();renderHotels();subscribe()}
 function subscribe(){
   const u=onSnapshot(collection(db,"options"),snap=>{
     ao={};snap.forEach(d=>{ao[d.id]={id:d.id,...d.data()}});
-    updateStats();renderItinerary();updateHotelSlots();updateRestTab();updateActTab();updateLeaderboard();
+    updateStats();renderItinerary();updateHotelSlots();updateRestTab();updateActTab();updateLeaderboard();updateFinalPlan();
   });
   us.push(u);
 }
@@ -456,27 +466,22 @@ function updateStats(){
   ge("stat-votes").textContent=v;
 }
 
-// ITINERARY - clean 3-box view
+// ITINERARY
 function renderItinerary(){
   const c=ge("itinerary-list");c.innerHTML="";
   TRIP.forEach(seg=>{
     const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);
     seg.days.forEach(day=>{
-      const card=document.createElement("div");card.className="day-card";
       const hotelId=HN_MAP[day.id];
       const hotelOpts=hotelId?Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"):[];
       const mealOpts=["Breakfast","Lunch","Dinner"].flatMap(st=>gso(day.id,st));
       const actOpts=gso(day.id,"Activity");
-      const topHotel=hotelOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0];
-      const topMeal=mealOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0];
-      const topAct=actOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)))[0];
+      const topHotel=getBest(hotelOpts),topMeal=getBest(mealOpts),topAct=getBest(actOpts);
 
+      const card=document.createElement("div");card.className="day-card";
       card.innerHTML=`
         <div class="day-header">
-          <div class="day-header-left">
-            <h3>${day.date} \u2014 ${day.location}</h3>
-            <p>${day.note}</p>
-          </div>
+          <div class="day-header-left"><h3>${day.date} \u2014 ${day.location}</h3><p>${day.note}</p></div>
           <div class="day-badge">${day.badge}</div>
         </div>
         <div class="day-boxes">
@@ -501,46 +506,42 @@ function renderItinerary(){
             ${topAct?`<div class="day-box-winner">${topAct.name}</div>`:""}
             ${topAct&&cs(topAct)?`<div class="day-box-score">${cs(topAct)}</div>`:""}
           </div>
-        </div>
-      `;
+        </div>`;
       c.appendChild(card);
 
-      // Hotel box click
-      const hotelBox=card.querySelector("#box-hotel-"+day.id);
-      hotelBox.addEventListener("click",()=>{
-        if(!hotelId){toast("No hotel night for this day");return}
+      // Hotel box
+      card.querySelector("#box-hotel-"+day.id).addEventListener("click",()=>{
+        if(!hotelId){toast("No hotel for this day");return}
         openDetail("\uD83C\uDFE8 Hotel",day.date+" \u2014 "+day.location,body=>{
           const opts=Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
           if(!opts.length){body.innerHTML='<div class="empty-state">No hotel options yet</div>';}
-          else{opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,hotelId,"Hotel",i===0&&cs(opt)!==null)))}
+          else opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,hotelId,"Hotel",i===0&&cs(opt)!==null)));
           const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add hotel option";btn.onclick=()=>{closeDetail();openAdd(hotelId,"Hotel")};body.appendChild(btn);
         });
       });
 
-      // Meals box click
-      const mealsBox=card.querySelector("#box-meals-"+day.id);
-      mealsBox.addEventListener("click",()=>{
+      // Meals box
+      card.querySelector("#box-meals-"+day.id).addEventListener("click",()=>{
         openDetail("\uD83C\uDF7D\uFE0F Meals",day.date+" \u2014 "+day.location,body=>{
           ["Breakfast","Lunch","Dinner"].forEach(type=>{
             const icon=type==="Breakfast"?"\uD83C\uDF05":type==="Lunch"?"\u2600\uFE0F":"\uD83C\uDF19";
             const sec=document.createElement("div");sec.className="detail-section";
             sec.innerHTML=`<div class="detail-section-title">${icon} ${type}</div>`;
             const opts=gso(day.id,type).sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
-            if(!opts.length){sec.innerHTML+=`<div class="empty-state" style="padding:.75rem 0;font-size:12px">No options yet</div>`;}
-            else{opts.forEach((opt,i)=>sec.appendChild(buildOptCard(opt,day.id,type,i===0&&cs(opt)!==null)))}
-            const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent=`+ Add ${type.toLowerCase()} option`;btn.onclick=()=>{closeDetail();openAdd(day.id,type)};sec.appendChild(btn);
+            if(!opts.length)sec.innerHTML+=`<div class="empty-state" style="padding:.5rem 0;font-size:12px">No options yet</div>`;
+            else opts.forEach((opt,i)=>sec.appendChild(buildOptCard(opt,day.id,type,i===0&&cs(opt)!==null)));
+            const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent=`+ Add ${type.toLowerCase()}`;btn.onclick=()=>{closeDetail();openAdd(day.id,type)};sec.appendChild(btn);
             body.appendChild(sec);
           });
         });
       });
 
-      // Activities box click
-      const actBox=card.querySelector("#box-act-"+day.id);
-      actBox.addEventListener("click",()=>{
+      // Activities box
+      card.querySelector("#box-act-"+day.id).addEventListener("click",()=>{
         openDetail("\uD83C\uDFAF Activities",day.date+" \u2014 "+day.location,body=>{
           const opts=gso(day.id,"Activity").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
           if(!opts.length){body.innerHTML='<div class="empty-state">No activities yet</div>';}
-          else{opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,"Activity",i===0&&cs(opt)!==null)))}
+          else opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,"Activity",i===0&&cs(opt)!==null)));
           const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>{closeDetail();openAdd(day.id,"Activity")};body.appendChild(btn);
         });
       });
@@ -558,12 +559,10 @@ function renderHotels(){
     c.appendChild(card);
   });
 }
-
 function updateHotelSlots(){
   HN.forEach(h=>{
-    const c=ge("hbody-"+h.id);if(!c)return;
+    const c=ge("hbody-"+h.id);if(!c)return;c.innerHTML="";
     const opts=Object.values(ao).filter(o=>o.dayId===h.id&&o.slotType==="Hotel").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));
-    c.innerHTML="";
     opts.forEach((opt,i)=>c.appendChild(buildOptCard(opt,h.id,"Hotel",i===0&&cs(opt)!==null)));
     const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add hotel option";btn.onclick=()=>openAdd(h.id,"Hotel");c.appendChild(btn);
   });
@@ -619,47 +618,129 @@ function updateLeaderboard(){
   opts.forEach(opt=>{
     if(opt.addedBy&&stats[opt.addedBy]){
       stats[opt.addedBy].added++;
-      if(opt.votes){
-        const vals=Object.values(opt.votes);
-        if(vals.length){stats[opt.addedBy].totalReceived+=vals.reduce((a,b)=>a+b,0)/vals.length;stats[opt.addedBy].votedOn++;}
-      }
+      if(opt.votes){const vals=Object.values(opt.votes);if(vals.length){stats[opt.addedBy].totalReceived+=vals.reduce((a,b)=>a+b,0)/vals.length;stats[opt.addedBy].votedOn++;}}
     }
-    if(opt.votes){Object.entries(opt.votes).forEach(([voter,score])=>{if(stats[voter]){stats[voter].voted++;stats[voter].totalGiven+=score;}})}
+    if(opt.votes)Object.entries(opt.votes).forEach(([voter,score])=>{if(stats[voter]){stats[voter].voted++;stats[voter].totalGiven+=score;}});
   });
   USERS.forEach(u=>{
     stats[u].avgReceived=stats[u].votedOn>0?(stats[u].totalReceived/stats[u].votedOn).toFixed(1):null;
-    stats[u].avgGiven=stats[u].voted>0?(stats[u].totalGiven/stats[u].voted).toFixed(1):null;
   });
   const ranked=[...USERS].sort((a,b)=>(parseFloat(stats[b].avgReceived||0))-(parseFloat(stats[a].avgReceived||0)));
   c.innerHTML="";
-  const rankCard=document.createElement("div");rankCard.className="lb-card";
   const totalOpts=opts.length,totalVotes=opts.reduce((s,o)=>s+(o.votes?Object.keys(o.votes).length:0),0);
+  const rankCard=document.createElement("div");rankCard.className="lb-card";
   rankCard.innerHTML=`<div class="lb-section-title">\uD83C\uDFC6 Overall Leaderboard</div><div class="lb-stat-grid"><div class="lb-stat"><div class="lb-stat-num">${totalOpts}</div><div class="lb-stat-lbl">Options</div></div><div class="lb-stat"><div class="lb-stat-num">${totalVotes}</div><div class="lb-stat-lbl">Votes cast</div></div><div class="lb-stat"><div class="lb-stat-num">${USERS.filter(u=>stats[u].voted>0).length}/4</div><div class="lb-stat-lbl">Active</div></div></div>`;
   ranked.forEach((name,i)=>{
     const s=stats[name];
-    const rankEmoji=i===0?"\uD83E\uDD47":i===1?"\uD83E\uDD48":i===2?"\uD83E\uDD49":`${i+1}`;
+    const emoji=i===0?"\uD83E\uDD47":i===1?"\uD83E\uDD48":i===2?"\uD83E\uDD49":`${i+1}`;
     const rankClass=i===0?"gold":i===1?"silver":i===2?"bronze":"";
-    const color=USER_COLORS[name];
     const barW=s.avgReceived?(parseFloat(s.avgReceived)/10*100).toFixed(0):0;
     const row=document.createElement("div");row.className="lb-person";
-    row.innerHTML=`<div class="lb-rank ${rankClass}">${rankEmoji}</div><div class="lb-avatar av-${name}">${name[0]}</div><div class="lb-info"><div class="lb-name">${name}</div><div class="lb-sub">${s.added} added &middot; ${s.voted} votes cast</div><div class="lb-bar-wrap"><div class="lb-bar" style="width:${barW}%;background:${color}"></div></div></div><div style="text-align:right"><div class="lb-score">${s.avgReceived||"\u2014"}</div><div class="lb-score-label">avg score</div></div>`;
+    row.innerHTML=`<div class="lb-rank ${rankClass}">${emoji}</div><div class="lb-avatar av-${name}">${name[0]}</div><div class="lb-info"><div class="lb-name">${name}</div><div class="lb-sub">${s.added} added &middot; ${s.voted} votes cast</div><div class="lb-bar-wrap"><div class="lb-bar" style="width:${barW}%;background:${UC[name]}"></div></div></div><div style="text-align:right"><div class="lb-score">${s.avgReceived||"\u2014"}</div><div class="lb-score-label">avg score</div></div>`;
     rankCard.appendChild(row);
   });
   c.appendChild(rankCard);
   USERS.forEach(name=>{
     const myOpts=opts.filter(o=>o.addedBy===name);if(!myOpts.length)return;
     const card=document.createElement("div");card.className="lb-card";
-    card.innerHTML=`<div class="lb-section-title" style="color:${USER_COLORS[name]}">${name}'s suggestions</div>`;
+    card.innerHTML=`<div class="lb-section-title" style="color:${UC[name]}">${name}'s suggestions</div>`;
     myOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach(opt=>{
       const score=cs(opt),vc=opt.votes?Object.keys(opt.votes).length:0;
-      const row=document.createElement("div");
-      row.style.cssText="display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid #f5f5f5;font-size:13px";
-      row.innerHTML=`<div style="flex:1;font-weight:500">${opt.name}</div><div style="font-size:11px;color:#aaa">${vc}/4 votes</div><div style="font-weight:700;color:${USER_COLORS[name]};min-width:32px;text-align:right">${score||"\u2014"}</div>`;
+      const row=document.createElement("div");row.style.cssText="display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid #f5f5f5;font-size:13px";
+      row.innerHTML=`<div style="flex:1;font-weight:500">${opt.name}</div><div style="font-size:11px;color:#aaa">${vc}/4 votes</div><div style="font-weight:700;color:${UC[name]};min-width:32px;text-align:right">${score||"\u2014"}</div>`;
       card.appendChild(row);
     });
     c.appendChild(card);
   });
   if(!opts.length)c.innerHTML='<div class="loading">No options yet.<br>Start adding from the Itinerary tab!</div>';
+}
+
+// FINAL PLAN
+function updateFinalPlan(){
+  const c=ge("final-content");if(!c)return;c.innerHTML="";
+
+  const hero=document.createElement("div");hero.className="final-hero";
+  hero.innerHTML=`
+    <h1>&#127470;&#127481; Italy + &#127468;&#127479; Mykonos</h1>
+    <p>Summer 2026 &middot; The Final Plan</p>
+    <div class="final-hero-dates">
+      <div class="final-hero-date"><div class="final-hero-date-num">July 19</div><div class="final-hero-date-label">Departure</div></div>
+      <div class="final-hero-date"><div class="final-hero-date-num">12</div><div class="final-hero-date-label">Days</div></div>
+      <div class="final-hero-date"><div class="final-hero-date-num">July 30</div><div class="final-hero-date-label">Return</div></div>
+    </div>
+    <div class="final-travelers">
+      <div class="final-traveler"><div class="final-traveler-av av-Sammy">S</div><span class="final-traveler-name">Sammy</span></div>
+      <div class="final-traveler"><div class="final-traveler-av av-Milton">M</div><span class="final-traveler-name">Milton</span></div>
+      <div class="final-traveler"><div class="final-traveler-av av-Sofia">So</div><span class="final-traveler-name">Sofia</span></div>
+      <div class="final-traveler"><div class="final-traveler-av av-Dua">D</div><span class="final-traveler-name">Dua</span></div>
+    </div>`;
+  c.appendChild(hero);
+
+  function makeFinalItem(typeClass,icon,label,opt){
+    const el=document.createElement("div");
+    if(opt){
+      el.className=`final-item ${typeClass}`;
+      const score=cs(opt);
+      el.innerHTML=`
+        <div class="final-item-icon">${icon}</div>
+        <div class="final-item-info">
+          <div class="final-item-label">${label}</div>
+          <div class="final-item-name">${opt.name}</div>
+          <div class="final-item-sub">${score?"Score: "+score+" \u00b7 ":""}${opt.addedBy?"Added by "+opt.addedBy:""}</div>
+        </div>
+        <div class="final-item-score">${score||""}</div>`;
+    } else {
+      el.className="final-item fi-pending";
+      el.innerHTML=`
+        <div class="final-item-icon">&#8230;</div>
+        <div class="final-item-info">
+          <div class="final-item-label">${label}</div>
+          <div class="final-item-pending">Not selected yet</div>
+        </div>`;
+    }
+    return el;
+  }
+
+  TRIP.forEach(seg=>{
+    const segEl=document.createElement("div");segEl.className="final-segment";
+    segEl.innerHTML=`<div class="final-segment-header"><div class="final-segment-line"></div><div class="final-segment-label">${seg.segment}</div><div class="final-segment-line"></div></div>`;
+
+    seg.days.forEach(day=>{
+      const dayEl=document.createElement("div");dayEl.className="final-day";
+      dayEl.innerHTML=`<div class="final-day-header"><div><div class="final-day-date">${day.date}</div><div class="final-day-location">${day.location}</div></div><div class="final-day-badge">${day.badge}</div></div>`;
+      const items=document.createElement("div");items.className="final-items";
+
+      // Hotel
+      const hotelId=HN_MAP[day.id];
+      if(hotelId){
+        const hotelOpts=Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel");
+        items.appendChild(makeFinalItem("fi-hotel","\uD83C\uDFE8","Hotel",getBest(hotelOpts)));
+      }
+
+      // Breakfast
+      const topB=getBest(gso(day.id,"Breakfast"));
+      if(topB)items.appendChild(makeFinalItem("fi-meal","\uD83C\uDF05","Breakfast",topB));
+
+      // Lunch
+      const topL=getBest(gso(day.id,"Lunch"));
+      if(topL)items.appendChild(makeFinalItem("fi-meal","\u2600\uFE0F","Lunch",topL));
+
+      // Dinner
+      const topD=getBest(gso(day.id,"Dinner"));
+      if(topD)items.appendChild(makeFinalItem("fi-meal","\uD83C\uDF19","Dinner",topD));
+
+      // Show pending meals row only if none added
+      if(!topB&&!topL&&!topD)items.appendChild(makeFinalItem("fi-meal","\uD83C\uDF7D\uFE0F","Meals",null));
+
+      // Activity
+      const topA=getBest(gso(day.id,"Activity"));
+      items.appendChild(makeFinalItem("fi-act","\uD83C\uDFAF","Activity",topA));
+
+      dayEl.appendChild(items);
+      segEl.appendChild(dayEl);
+    });
+    c.appendChild(segEl);
+  });
 }
 
 // ADD MODAL
@@ -673,14 +754,10 @@ window.openAdd=function(did,st){
 };
 function closeAdd(){ge("add-modal").classList.add("hidden");amc=null}
 async function submitAdd(){
-  const name=ge("add-name").value.trim();
-  if(!name){toast("Please enter a name");return}
-  const link=ge("add-link").value.trim(),notes=ge("add-notes").value.trim();
-  if(!amc)return;
-  try{
-    await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,addedBy:cun,votes:{},createdAt:serverTimestamp()});
-    closeAdd();toast("Added! \u2713");
-  }catch(e){toast("Error: "+e.message)}
+  const name=ge("add-name").value.trim();if(!name){toast("Please enter a name");return}
+  const link=ge("add-link").value.trim(),notes=ge("add-notes").value.trim();if(!amc)return;
+  try{await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,addedBy:cun,votes:{},createdAt:serverTimestamp()});closeAdd();toast("Added! \u2713");}
+  catch(e){toast("Error: "+e.message)}
 }
 
 // VOTE MODAL
@@ -703,7 +780,7 @@ window.openVote=function(did,st){
     for(let i=1;i<=10;i++){
       const s=document.createElement("div");s.className="star"+(myVote>=i?" selected":"");s.textContent=i;
       s.dataset.oid=opt.id;s.dataset.v=i;
-      s.onclick=()=>{document.querySelectorAll(`.star[data-oid="${opt.id}"]`).forEach(x=>x.classList.toggle("selected",parseInt(x.dataset.v)<=i));ge("sd-"+opt.id).textContent=i;};
+      s.onclick=()=>{document.querySelectorAll(`.star[data-oid="${opt.id}"]`).forEach(x=>x.classList.toggle("selected",parseInt(x.dataset.v)<=i));ge("sd-"+opt.id).textContent=i};
       (i<=5?r1:r2).appendChild(s);
     }
     se.appendChild(r1);se.appendChild(r2);
