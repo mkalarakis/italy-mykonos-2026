@@ -69,7 +69,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin:1.5rem 0 .75rem;display:flex;align-items:center;gap:8px}
 .section-label::after{content:"";flex:1;height:1px;background:var(--border)}
 .section-label:first-child{margin-top:0}
-/* COUNTDOWN */
+.status-bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.status-pill{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:var(--surface)}
+.status-pill.alert{border-color:#ffcc00;background:#fffbeb;color:#7a5900}
+[data-theme="dark"] .status-pill.alert{background:#2a2008;color:#f5c842}
+.status-pill.good{border-color:var(--teal);background:var(--teal-light);color:var(--green)}
+.status-pill.info{border-color:var(--purple);background:var(--purple-light);color:var(--purple)}
+.status-pill-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.new-activity-bar{background:var(--purple);color:white;border-radius:12px;padding:10px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;font-size:13px;cursor:pointer;transition:all .2s}
+.new-activity-bar:hover{background:var(--purple-dark)}
+.new-activity-bar-dismiss{background:rgba(255,255,255,.2);border:none;color:white;border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer}
 .countdown-banner{background:linear-gradient(135deg,#0f0c29 0%,#302b63 50%,#1a1040 100%);border-radius:18px;padding:1.5rem;color:white;margin-bottom:1rem;text-align:center;position:relative;overflow:hidden}
 .countdown-banner.trip-mode{background:linear-gradient(135deg,#0a3d2e 0%,#1D9E75 100%)}
 .countdown-banner.trip-over{background:linear-gradient(135deg,#2a1a08 0%,#EF9F27 100%)}
@@ -80,13 +89,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .countdown-unit{text-align:center}
 .countdown-unit-num{font-size:22px;font-weight:800;background:rgba(255,255,255,.15);border-radius:8px;padding:4px 10px;min-width:44px;display:inline-block}
 .countdown-unit-label{font-size:9px;opacity:.6;text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
-/* TODAY CARD */
 .today-card{background:var(--surface);border-radius:16px;border:2px solid var(--teal);margin-bottom:12px;overflow:hidden}
 .today-header{background:var(--teal);color:white;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
 .today-header h3{font-size:15px;font-weight:700}
 .today-header p{font-size:12px;opacity:.8;margin-top:2px}
-.today-badge{background:rgba(255,255,255,.2);font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600}
-/* BUDGET */
+.today-badge-inner{background:rgba(255,255,255,.2);font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600}
 .budget-card{background:var(--surface);border-radius:16px;border:1px solid var(--border);margin-bottom:12px;overflow:hidden}
 .budget-header{padding:14px 16px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}
 .budget-header h3{font-size:15px;font-weight:700}
@@ -96,11 +103,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .budget-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px}
 .budget-row:last-child{border-bottom:none}
 .budget-category{display:flex;align-items:center;gap:8px;color:var(--text2)}
-.budget-amount{font-weight:700;color:var(--text)}
+.budget-amount{font-weight:700}
 .budget-note{font-size:11px;color:var(--text4);margin-top:2px}
-.budget-legend{display:flex;gap:12px;padding:10px 16px;border-top:1px solid var(--border2);font-size:11px;color:var(--text3);flex-wrap:wrap}
-.budget-legend-item{display:flex;align-items:center;gap:4px}
-/* DAY CARDS */
 .day-card{background:var(--surface);border-radius:16px;border:1px solid var(--border);margin-bottom:12px;overflow:hidden;transition:box-shadow .2s}
 .day-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.06)}
 .day-card.today{border-color:var(--teal);border-width:2px}
@@ -108,7 +112,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .day-header-left h3{font-size:14px;font-weight:700}
 .day-header-left p{font-size:12px;color:var(--text3);margin-top:2px}
 .day-badge{font-size:10px;padding:3px 10px;border-radius:20px;background:var(--purple-light);color:var(--purple);font-weight:700}
-.day-badge.today-badge-pill{background:var(--teal);color:white}
+.day-badge.today-pill{background:var(--teal);color:white}
 .day-progress{height:3px;background:var(--border);overflow:hidden}
 .day-progress-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .5s}
 .day-boxes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px 12px}
@@ -126,7 +130,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .detail-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1}
 .detail-title{font-size:18px;font-weight:700}
 .detail-subtitle{font-size:12px;color:var(--text3);margin-top:2px}
-.detail-close{background:var(--surface2);border:none;font-size:16px;cursor:pointer;color:var(--text3);padding:6px 10px;border-radius:8px;transition:all .2s}
+.detail-close{background:var(--surface2);border:none;font-size:16px;cursor:pointer;color:var(--text3);padding:6px 10px;border-radius:8px}
 .detail-close:hover{background:var(--border);color:var(--text)}
 .detail-body{padding:16px 20px;flex:1}
 .detail-section{margin-bottom:18px}
@@ -135,7 +139,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .opt-card:hover{border-color:var(--purple);box-shadow:0 2px 8px rgba(83,74,183,.1)}
 .opt-card.winner{border-color:var(--teal)}
 .opt-card.locked-in{border-color:var(--gold);background:var(--gold-light)}
-.opt-row{display:flex;align-items:center;gap:6px;padding:9px 11px;cursor:pointer}
+.opt-row{display:flex;align-items:center;gap:6px;padding:9px 11px}
 .opt-card.winner .opt-row{background:var(--teal-light)}
 .opt-card.locked-in .opt-row{background:var(--gold-light)}
 .opt-name{font-size:13px;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -158,6 +162,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .opt-details a{color:var(--purple);text-decoration:none;font-size:12px;word-break:break-all}
 .det-row{display:flex;gap:8px;margin-top:5px;align-items:flex-start;font-size:12px}
 .det-lbl{font-weight:700;color:var(--text4);min-width:38px;flex-shrink:0;font-size:10px;text-transform:uppercase;padding-top:1px}
+.inline-vote{padding:8px 11px 10px;border-top:1px solid var(--border2);background:var(--surface2)}
+.inline-vote-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:6px}
+.inline-stars{display:flex;gap:3px;flex-wrap:wrap}
+.istar{width:28px;height:28px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;font-weight:700;color:var(--text4);transition:all .15s}
+.istar.selected{background:var(--purple);border-color:var(--purple);color:white}
+.istar:hover{border-color:var(--purple);color:var(--purple)}
+.inline-vote-status{font-size:11px;color:var(--text3);margin-top:6px;display:flex;align-items:center;gap:6px}
+.inline-vote-mine{font-weight:700;color:var(--purple)}
 .comments-section{border-top:1px solid var(--border2);padding:8px 11px 10px;background:var(--surface2)}
 .comment{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
 .comment-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;margin-top:1px;color:white}
@@ -211,18 +223,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .price-selector{display:flex;gap:8px;margin-top:4px}
 .price-btn{flex:1;padding:8px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;background:var(--surface);color:var(--text2);text-align:center}
 .price-btn.selected{border-color:var(--purple);background:var(--purple-light);color:var(--purple);font-weight:700}
-.vote-list{display:flex;flex-direction:column;gap:10px;margin-bottom:1rem}
-.vote-item{display:flex;align-items:flex-start;gap:12px;padding:11px 13px;border:1.5px solid var(--border);border-radius:12px;background:var(--surface2)}
-.vote-item-name{font-size:14px;font-weight:700}
-.vote-item-link{font-size:12px;color:var(--purple);text-decoration:none}
-.star{width:26px;height:26px;border-radius:6px;border:1.5px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;font-weight:700;color:var(--text4)}
-.star.selected{background:var(--purple);border-color:var(--purple);color:white}
-.vote-score-display{font-size:14px;font-weight:700;color:var(--purple);min-width:28px;text-align:center}
-.vote-progress{height:4px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden}
-.vote-progress-fill{height:100%;background:var(--purple);border-radius:2px}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:white;padding:11px 22px;border-radius:40px;font-size:13px;font-weight:500;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.3)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
-.summary-banner{background:linear-gradient(135deg,var(--purple) 0%,#3d35a0 100%);border-radius:18px;padding:1.5rem;color:white;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.summary-banner{background:linear-gradient(135deg,var(--purple) 0%,#3d35a0 100%);border-radius:18px;padding:1.5rem;color:white;margin-bottom:1rem;position:relative;overflow:hidden}
 .summary-banner::before{content:"✈️";position:absolute;right:-10px;top:-10px;font-size:80px;opacity:.15;transform:rotate(15deg)}
 .summary-banner h2{font-size:22px;font-weight:800;letter-spacing:-.5px}
 .summary-banner p{font-size:13px;opacity:.8;margin-top:4px}
@@ -326,7 +329,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </style>
 </head>
 <body>
-
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
@@ -346,7 +348,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="login-error" id="login-error"></div>
   </div>
 </div>
-
 <div id="app">
   <div class="top-bar">
     <div class="top-bar-inner">
@@ -362,7 +363,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <div class="avatar-item" id="avi-Sofia"><div class="avatar av-Sofia">So</div><span>Sofia</span></div>
           <div class="avatar-item" id="avi-Dua"><div class="avatar av-Dua">D</div><span>Dua</span></div>
         </div>
-        <button class="icon-btn" id="dark-toggle" title="Toggle dark mode">🌙</button>
+        <button class="icon-btn" id="dark-toggle">🌙</button>
         <button class="logout-btn" id="logout-btn">Sign out</button>
       </div>
     </div>
@@ -382,11 +383,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
   <div class="main">
     <div id="tab-itinerary">
-      <!-- Countdown / Trip Mode banner -->
+      <div id="new-activity-bar"></div>
       <div id="countdown-banner" class="countdown-banner"></div>
-      <!-- Budget summary -->
+      <div id="status-bar" class="status-bar"></div>
       <div id="budget-card"></div>
-      <!-- Today card shown during trip -->
       <div id="today-card"></div>
       <div class="summary-banner">
         <h2>Italy + Mykonos 2026 ✈️</h2>
@@ -410,7 +410,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div id="tab-final" class="hidden"><div id="final-content"></div></div>
   </div>
 </div>
-
 <div id="detail-panel" class="detail-panel hidden">
   <div class="detail-sheet">
     <div class="detail-header">
@@ -420,7 +419,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="detail-body" id="detail-body"></div>
   </div>
 </div>
-
 <div id="add-modal" class="modal-overlay hidden">
   <div class="modal">
     <h2 id="add-modal-title">Add Option</h2>
@@ -441,18 +439,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
-
-<div id="vote-modal" class="modal-overlay hidden">
-  <div class="modal">
-    <h2 id="vote-modal-title">Vote</h2>
-    <div class="vote-list" id="vote-list"></div>
-    <div class="modal-actions">
-      <button class="btn-secondary" id="cancel-vote">Close</button>
-      <button class="btn-primary" id="submit-vote">Save Votes</button>
-    </div>
-  </div>
-</div>
-
 <div id="pack-modal" class="modal-overlay hidden">
   <div class="modal">
     <h2>Add to Packing List</h2>
@@ -475,27 +461,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import{getFirestore,collection,addDoc,updateDoc,deleteDoc,doc,onSnapshot,serverTimestamp,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
 const fc={apiKey:"AIzaSyBXp9LcuziUEENL602m2kfl00UyI9TVpVo",authDomain:"italy-mykonos-2026.firebaseapp.com",projectId:"italy-mykonos-2026",storageBucket:"italy-mykonos-2026.firebasestorage.app",messagingSenderId:"416841631175",appId:"1:416841631175:web:3242c0c8e19eeb30c045e2"};
 const fa=initializeApp(fc),db=getFirestore(fa);
-
 const UM={sammy:{p:"Sammy2026",name:"Sammy"},milton:{p:"Milton2026",name:"Milton"},sofia:{p:"Sofia2026",name:"Sofia"},dua:{p:"Dua2026",name:"Dua"}};
 const USERS=["Sammy","Milton","Sofia","Dua"];
 const UC={Sammy:"#534AB7",Milton:"#1D9E75",Sofia:"#D4537E",Dua:"#EF9F27"};
 const CAT_ICONS={essentials:"⭐",clothes:"👕",toiletries:"🧴",electronics:"🔌",documents:"📄",logistics:"✅",other:"📦"};
 const PRICE_LABELS={1:"$",2:"$$",3:"$$$"};
-const PRICE_EST={1:30,2:80,3:180}; // estimated cost per person per item
-
-// Trip dates
 const TRIP_START=new Date("2026-07-19T00:00:00");
 const TRIP_END=new Date("2026-07-30T23:59:59");
-
 const TRIP=[
   {segment:"Italy \u00b7 July 19\u201325",days:[
     {id:"day1",date:"Sun July 19",location:"Rome",note:"Arrive midday by flight",badge:"Day 1",lat:41.9028,lng:12.4964,color:"#534AB7",tripDate:new Date("2026-07-19")},
@@ -516,7 +494,6 @@ const TRIP=[
     {id:"day12",date:"Thu July 30",location:"Mykonos \u2192 Athens",note:"Late night flight back",badge:"Day 12",lat:37.4467,lng:25.3289,color:"#D4537E",tripDate:new Date("2026-07-30")}
   ]}
 ];
-
 const ALL_DAYS=TRIP.flatMap(s=>s.days);
 const HN_MAP={day1:"hotel-rome1",day2:"hotel-florence",day3:"hotel-amalfi1",day4:"hotel-amalfi2",day5:"hotel-rome2",day6:"hotel-rome3",day7:null,day8:"hotel-athens",day9:"hotel-mykonos",day10:"hotel-mykonos",day11:"hotel-mykonos",day12:null};
 const HN=[
@@ -529,9 +506,10 @@ const HN=[
   {id:"hotel-athens",label:"Athens",dates:"July 26",segment:"Athens"},
   {id:"hotel-mykonos",label:"Mykonos",dates:"July 27\u201330 (3 nights)",segment:"Mykonos"}
 ];
-
-let cun=null,amc=null,vmc=null,ao={},packItems={},feedItems=[],us=[];
+let cun=null,amc=null,ao={},packItems={},feedItems=[],us=[];
 let selectedPrice=null,leafletMap=null,mapMarkers=[];
+let lastSeenSnapshot=parseInt(localStorage.getItem("lss")||"0");
+let newBarDismissed=false;
 const ge=id=>document.getElementById(id);
 const cs=o=>{if(!o.votes||!Object.keys(o.votes).length)return null;const v=Object.values(o.votes);return(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1)};
 const gso=(did,st)=>Object.values(ao).filter(o=>o.dayId===did&&o.slotType===st);
@@ -539,269 +517,186 @@ const getBest=opts=>{if(!opts.length)return null;return[...opts].filter(o=>!o.ve
 const isFullyLocked=o=>!!(o.lockedBy&&USERS.every(u=>o.lockedBy[u]));
 const lockedCount=o=>o.lockedBy?USERS.filter(u=>o.lockedBy[u]).length:0;
 const toast=msg=>{const t=ge("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)};
-
 let darkMode=localStorage.getItem("dark")==="1";
 function applyDark(){document.documentElement.setAttribute("data-theme",darkMode?"dark":"");ge("dark-toggle").textContent=darkMode?"☀️":"🌙"}
 applyDark();
 ge("dark-toggle").addEventListener("click",()=>{darkMode=!darkMode;localStorage.setItem("dark",darkMode?"1":"0");applyDark()});
-
 function confetti(){
   const colors=["#534AB7","#1D9E75","#D4537E","#EF9F27","#F5A623","#fff"];
-  for(let i=0;i<60;i++){
-    const el=document.createElement("div");el.className="confetti-piece";
-    el.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*6}px;height:${6+Math.random()*6}px;border-radius:${Math.random()>.5?"50%":"2px"};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s`;
-    document.body.appendChild(el);setTimeout(()=>el.remove(),3500);
-  }
+  for(let i=0;i<60;i++){const el=document.createElement("div");el.className="confetti-piece";el.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*6}px;height:${6+Math.random()*6}px;border-radius:${Math.random()>.5?"50%":"2px"};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s`;document.body.appendChild(el);setTimeout(()=>el.remove(),3500);}
 }
-
-// TRIP STATUS
 function getTripStatus(){
   const now=new Date();
-  if(now<TRIP_START){
-    const diff=TRIP_START-now;
-    const days=Math.floor(diff/(1000*60*60*24));
-    const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    const mins=Math.floor((diff%(1000*60*60))/(1000*60));
-    return{status:"before",days,hours,mins};
-  } else if(now<=TRIP_END){
-    const dayNum=Math.floor((now-TRIP_START)/(1000*60*60*24));
-    const todayDay=ALL_DAYS[Math.min(dayNum,ALL_DAYS.length-1)];
-    return{status:"during",dayNum,todayDay};
-  } else {
-    return{status:"after"};
-  }
+  if(now<TRIP_START){const diff=TRIP_START-now;return{status:"before",days:Math.floor(diff/86400000),hours:Math.floor((diff%86400000)/3600000),mins:Math.floor((diff%3600000)/60000)};}
+  else if(now<=TRIP_END){const dayNum=Math.floor((now-TRIP_START)/86400000);return{status:"during",dayNum,todayDay:ALL_DAYS[Math.min(dayNum,ALL_DAYS.length-1)]};}
+  return{status:"after"};
 }
-
 function updateCountdown(){
-  const banner=ge("countdown-banner");
-  const todayCard=ge("today-card");
-  if(!banner)return;
+  const banner=ge("countdown-banner"),todayCard=ge("today-card");if(!banner)return;
   const ts=getTripStatus();
-
   if(ts.status==="before"){
     banner.className="countdown-banner";
-    banner.innerHTML=`
-      <div class="countdown-title">✈️ Departure in</div>
-      <div class="countdown-days">${ts.days}</div>
-      <div class="countdown-sub">days to Italy + Mykonos 🇮🇹🇬🇷</div>
-      <div class="countdown-units">
-        <div class="countdown-unit"><div class="countdown-unit-num">${ts.days}</div><div class="countdown-unit-label">Days</div></div>
-        <div class="countdown-unit"><div class="countdown-unit-num">${ts.hours}</div><div class="countdown-unit-label">Hours</div></div>
-        <div class="countdown-unit"><div class="countdown-unit-num">${ts.mins}</div><div class="countdown-unit-label">Mins</div></div>
-      </div>`;
+    banner.innerHTML=`<div class="countdown-title">✈️ Departure in</div><div class="countdown-days">${ts.days}</div><div class="countdown-sub">days to Italy + Mykonos 🇮🇹🇬🇷</div><div class="countdown-units"><div class="countdown-unit"><div class="countdown-unit-num">${ts.days}</div><div class="countdown-unit-label">Days</div></div><div class="countdown-unit"><div class="countdown-unit-num">${ts.hours}</div><div class="countdown-unit-label">Hours</div></div><div class="countdown-unit"><div class="countdown-unit-num">${ts.mins}</div><div class="countdown-unit-label">Mins</div></div></div>`;
     if(todayCard)todayCard.innerHTML="";
-  } else if(ts.status==="during"){
-    banner.className="countdown-banner trip-mode";
+  }else if(ts.status==="during"){
     const day=ts.todayDay;
-    banner.innerHTML=`
-      <div class="countdown-title">🌍 You are currently in</div>
-      <div class="countdown-days" style="font-size:32px;margin-top:4px">${day.location}</div>
-      <div class="countdown-sub">${day.date} &middot; ${day.badge} of 12</div>
-      <div style="margin-top:10px;font-size:13px;opacity:.8">${day.note||"Enjoy every moment! 🎉"}</div>`;
-
-    // Today card
+    banner.className="countdown-banner trip-mode";
+    banner.innerHTML=`<div class="countdown-title">🌍 You are currently in</div><div class="countdown-days" style="font-size:32px;margin-top:4px">${day.location}</div><div class="countdown-sub">${day.date} &middot; ${day.badge} of 12</div><div style="margin-top:10px;font-size:13px;opacity:.8">${day.note||"Enjoy every moment! 🎉"}</div>`;
     if(todayCard){
       const hotelId=HN_MAP[day.id];
-      const hotelOpts=hotelId?Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"):[];
-      const topHotel=getBest(hotelOpts);
-      const topBreakfast=getBest(gso(day.id,"Breakfast"));
-      const topLunch=getBest(gso(day.id,"Lunch"));
-      const topDinner=getBest(gso(day.id,"Dinner"));
-      const topAct=getBest(gso(day.id,"Activity"));
-      let html=`<div class="today-card"><div class="today-header"><div><h3>📅 Today's Plan</h3><p>${day.date} — ${day.location}</p></div><div class="today-badge">${day.badge}</div></div><div style="padding:12px 16px;display:flex;flex-direction:column;gap:6px">`;
+      const topHotel=getBest(hotelId?Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"):[]);
+      const topB=getBest(gso(day.id,"Breakfast")),topL=getBest(gso(day.id,"Lunch")),topD=getBest(gso(day.id,"Dinner")),topA=getBest(gso(day.id,"Activity"));
+      let html=`<div class="today-card"><div class="today-header"><div><h3>📅 Today's Plan</h3><p>${day.date} — ${day.location}</p></div><div class="today-badge-inner">${day.badge}</div></div><div style="padding:12px 16px;display:flex;flex-direction:column;gap:6px">`;
       if(topHotel)html+=`<div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="font-size:18px">🏨</span><div><div style="font-weight:600">${topHotel.name}</div><div style="font-size:11px;color:var(--text3)">Tonight's hotel${isFullyLocked(topHotel)?" · ✓ Confirmed":""}</div></div></div>`;
-      if(topBreakfast)html+=`<div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="font-size:18px">🌅</span><div><div style="font-weight:600">${topBreakfast.name}</div><div style="font-size:11px;color:var(--text3)">Breakfast${isFullyLocked(topBreakfast)?" · ✓ Confirmed":""}</div></div></div>`;
-      if(topLunch)html+=`<div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="font-size:18px">☀️</span><div><div style="font-weight:600">${topLunch.name}</div><div style="font-size:11px;color:var(--text3)">Lunch${isFullyLocked(topLunch)?" · ✓ Confirmed":""}</div></div></div>`;
-      if(topDinner)html+=`<div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="font-size:18px">🌙</span><div><div style="font-weight:600">${topDinner.name}</div><div style="font-size:11px;color:var(--text3)">Dinner${isFullyLocked(topDinner)?" · ✓ Confirmed":""}</div></div></div>`;
-      if(topAct)html+=`<div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="font-size:18px">🎯</span><div><div style="font-weight:600">${topAct.name}</div><div style="font-size:11px;color:var(--text3)">Activity${isFullyLocked(topAct)?" · ✓ Confirmed":""}</div></div></div>`;
-      if(!topHotel&&!topBreakfast&&!topLunch&&!topDinner&&!topAct)html+=`<div style="color:var(--text4);font-size:13px;text-align:center;padding:8px">Nothing planned yet for today — add options!</div>`;
-      html+=`</div></div>`;
-      todayCard.innerHTML=html;
+      if(topB)html+=`<div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="font-size:18px">🌅</span><div><div style="font-weight:600">${topB.name}</div><div style="font-size:11px;color:var(--text3)">Breakfast${isFullyLocked(topB)?" · ✓ Confirmed":""}</div></div></div>`;
+      if(topL)html+=`<div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="font-size:18px">☀️</span><div><div style="font-weight:600">${topL.name}</div><div style="font-size:11px;color:var(--text3)">Lunch${isFullyLocked(topL)?" · ✓ Confirmed":""}</div></div></div>`;
+      if(topD)html+=`<div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="font-size:18px">🌙</span><div><div style="font-weight:600">${topD.name}</div><div style="font-size:11px;color:var(--text3)">Dinner${isFullyLocked(topD)?" · ✓ Confirmed":""}</div></div></div>`;
+      if(topA)html+=`<div style="display:flex;gap:10px;align-items:center;font-size:13px"><span style="font-size:18px">🎯</span><div><div style="font-weight:600">${topA.name}</div><div style="font-size:11px;color:var(--text3)">Activity${isFullyLocked(topA)?" · ✓ Confirmed":""}</div></div></div>`;
+      if(!topHotel&&!topB&&!topL&&!topD&&!topA)html+=`<div style="color:var(--text4);font-size:13px;text-align:center;padding:8px">Nothing planned for today yet!</div>`;
+      html+=`</div></div>`;todayCard.innerHTML=html;
     }
-  } else {
+  }else{
     banner.className="countdown-banner trip-over";
     banner.innerHTML=`<div class="countdown-title">🎉 Trip Complete!</div><div class="countdown-days" style="font-size:28px;margin-top:8px">Italy + Mykonos 2026</div><div class="countdown-sub" style="margin-top:8px">What an incredible trip 🥂</div>`;
     if(todayCard)todayCard.innerHTML="";
   }
 }
-
-// BUDGET CALCULATOR
+setInterval(updateCountdown,60000);
+function updateStatusBar(){
+  const bar=ge("status-bar");if(!bar)return;
+  const opts=Object.values(ao);
+  const locked=opts.filter(o=>isFullyLocked(o)).length;
+  const unvoted=opts.filter(o=>!o.vetoed&&(!o.votes||!o.votes[cun])).length;
+  let emptySlots=0;
+  ALL_DAYS.forEach(day=>{
+    const hotelId=HN_MAP[day.id];
+    if(hotelId&&!Object.values(ao).some(o=>o.dayId===hotelId&&o.slotType==="Hotel"))emptySlots++;
+    if(!gso(day.id,"Breakfast").length&&!gso(day.id,"Lunch").length&&!gso(day.id,"Dinner").length)emptySlots++;
+    if(!gso(day.id,"Activity").length)emptySlots++;
+  });
+  bar.innerHTML="";
+  if(emptySlots>0){const p=document.createElement("div");p.className="status-pill alert";p.innerHTML=`<div class="status-pill-dot" style="background:#F5A623"></div>${emptySlots} slot${emptySlots!==1?"s":""} need options`;bar.appendChild(p);}
+  if(unvoted>0){const p=document.createElement("div");p.className="status-pill info";p.innerHTML=`<div class="status-pill-dot" style="background:var(--purple)"></div>${unvoted} waiting for your vote`;bar.appendChild(p);}
+  if(opts.length>0&&locked<opts.length){const p=document.createElement("div");p.className="status-pill";p.innerHTML=`<div class="status-pill-dot" style="background:var(--teal)"></div>${locked} of ${opts.length} confirmed`;bar.appendChild(p);}
+  if(opts.length>0&&locked===opts.length){const p=document.createElement("div");p.className="status-pill good";p.innerHTML=`<div class="status-pill-dot" style="background:var(--teal)"></div>All ${opts.length} confirmed 🎉`;bar.appendChild(p);}
+}
+function updateNewActivityBar(){
+  const bar=ge("new-activity-bar");if(!bar||newBarDismissed)return;
+  const opts=Object.values(ao);
+  // Count total activity: options + votes + locks
+  let currentTotal=opts.length;
+  opts.forEach(o=>{
+    if(o.votes)currentTotal+=Object.keys(o.votes).length;
+    if(o.lockedBy)currentTotal+=Object.values(o.lockedBy).filter(Boolean).length;
+  });
+  const newCount=currentTotal-lastSeenSnapshot;
+  if(newCount>0){
+    bar.innerHTML=`<span>🔔 <strong>${newCount} new update${newCount!==1?"s":""}</strong> since you last visited</span><button class="new-activity-bar-dismiss" id="dismiss-new">Got it ✓</button>`;
+    bar.style.display="flex";
+    ge("dismiss-new").addEventListener("click",()=>{lastSeenSnapshot=currentTotal;localStorage.setItem("lss",String(currentTotal));newBarDismissed=true;bar.style.display="none";});
+  }else{bar.style.display="none";}
+}
 function updateBudget(){
   const budgetCard=ge("budget-card");if(!budgetCard)return;
   const opts=Object.values(ao);
-  const PEOPLE=4;
-
-  // Price estimates per person
-  const budgetMap={Hotel:120,Breakfast:20,Lunch:35,Dinner:70,Activity:50};
-  const priceMultiplier={1:.6,2:1,3:2.2};
-
-  let hotelTotal=0,mealTotal=0,actTotal=0,hotelCount=0,mealCount=0,actCount=0;
-
+  const bm={Hotel:120,Breakfast:20,Lunch:35,Dinner:70,Activity:50};
+  const pm={1:.6,2:1,3:2.2};
+  let ht=0,mt=0,at=0,hc=0,mc=0,ac=0;
   opts.filter(o=>isFullyLocked(o)).forEach(opt=>{
-    const base=budgetMap[opt.slotType]||0;
-    const mult=opt.price?priceMultiplier[opt.price]:1;
-    const est=Math.round(base*mult);
-    if(opt.slotType==="Hotel"){hotelTotal+=est;hotelCount++;}
-    else if(["Breakfast","Lunch","Dinner"].includes(opt.slotType)){mealTotal+=est;mealCount++;}
-    else if(opt.slotType==="Activity"){actTotal+=est;actCount++;}
+    const est=Math.round((bm[opt.slotType]||0)*(opt.price?pm[opt.price]:1));
+    if(opt.slotType==="Hotel"){ht+=est;hc++;}
+    else if(["Breakfast","Lunch","Dinner"].includes(opt.slotType)){mt+=est;mc++;}
+    else if(opt.slotType==="Activity"){at+=est;ac++;}
   });
-
-  // Also count unconfirmed leading options as estimates
-  let estHotel=hotelTotal,estMeal=mealTotal,estAct=actTotal;
-  let estHotelCount=hotelCount,estMealCount=mealCount,estActCount=actCount;
-
-  opts.filter(o=>!isFullyLocked(o)&&!o.vetoed).forEach(opt=>{
-    // Only count the best option per slot
-    const base=budgetMap[opt.slotType]||0;
-    const mult=opt.price?priceMultiplier[opt.price]:1;
-    const est=Math.round(base*mult);
-    if(opt.slotType==="Hotel"){estHotel+=est;estHotelCount++;}
-    else if(["Breakfast","Lunch","Dinner"].includes(opt.slotType)){estMeal+=est;estMealCount++;}
-    else if(opt.slotType==="Activity"){estAct+=est;estActCount++;}
-  });
-
-  // Use confirmed if available, else estimate
-  const finalHotel=hotelCount>0?hotelTotal:estHotel;
-  const finalMeal=mealCount>0?mealTotal:estMeal;
-  const finalAct=actCount>0?actTotal:estAct;
-  const total=finalHotel+finalMeal+finalAct;
-  const perPerson=Math.round(total/PEOPLE);
-
+  const total=ht+mt+at;
   if(total===0){budgetCard.innerHTML="";return;}
-
-  budgetCard.innerHTML=`
-    <div class="budget-card">
-      <div class="budget-header">
-        <div>
-          <h3>💰 Budget Estimate</h3>
-          <div style="font-size:12px;color:var(--text3);margin-top:2px">Based on confirmed &amp; leading options</div>
-        </div>
-        <div>
-          <div class="budget-total">~$${total.toLocaleString()}</div>
-          <div class="budget-per-person">~$${perPerson.toLocaleString()} per person</div>
-        </div>
-      </div>
-      <div class="budget-breakdown">
-        <div class="budget-row">
-          <div class="budget-category"><span style="font-size:18px">🏨</span><div><div>Hotels</div><div class="budget-note">${hotelCount} confirmed${estHotelCount>hotelCount?" + "+( estHotelCount-hotelCount)+" estimated":""}</div></div></div>
-          <div class="budget-amount">~$${finalHotel.toLocaleString()}</div>
-        </div>
-        <div class="budget-row">
-          <div class="budget-category"><span style="font-size:18px">🍽️</span><div><div>Meals</div><div class="budget-note">${mealCount} confirmed${estMealCount>mealCount?" + "+(estMealCount-mealCount)+" estimated":""}</div></div></div>
-          <div class="budget-amount">~$${finalMeal.toLocaleString()}</div>
-        </div>
-        <div class="budget-row">
-          <div class="budget-category"><span style="font-size:18px">🎯</span><div><div>Activities</div><div class="budget-note">${actCount} confirmed${estActCount>actCount?" + "+(estActCount-actCount)+" estimated":""}</div></div></div>
-          <div class="budget-amount">~$${finalAct.toLocaleString()}</div>
-        </div>
-      </div>
-      <div class="budget-legend">
-        <div class="budget-legend-item"><span style="color:var(--teal)">■</span> $ Budget = ~60% of base</div>
-        <div class="budget-legend-item"><span style="color:var(--purple)">■</span> $$ Mid = base price</div>
-        <div class="budget-legend-item"><span style="color:var(--red)">■</span> $$$ Splurge = ~2x base</div>
-        <div class="budget-legend-item" style="width:100%;color:var(--text4)">Estimates only — flights &amp; transport not included</div>
-      </div>
-    </div>`;
+  budgetCard.innerHTML=`<div class="budget-card"><div class="budget-header"><div><h3>💰 Budget Estimate</h3><div style="font-size:12px;color:var(--text3);margin-top:2px">Confirmed only · ~$${Math.round(total/4).toLocaleString()} per person</div></div><div class="budget-total">~$${total.toLocaleString()}</div></div><div class="budget-breakdown"><div class="budget-row"><div class="budget-category"><span style="font-size:18px">🏨</span><div><div>Hotels</div><div class="budget-note">${hc} confirmed</div></div></div><div class="budget-amount">~$${ht.toLocaleString()}</div></div><div class="budget-row"><div class="budget-category"><span style="font-size:18px">🍽️</span><div><div>Meals</div><div class="budget-note">${mc} confirmed</div></div></div><div class="budget-amount">~$${mt.toLocaleString()}</div></div><div class="budget-row"><div class="budget-category"><span style="font-size:18px">🎯</span><div><div>Activities</div><div class="budget-note">${ac} confirmed</div></div></div><div class="budget-amount">~$${at.toLocaleString()}</div></div></div><div style="padding:8px 16px;font-size:11px;color:var(--text4);border-top:1px solid var(--border2)">Estimates based on price tags · Flights not included</div></div>`;
 }
-
-// Update countdown every minute
-setInterval(updateCountdown,60000);
-
 function renderMap(){
-  const c=ge("map-content");if(!c)return;
-  c.innerHTML="";
+  const c=ge("map-content");if(!c)return;c.innerHTML="";
   const legend=document.createElement("div");legend.className="map-legend";
   legend.innerHTML=`<div class="map-legend-title">Map Legend</div><div class="map-legend-grid"><div class="map-legend-item"><div class="map-legend-dot" style="background:#534AB7"></div>Italy (Days 1-7)</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#1D9E75"></div>Athens (Day 8)</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#D4537E"></div>Mykonos (Days 9-12)</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#F5A623"></div>Confirmed 🔒</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#1D9E75"></div>Hotels 🏨</div><div class="map-legend-item"><div class="map-legend-dot" style="background:#534AB7"></div>Restaurants &amp; Activities</div></div>`;
   c.appendChild(legend);
   const mapEl=document.createElement("div");mapEl.id="trip-map";c.appendChild(mapEl);
   if(leafletMap){leafletMap.remove();leafletMap=null;}
-  leafletMap=L.map("trip-map",{zoomControl:true}).setView([40.5,17],5);
+  leafletMap=L.map("trip-map").setView([40.5,17],5);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:19}).addTo(leafletMap);
   mapMarkers=[];
-  function makeCircleIcon(color,num){return L.divIcon({html:`<div style="background:${color};color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.3)">${num}</div>`,className:"",iconSize:[28,28],iconAnchor:[14,14]})}
-  function makePinIcon(color){return L.divIcon({html:`<div style="background:${color};width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,.3)"></div>`,className:"",iconSize:[14,14],iconAnchor:[7,7]})}
-  const uniqueCoords=[];
-  ALL_DAYS.forEach(day=>{const last=uniqueCoords[uniqueCoords.length-1];if(!last||last.lat!==day.lat||last.lng!==day.lng)uniqueCoords.push({lat:day.lat,lng:day.lng,day});});
-  for(let i=0;i<uniqueCoords.length-1;i++){const from=uniqueCoords[i],to=uniqueCoords[i+1];L.polyline([[from.lat,from.lng],[to.lat,to.lng]],{color:to.day.color,weight:2.5,opacity:.6,dashArray:"6,4"}).addTo(leafletMap);}
-  const addedCoords={};
+  const mkCircle=(color,num)=>L.divIcon({html:`<div style="background:${color};color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.3)">${num}</div>`,className:"",iconSize:[28,28],iconAnchor:[14,14]});
+  const mkPin=(color)=>L.divIcon({html:`<div style="background:${color};width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,.3)"></div>`,className:"",iconSize:[14,14],iconAnchor:[7,7]});
+  const uq=[];ALL_DAYS.forEach(day=>{const last=uq[uq.length-1];if(!last||last.lat!==day.lat||last.lng!==day.lng)uq.push({lat:day.lat,lng:day.lng,day});});
+  for(let i=0;i<uq.length-1;i++)L.polyline([[uq[i].lat,uq[i].lng],[uq[i+1].lat,uq[i+1].lng]],{color:uq[i+1].day.color,weight:2.5,opacity:.6,dashArray:"6,4"}).addTo(leafletMap);
+  const ac2={};
   ALL_DAYS.forEach((day,i)=>{
-    const key=`${day.lat},${day.lng}`;const offset=addedCoords[key]||0;addedCoords[key]=offset+1;
-    const hotelId=HN_MAP[day.id];const hotelOpts=hotelId?Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"):[];
-    const topHotel=getBest(hotelOpts);const locked=topHotel&&isFullyLocked(topHotel);
-    const lat=day.lat+(offset*0.01),lng=day.lng+(offset*0.01);
+    const key=`${day.lat},${day.lng}`;const off=ac2[key]||0;ac2[key]=off+1;
+    const hotelId=HN_MAP[day.id];const topHotel=getBest(hotelId?Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"):[]);
     const ts=getTripStatus();const isToday=ts.status==="during"&&ts.todayDay&&ts.todayDay.id===day.id;
-    const pinColor=isToday?"#1D9E75":locked?"#F5A623":day.color;
-    const marker=L.marker([lat,lng],{icon:makeCircleIcon(pinColor,i+1)}).addTo(leafletMap);
+    const pinColor=isToday?"#1D9E75":topHotel&&isFullyLocked(topHotel)?"#F5A623":day.color;
+    const marker=L.marker([day.lat+off*.01,day.lng+off*.01],{icon:mkCircle(pinColor,i+1)}).addTo(leafletMap);
     const topMeal=getBest(["Breakfast","Lunch","Dinner"].flatMap(st=>gso(day.id,st))),topAct=getBest(gso(day.id,"Activity"));
-    let popHtml=`<div style="min-width:160px"><strong style="font-size:14px">${isToday?"📍 TODAY: ":""}${day.badge}: ${day.location}</strong><br><span style="color:#888;font-size:12px">${day.date}</span><br><br>`;
-    if(topHotel)popHtml+=`🏨 <strong>${topHotel.name}</strong>${isFullyLocked(topHotel)?" 🔒":""}<br>`;
-    if(topMeal)popHtml+=`🍽 <strong>${topMeal.name}</strong>${isFullyLocked(topMeal)?" 🔒":""}<br>`;
-    if(topAct)popHtml+=`🎯 <strong>${topAct.name}</strong>${isFullyLocked(topAct)?" 🔒":""}<br>`;
-    if(!topHotel&&!topMeal&&!topAct)popHtml+=`<span style="color:#aaa">No options yet</span><br>`;
-    if(day.note)popHtml+=`<br><span style="color:#888;font-size:11px">${day.note}</span>`;
-    popHtml+=`</div>`;
-    marker.bindPopup(popHtml);
-    if(isToday)marker.openPopup();
+    let pop=`<div style="min-width:160px"><strong>${isToday?"📍 TODAY: ":""}${day.badge}: ${day.location}</strong><br><span style="color:#888;font-size:12px">${day.date}</span><br><br>`;
+    if(topHotel)pop+=`🏨 <strong>${topHotel.name}</strong>${isFullyLocked(topHotel)?" 🔒":""}<br>`;
+    if(topMeal)pop+=`🍽 <strong>${topMeal.name}</strong><br>`;
+    if(topAct)pop+=`🎯 <strong>${topAct.name}</strong><br>`;
+    if(!topHotel&&!topMeal&&!topAct)pop+=`<span style="color:#aaa">No options yet</span>`;
+    if(day.note)pop+=`<br><span style="color:#888;font-size:11px">${day.note}</span>`;
+    pop+=`</div>`;marker.bindPopup(pop);if(isToday)marker.openPopup();
     mapMarkers.push({marker,day,i});
   });
   Object.values(ao).filter(o=>o.slotType==="Hotel").forEach(opt=>{
     const day=ALL_DAYS.find(d=>HN_MAP[d.id]===opt.dayId);if(!day)return;
     const locked=isFullyLocked(opt);
-    const m=L.marker([day.lat+0.03,day.lng+0.03],{icon:makePinIcon(locked?"#F5A623":"#1D9E75")}).addTo(leafletMap);
-    const score=cs(opt);m.bindPopup(`<strong>🏨 ${opt.name}</strong><br><span style="color:#888;font-size:12px">${day.location}${score?" · "+score:""}${locked?" · 🔒":""}</span>`);
+    L.marker([day.lat+.03,day.lng+.03],{icon:mkPin(locked?"#F5A623":"#1D9E75")}).addTo(leafletMap)
+      .bindPopup(`<strong>🏨 ${opt.name}</strong><br><span style="color:#888;font-size:12px">${day.location}${cs(opt)?" · "+cs(opt):""}${locked?" · 🔒":""}</span>`);
   });
   Object.values(ao).filter(o=>["Breakfast","Lunch","Dinner","Activity"].includes(o.slotType)).forEach(opt=>{
     const day=ALL_DAYS.find(d=>d.id===opt.dayId);if(!day)return;
     const locked=isFullyLocked(opt),isAct=opt.slotType==="Activity";
-    const pinColor=locked?"#F5A623":isAct?"#EF9F27":"#534AB7";
-    const m=L.marker([day.lat-0.03,day.lng+(Math.random()-.5)*0.06],{icon:makePinIcon(pinColor)}).addTo(leafletMap);
-    const score=cs(opt);m.bindPopup(`<strong>${isAct?"🎯":"🍽"} ${opt.name}</strong><br><span style="color:#888;font-size:12px">${opt.slotType} · ${day.location}${score?" · "+score:""}${locked?" · 🔒":""}</span>`);
+    L.marker([day.lat-.03,day.lng+(Math.random()-.5)*.06],{icon:mkPin(locked?"#F5A623":isAct?"#EF9F27":"#534AB7")}).addTo(leafletMap)
+      .bindPopup(`<strong>${isAct?"🎯":"🍽"} ${opt.name}</strong><br><span style="color:#888;font-size:12px">${opt.slotType} · ${day.location}${locked?" · 🔒":""}</span>`);
   });
   const title=document.createElement("div");title.className="section-label";title.textContent="All Stops";c.appendChild(title);
-  const dayList=document.createElement("div");dayList.className="map-day-list";
+  const dl=document.createElement("div");dl.className="map-day-list";
   ALL_DAYS.forEach((day,i)=>{
-    const hotelId=HN_MAP[day.id];const hotelOpts=hotelId?Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"):[];
-    const topHotel=getBest(hotelOpts);const locked=topHotel&&isFullyLocked(topHotel);
-    const ts=getTripStatus();const isToday=ts.status==="during"&&ts.todayDay&&ts.todayDay.id===day.id;
-    const mealCount=["Breakfast","Lunch","Dinner"].flatMap(st=>gso(day.id,st)).length;
-    const actCount=gso(day.id,"Activity").length;
+    const hotelId=HN_MAP[day.id];const topHotel=getBest(hotelId?Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"):[]);
+    const locked=topHotel&&isFullyLocked(topHotel);const ts=getTripStatus();const isToday=ts.status==="during"&&ts.todayDay&&ts.todayDay.id===day.id;
+    const mc=["Breakfast","Lunch","Dinner"].flatMap(st=>gso(day.id,st)).length;const actc=gso(day.id,"Activity").length;
     const item=document.createElement("div");item.className="map-day-item";
     item.style.cssText=isToday?"border-color:var(--teal);background:var(--teal-light)":"";
-    item.innerHTML=`<div class="map-day-num" style="background:${isToday?"var(--teal)":locked?"#F5A623":day.color}">${i+1}</div><div class="map-day-info"><div class="map-day-date">${isToday?"📍 ":""}${day.date} — ${day.location}</div><div class="map-day-loc">${topHotel?"🏨 "+topHotel.name+" · ":""}${mealCount} meal options · ${actCount} activities</div></div><div class="map-day-status">${isToday?"📍":locked?"🔒":"○"}</div>`;
-    item.addEventListener("click",()=>{if(leafletMap){leafletMap.setView([day.lat,day.lng],10);}const found=mapMarkers.find(m=>m.i===i);if(found)found.marker.openPopup();});
-    dayList.appendChild(item);
+    item.innerHTML=`<div class="map-day-num" style="background:${isToday?"var(--teal)":locked?"#F5A623":day.color}">${i+1}</div><div class="map-day-info"><div class="map-day-date">${isToday?"📍 ":""}${day.date} — ${day.location}</div><div class="map-day-loc">${topHotel?"🏨 "+topHotel.name+" · ":""}${mc} meals · ${actc} activities</div></div><div class="map-day-status">${isToday?"📍":locked?"🔒":"○"}</div>`;
+    item.addEventListener("click",()=>{if(leafletMap)leafletMap.setView([day.lat,day.lng],10);const f=mapMarkers.find(m=>m.i===i);if(f)f.marker.openPopup();});
+    dl.appendChild(item);
   });
-  c.appendChild(dayList);
+  c.appendChild(dl);
 }
-
 window.toggleDetails=function(id){const d=ge("det-"+id),b=ge("exp-"+id);if(!d)return;const open=d.classList.toggle("open");if(b)b.textContent=open?"▲":"▼";};
-window.deleteOption=async function(id){if(!confirm("Delete this option?"))return;try{await deleteDoc(doc(db,"options",id));toast("Deleted");}catch(e){toast("Error: "+e.message)}};
+window.deleteOption=async function(id){if(!confirm("Delete?"))return;try{await deleteDoc(doc(db,"options",id));toast("Deleted");}catch(e){toast("Error")}};
 window.toggleLock=async function(optId){
   const opt=ao[optId];if(!opt||!cun)return;
   const already=opt.lockedBy&&opt.lockedBy[cun];
   const newLocked={...(opt.lockedBy||{}),[cun]:already?null:true};
   try{
     await updateDoc(doc(db,"options",optId),{[`lockedBy.${cun}`]:already?null:true});
-    if(!already){
-      await logFeed(cun+' confirmed \u201c'+opt.name+'\u201d',"lock");
-      if(USERS.every(u=>newLocked[u])){confetti();toast("\uD83D\uDD12 Locked in by everyone! \uD83C\uDF89");}
-      else toast("You confirmed \u2713");
-    }else toast("Confirmation removed");
-  }catch(e){toast("Error: "+e.message)}
+    if(!already){await logFeed(cun+' confirmed \u201c'+opt.name+'\u201d',"lock");if(USERS.every(u=>newLocked[u])){confetti();toast("🔒 Locked in by everyone! 🎉");}else toast("You confirmed ✓");}
+    else toast("Confirmation removed");
+  }catch(e){toast("Error")}
 };
 window.toggleVeto=async function(optId){
   const opt=ao[optId];if(!opt||!cun)return;
   const already=opt.vetoedBy&&opt.vetoedBy[cun];
   try{
     await updateDoc(doc(db,"options",optId),{[`vetoedBy.${cun}`]:already?null:true,vetoed:already?false:true});
-    if(!already){await logFeed(cun+' vetoed \u201c'+opt.name+'\u201d',"veto");toast("Vetoed \uD83D\uDEAB");}
-    else toast("Veto removed");
-  }catch(e){toast("Error: "+e.message)}
+    if(!already){await logFeed(cun+' vetoed \u201c'+opt.name+'\u201d',"veto");toast("Vetoed 🚫");}else toast("Veto removed");
+  }catch(e){toast("Error")}
+};
+window.castVote=async function(optId,val){
+  if(!cun)return;
+  try{await updateDoc(doc(db,"options",optId),{[`votes.${cun}`]:val});await logFeed(cun+` rated "${ao[optId]?.name||""}" ${val}/10`,"vote");toast("Vote saved ✓");}
+  catch(e){toast("Error")}
 };
 window.togglePack=async function(id){const item=packItems[id];if(!item)return;try{await updateDoc(doc(db,"packing",id),{done:!item.done});}catch(e){toast("Error")}};
 window.deletePack=async function(id){try{await deleteDoc(doc(db,"packing",id));}catch(e){toast("Error")}};
 async function logFeed(text,type){try{await addDoc(collection(db,"feed"),{text,type,by:cun,createdAt:serverTimestamp()});}catch(e){}}
-
 function buildLockRow(opt){
   const lb=opt.lockedBy||{},allLocked=isFullyLocked(opt),cnt=lockedCount(opt);
   const row=document.createElement("div");row.className="lock-row";
@@ -816,15 +711,33 @@ function buildLockRow(opt){
   });
   const status=document.createElement("div");status.className="lock-status";
   const icon=document.createElement("span");icon.className="lock-status-icon";
-  if(allLocked){icon.textContent="\uD83D\uDD12";icon.classList.add("pop");}
+  if(allLocked){icon.textContent="🔒";icon.classList.add("pop");}
   else icon.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>`;
   const label=document.createElement("span");label.className="lock-status-label"+(allLocked?" confirmed":"");
-  label.textContent=allLocked?"\u2713 All confirmed!":cnt+"/4 confirmed";
-  status.appendChild(icon);status.appendChild(label);
-  row.appendChild(circles);row.appendChild(status);
+  label.textContent=allLocked?"✓ All confirmed!":cnt+"/4 confirmed";
+  status.appendChild(icon);status.appendChild(label);row.appendChild(circles);row.appendChild(status);
   return row;
 }
-
+function buildInlineVote(opt){
+  const myVote=opt.votes&&opt.votes[cun]?opt.votes[cun]:0;
+  const avg=cs(opt);const vc=opt.votes?Object.keys(opt.votes).length:0;
+  const sec=document.createElement("div");sec.className="inline-vote";
+  sec.innerHTML=`<div class="inline-vote-label">Your Rating</div>`;
+  const starsRow=document.createElement("div");starsRow.className="inline-stars";
+  const statusEl=document.createElement("div");statusEl.className="inline-vote-status";
+  statusEl.innerHTML=myVote?`<span class="inline-vote-mine">You: ${myVote}/10</span>${avg?" · Avg: "+avg+" · "+vc+"/4 voted":" · "+vc+"/4 voted"}`:`<span style="color:var(--text4)">${vc}/4 voted${avg?" · Avg: "+avg:""}</span>`;
+  for(let i=1;i<=10;i++){
+    const s=document.createElement("div");s.className="istar"+(myVote>=i?" selected":"");s.textContent=i;
+    s.addEventListener("click",async()=>{
+      starsRow.querySelectorAll(".istar").forEach((x,idx)=>x.classList.toggle("selected",idx<i));
+      statusEl.innerHTML=`<span class="inline-vote-mine">You: ${i}/10</span>`;
+      await window.castVote(opt.id,i);
+    });
+    starsRow.appendChild(s);
+  }
+  sec.appendChild(starsRow);sec.appendChild(statusEl);
+  return sec;
+}
 function buildCommentsSection(opt){
   const comments=opt.comments||{};
   const keys=Object.keys(comments).sort((a,b)=>(comments[a].ts||0)-(comments[b].ts||0));
@@ -839,16 +752,11 @@ function buildCommentsSection(opt){
   const inputRow=document.createElement("div");inputRow.className="comment-input-row";
   const input=document.createElement("input");input.className="comment-input";input.placeholder="Add a comment...";input.type="text";
   const sendBtn=document.createElement("button");sendBtn.className="comment-send";sendBtn.textContent="Send";
-  const sendComment=async()=>{
-    const text=input.value.trim();if(!text)return;const key=Date.now().toString();
-    try{await updateDoc(doc(db,"options",opt.id),{[`comments.${key}`]:{by:cun,text,ts:Date.now()}});await logFeed(cun+` commented on "${opt.name}"`,"comment");input.value="";}
-    catch(e){toast("Error: "+e.message)}
-  };
-  sendBtn.addEventListener("click",sendComment);input.addEventListener("keydown",e=>{if(e.key==="Enter")sendComment()});
+  const send=async()=>{const text=input.value.trim();if(!text)return;try{await updateDoc(doc(db,"options",opt.id),{[`comments.${Date.now()}`]:{by:cun,text,ts:Date.now()}});await logFeed(cun+` commented on "${opt.name}"`,"comment");input.value="";}catch(e){toast("Error")}};
+  sendBtn.addEventListener("click",send);input.addEventListener("keydown",e=>{if(e.key==="Enter")send()});
   inputRow.appendChild(input);inputRow.appendChild(sendBtn);sec.appendChild(inputRow);
   return sec;
 }
-
 function buildOptCard(opt,did,st,isW){
   const score=cs(opt),hasExtra=!!(opt.link||opt.notes||opt.addedBy),isMine=opt.addedBy===cun;
   const locked=isFullyLocked(opt),vetoed=!!opt.vetoed;
@@ -862,7 +770,7 @@ function buildOptCard(opt,did,st,isW){
   if(hasExtra){const expBtn=document.createElement("button");expBtn.className="opt-expand";expBtn.id="exp-"+opt.id;expBtn.textContent="▼";expBtn.addEventListener("click",e=>{e.stopPropagation();window.toggleDetails(opt.id)});row.appendChild(expBtn);}
   const vetoBtn=document.createElement("button");vetoBtn.className="opt-veto-btn";vetoBtn.title=vetoed?"Remove veto":"Veto";vetoBtn.textContent=vetoed?"↩":"🚫";vetoBtn.addEventListener("click",e=>{e.stopPropagation();window.toggleVeto(opt.id)});row.appendChild(vetoBtn);
   if(isMine){const delBtn=document.createElement("button");delBtn.className="opt-delete";delBtn.title="Delete";delBtn.innerHTML="🗑";delBtn.addEventListener("click",e=>{e.stopPropagation();window.deleteOption(opt.id)});row.appendChild(delBtn);}
-  row.addEventListener("click",()=>openVote(did,st));el.appendChild(row);
+  el.appendChild(row);
   if(hasExtra){
     const det=document.createElement("div");det.className="opt-details";det.id="det-"+opt.id;
     if(opt.link){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">Link</span><a href="${opt.link}" target="_blank" onclick="event.stopPropagation()">${opt.link}</a>`;det.appendChild(r);}
@@ -870,11 +778,11 @@ function buildOptCard(opt,did,st,isW){
     if(opt.addedBy){const r=document.createElement("div");r.className="det-row";r.innerHTML=`<span class="det-lbl">By</span><span>${opt.addedBy}</span>`;det.appendChild(r);}
     el.appendChild(det);
   }
+  if(!vetoed)el.appendChild(buildInlineVote(opt));
   el.appendChild(buildCommentsSection(opt));
   el.appendChild(buildLockRow(opt));
   return el;
 }
-
 ge("login-btn").addEventListener("click",()=>{
   const u=ge("login-username").value.trim().toLowerCase(),p=ge("login-password").value;
   const err=ge("login-error");err.textContent="";
@@ -883,8 +791,7 @@ ge("login-btn").addEventListener("click",()=>{
   if(p!==m.p){err.textContent="Incorrect password.";return}
   cun=m.name;ge("login-screen").style.display="none";ge("app").style.display="block";
   USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity=n===cun?"1":"0.4"});
-  logFeed(cun+" joined the app","join");
-  initApp();
+  logFeed(cun+" joined the app","join");initApp();
 });
 ge("login-password").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-btn").click()});
 ge("login-username").addEventListener("keydown",e=>{if(e.key==="Enter")ge("login-password").focus()});
@@ -894,7 +801,6 @@ ge("logout-btn").addEventListener("click",()=>{
   ge("login-username").value="";ge("login-password").value="";
   USERS.forEach(n=>{const el=ge("avi-"+n);if(el)el.style.opacity="1"});
 });
-
 const ALL_TABS=["itinerary","map","hotels","restaurants","activities","packing","feed","leaderboard","final"];
 document.querySelectorAll(".nav-tab").forEach(tab=>{
   tab.addEventListener("click",()=>{
@@ -905,67 +811,48 @@ document.querySelectorAll(".nav-tab").forEach(tab=>{
     if(tab.dataset.tab==="map")renderMap();
   });
 });
-
 document.querySelectorAll(".price-btn").forEach(btn=>{
   btn.addEventListener("click",()=>{
     document.querySelectorAll(".price-btn").forEach(b=>b.classList.remove("selected"));
-    if(selectedPrice===parseInt(btn.dataset.price)){selectedPrice=null;}
+    if(selectedPrice===parseInt(btn.dataset.price))selectedPrice=null;
     else{btn.classList.add("selected");selectedPrice=parseInt(btn.dataset.price);}
   });
 });
-
 ge("cancel-add").addEventListener("click",closeAdd);
 ge("submit-add").addEventListener("click",submitAdd);
 ge("add-modal").addEventListener("click",e=>{if(e.target===ge("add-modal"))closeAdd()});
-ge("cancel-vote").addEventListener("click",closeVote);
-ge("submit-vote").addEventListener("click",submitVotes);
-ge("vote-modal").addEventListener("click",e=>{if(e.target===ge("vote-modal"))closeVote()});
 ge("detail-close").addEventListener("click",closeDetail);
 ge("detail-panel").addEventListener("click",e=>{if(e.target===ge("detail-panel"))closeDetail()});
 ge("cancel-pack").addEventListener("click",()=>ge("pack-modal").classList.add("hidden"));
 ge("submit-pack").addEventListener("click",submitPack);
 ge("pack-modal").addEventListener("click",e=>{if(e.target===ge("pack-modal"))ge("pack-modal").classList.add("hidden")});
-
 function closeDetail(){ge("detail-panel").classList.add("hidden")}
 function openDetail(title,subtitle,bodyFn){
   ge("detail-title").textContent=title;ge("detail-subtitle").textContent=subtitle||"";
   const body=ge("detail-body");body.innerHTML="";bodyFn(body);
   ge("detail-panel").classList.remove("hidden");
 }
-
 function initApp(){renderItinerary();renderHotels();subscribe();subscribePacking();subscribeFeed();updateCountdown();}
-
 function subscribe(){
   const u=onSnapshot(collection(db,"options"),snap=>{
     ao={};snap.forEach(d=>{ao[d.id]={id:d.id,...d.data()}});
-    updateStats();renderItinerary();updateHotelSlots();updateRestTab();updateActTab();updateLeaderboard();updateFinalPlan();updateProgress();updateCountdown();updateBudget();
+    updateStats();renderItinerary();updateHotelSlots();updateRestTab();updateActTab();updateLeaderboard();updateFinalPlan();updateProgress();updateCountdown();updateBudget();updateStatusBar();updateNewActivityBar();
     if(ge("tab-map")&&!ge("tab-map").classList.contains("hidden"))renderMap();
   });us.push(u);
 }
-function subscribePacking(){
-  const u=onSnapshot(collection(db,"packing"),snap=>{packItems={};snap.forEach(d=>{packItems[d.id]={id:d.id,...d.data()}});updatePackingList();});us.push(u);
-}
-function subscribeFeed(){
-  const q=query(collection(db,"feed"),orderBy("createdAt","desc"));
-  const u=onSnapshot(q,snap=>{feedItems=[];snap.forEach(d=>{feedItems.push({id:d.id,...d.data()})});updateFeed();});us.push(u);
-}
-
+function subscribePacking(){const u=onSnapshot(collection(db,"packing"),snap=>{packItems={};snap.forEach(d=>{packItems[d.id]={id:d.id,...d.data()}});updatePackingList();});us.push(u);}
+function subscribeFeed(){const q=query(collection(db,"feed"),orderBy("createdAt","desc"));const u=onSnapshot(q,snap=>{feedItems=[];snap.forEach(d=>{feedItems.push({id:d.id,...d.data()})});updateFeed();});us.push(u);}
 function updateProgress(){
   const opts=Object.values(ao);const total=opts.length,locked=opts.filter(o=>isFullyLocked(o)).length;
-  const pct=total?Math.round(locked/total*100):0;
-  ge("global-progress").style.width=pct+"%";
+  ge("global-progress").style.width=(total?Math.round(locked/total*100):0)+"%";
   ge("global-progress-label").textContent=`${locked} of ${total} decisions confirmed`;
 }
-
 function updateStats(){
-  let v=0,lk=0;
-  Object.values(ao).forEach(o=>{if(o.votes)v+=Object.keys(o.votes).length;if(isFullyLocked(o))lk++});
+  let v=0,lk=0;Object.values(ao).forEach(o=>{if(o.votes)v+=Object.keys(o.votes).length;if(isFullyLocked(o))lk++});
   ge("stat-options").textContent=Object.values(ao).length;ge("stat-votes").textContent=v;ge("stat-locked").textContent=lk;
 }
-
 function renderItinerary(){
-  const c=ge("itinerary-list");c.innerHTML="";
-  const ts=getTripStatus();
+  const c=ge("itinerary-list");c.innerHTML="";const ts=getTripStatus();
   TRIP.forEach(seg=>{
     const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);
     seg.days.forEach(day=>{
@@ -975,27 +862,24 @@ function renderItinerary(){
       const actOpts=gso(day.id,"Activity");
       const topHotel=getBest(hotelOpts),topMeal=getBest(mealOpts),topAct=getBest(actOpts);
       const hL=topHotel&&isFullyLocked(topHotel),mL=topMeal&&isFullyLocked(topMeal),aL=topAct&&isFullyLocked(topAct);
-      const totalSlots=(hotelId?1:0)+3+1,doneSlots=(hL?1:0)+(mL?1:0)+(aL?1:0);
-      const pct=totalSlots?Math.round(doneSlots/totalSlots*100):0;
+      const pct=Math.round(((hL?1:0)+(mL?1:0)+(aL?1:0))/((hotelId?1:0)+3+1)*100);
       const isToday=ts.status==="during"&&ts.todayDay&&ts.todayDay.id===day.id;
       const card=document.createElement("div");card.className="day-card"+(isToday?" today":"");
-      card.innerHTML=`<div class="day-header"><div class="day-header-left"><h3>${isToday?"📍 ":""}${day.date} \u2014 ${day.location}</h3><p>${day.note}</p></div><div class="day-badge ${isToday?"today-badge-pill":""}">${isToday?"Today!":day.badge}</div></div><div class="day-progress"><div class="day-progress-fill" style="width:${pct}%"></div></div><div class="day-boxes"><div class="day-box" id="box-hotel-${day.id}" style="${hL?"border-color:var(--gold);background:var(--gold-light)":""}"><div class="day-box-icon">${hL?"\uD83D\uDD12":"\uD83C\uDFE8"}</div><div class="day-box-label">Hotel</div><div class="day-box-count">${hotelOpts.length} option${hotelOpts.length!==1?"s":""}</div>${topHotel?`<div class="day-box-winner">${topHotel.name}</div>`:""}${topHotel&&cs(topHotel)?`<div class="day-box-score">${cs(topHotel)}</div>`:""}</div><div class="day-box" id="box-meals-${day.id}" style="${mL?"border-color:var(--gold);background:var(--gold-light)":""}"><div class="day-box-icon">${mL?"\uD83D\uDD12":"\uD83C\uDF7D\uFE0F"}</div><div class="day-box-label">Meals</div><div class="day-box-count">${mealOpts.length} option${mealOpts.length!==1?"s":""}</div>${topMeal?`<div class="day-box-winner">${topMeal.name}</div>`:""}${topMeal&&cs(topMeal)?`<div class="day-box-score">${cs(topMeal)}</div>`:""}</div><div class="day-box" id="box-act-${day.id}" style="${aL?"border-color:var(--gold);background:var(--gold-light)":""}"><div class="day-box-icon">${aL?"\uD83D\uDD12":"\uD83C\uDFAF"}</div><div class="day-box-label">Activities</div><div class="day-box-count">${actOpts.length} option${actOpts.length!==1?"s":""}</div>${topAct?`<div class="day-box-winner">${topAct.name}</div>`:""}${topAct&&cs(topAct)?`<div class="day-box-score">${cs(topAct)}</div>`:""}</div></div>`;
+      card.innerHTML=`<div class="day-header"><div class="day-header-left"><h3>${isToday?"📍 ":""}${day.date} \u2014 ${day.location}</h3><p>${day.note}</p></div><div class="day-badge ${isToday?"today-pill":""}">${isToday?"Today!":day.badge}</div></div><div class="day-progress"><div class="day-progress-fill" style="width:${pct}%"></div></div><div class="day-boxes"><div class="day-box" id="box-hotel-${day.id}" style="${hL?"border-color:var(--gold);background:var(--gold-light)":""}"><div class="day-box-icon">${hL?"🔒":hotelOpts.length===0?"⚠️":"🏨"}</div><div class="day-box-label">Hotel</div><div class="day-box-count">${hotelOpts.length===0?"Add options":hotelOpts.length+" option"+(hotelOpts.length!==1?"s":"")}</div>${topHotel?`<div class="day-box-winner">${topHotel.name}</div>`:""}${topHotel&&cs(topHotel)?`<div class="day-box-score">${cs(topHotel)}</div>`:""}</div><div class="day-box" id="box-meals-${day.id}" style="${mL?"border-color:var(--gold);background:var(--gold-light)":""}"><div class="day-box-icon">${mL?"🔒":mealOpts.length===0?"⚠️":"🍽️"}</div><div class="day-box-label">Meals</div><div class="day-box-count">${mealOpts.length===0?"Add options":mealOpts.length+" option"+(mealOpts.length!==1?"s":"")}</div>${topMeal?`<div class="day-box-winner">${topMeal.name}</div>`:""}${topMeal&&cs(topMeal)?`<div class="day-box-score">${cs(topMeal)}</div>`:""}</div><div class="day-box" id="box-act-${day.id}" style="${aL?"border-color:var(--gold);background:var(--gold-light)":""}"><div class="day-box-icon">${aL?"🔒":actOpts.length===0?"⚠️":"🎯"}</div><div class="day-box-label">Activities</div><div class="day-box-count">${actOpts.length===0?"Add options":actOpts.length+" option"+(actOpts.length!==1?"s":"")}</div>${topAct?`<div class="day-box-winner">${topAct.name}</div>`:""}${topAct&&cs(topAct)?`<div class="day-box-score">${cs(topAct)}</div>`:""}</div></div>`;
       c.appendChild(card);
-      // Auto scroll to today
       if(isToday)setTimeout(()=>card.scrollIntoView({behavior:"smooth",block:"center"}),500);
-      card.querySelector("#box-hotel-"+day.id).addEventListener("click",()=>{if(!hotelId){toast("No hotel for this day");return}openDetail("\uD83C\uDFE8 Hotel",day.date+" \u2014 "+day.location,body=>{const opts=Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));if(!opts.length)body.innerHTML='<div class="empty-state">No hotel options yet</div>';else opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,hotelId,"Hotel",i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add hotel option";btn.onclick=()=>{closeDetail();openAdd(hotelId,"Hotel")};body.appendChild(btn);});});
-      card.querySelector("#box-meals-"+day.id).addEventListener("click",()=>{openDetail("\uD83C\uDF7D\uFE0F Meals",day.date+" \u2014 "+day.location,body=>{["Breakfast","Lunch","Dinner"].forEach(type=>{const icon=type==="Breakfast"?"\uD83C\uDF05":type==="Lunch"?"\u2600\uFE0F":"\uD83C\uDF19";const sec=document.createElement("div");sec.className="detail-section";sec.innerHTML=`<div class="detail-section-title">${icon} ${type}</div>`;const opts=gso(day.id,type).sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));if(!opts.length)sec.innerHTML+=`<div class="empty-state" style="padding:.5rem 0;font-size:12px">No options yet</div>`;else opts.forEach((opt,i)=>sec.appendChild(buildOptCard(opt,day.id,type,i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent=`+ Add ${type.toLowerCase()}`;btn.onclick=()=>{closeDetail();openAdd(day.id,type)};sec.appendChild(btn);body.appendChild(sec);});});});
-      card.querySelector("#box-act-"+day.id).addEventListener("click",()=>{openDetail("\uD83C\uDFAF Activities",day.date+" \u2014 "+day.location,body=>{const opts=gso(day.id,"Activity").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));if(!opts.length)body.innerHTML='<div class="empty-state">No activities yet</div>';else opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,"Activity",i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>{closeDetail();openAdd(day.id,"Activity")};body.appendChild(btn);});});
+      card.querySelector("#box-hotel-"+day.id).addEventListener("click",()=>{if(!hotelId){toast("No hotel for this day");return}openDetail("🏨 Hotel",day.date+" — "+day.location,body=>{const opts=Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));if(!opts.length)body.innerHTML='<div class="empty-state">No hotel options yet — add one!</div>';else opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,hotelId,"Hotel",i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add hotel option";btn.onclick=()=>{closeDetail();openAdd(hotelId,"Hotel")};body.appendChild(btn);});});
+      card.querySelector("#box-meals-"+day.id).addEventListener("click",()=>{openDetail("🍽️ Meals",day.date+" — "+day.location,body=>{["Breakfast","Lunch","Dinner"].forEach(type=>{const icon=type==="Breakfast"?"🌅":type==="Lunch"?"☀️":"🌙";const sec=document.createElement("div");sec.className="detail-section";sec.innerHTML=`<div class="detail-section-title">${icon} ${type}</div>`;const opts=gso(day.id,type).sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));if(!opts.length)sec.innerHTML+=`<div class="empty-state" style="padding:.5rem 0;font-size:12px">No options yet</div>`;else opts.forEach((opt,i)=>sec.appendChild(buildOptCard(opt,day.id,type,i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent=`+ Add ${type.toLowerCase()}`;btn.onclick=()=>{closeDetail();openAdd(day.id,type)};sec.appendChild(btn);body.appendChild(sec);});});});
+      card.querySelector("#box-act-"+day.id).addEventListener("click",()=>{openDetail("🎯 Activities",day.date+" — "+day.location,body=>{const opts=gso(day.id,"Activity").sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0)));if(!opts.length)body.innerHTML='<div class="empty-state">No activities yet — add something fun!</div>';else opts.forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,"Activity",i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>{closeDetail();openAdd(day.id,"Activity")};body.appendChild(btn);});});
     });
   });
 }
-
 function renderHotels(){
   const c=ge("hotels-list");c.innerHTML="";let last="";
   HN.forEach(h=>{
     if(h.segment!==last){const sl=document.createElement("div");sl.className="section-label";sl.textContent=h.segment;c.appendChild(sl);last=h.segment}
     const card=document.createElement("div");card.className="hotel-card";
-    card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">\uD83C\uDFE8</div><div class="hotel-header-text"><h3>${h.label}</h3><p>${h.dates}</p></div></div><div class="hotel-body" id="hbody-${h.id}"></div>`;
+    card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">🏨</div><div class="hotel-header-text"><h3>${h.label}</h3><p>${h.dates}</p></div></div><div class="hotel-body" id="hbody-${h.id}"></div>`;
     c.appendChild(card);
   });
 }
@@ -1009,12 +893,12 @@ function updateHotelSlots(){
 }
 function updateRestTab(){
   const c=ge("restaurants-list");if(!c)return;c.innerHTML="";let any=false;
-  TRIP.forEach(seg=>{let sa=false;seg.days.forEach(day=>{["Breakfast","Lunch","Dinner"].forEach(type=>{const opts=gso(day.id,type);if(!opts.length)return;any=true;if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}const card=document.createElement("div");card.className="hotel-card";const icon=type==="Breakfast"?"\uD83E\uDD50":type==="Lunch"?"\uD83C\uDF5D":"\uD83C\uDF77";card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">${icon}</div><div class="hotel-header-text"><h3>${day.date} \u2014 ${type}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="rb-${day.id}-${type}"></div>`;c.appendChild(card);const body=ge("rb-"+day.id+"-"+type);opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,type,i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add option";btn.onclick=()=>openAdd(day.id,type);body.appendChild(btn);});});});
+  TRIP.forEach(seg=>{let sa=false;seg.days.forEach(day=>{["Breakfast","Lunch","Dinner"].forEach(type=>{const opts=gso(day.id,type);if(!opts.length)return;any=true;if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}const card=document.createElement("div");card.className="hotel-card";const icon=type==="Breakfast"?"🥐":type==="Lunch"?"🍝":"🍷";card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">${icon}</div><div class="hotel-header-text"><h3>${day.date} — ${type}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="rb-${day.id}-${type}"></div>`;c.appendChild(card);const body=ge("rb-"+day.id+"-"+type);opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,type,i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add option";btn.onclick=()=>openAdd(day.id,type);body.appendChild(btn);});});});
   if(!any)c.innerHTML='<div class="loading">No restaurant options yet.</div>';
 }
 function updateActTab(){
   const c=ge("activities-list");if(!c)return;c.innerHTML="";let any=false;
-  TRIP.forEach(seg=>{let sa=false;seg.days.forEach(day=>{const opts=gso(day.id,"Activity");if(!opts.length)return;any=true;if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}const card=document.createElement("div");card.className="hotel-card";card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">\uD83C\uDFAF</div><div class="hotel-header-text"><h3>${day.date}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="ab-${day.id}"></div>`;c.appendChild(card);const body=ge("ab-"+day.id);opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,"Activity",i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>openAdd(day.id,"Activity");body.appendChild(btn);});});
+  TRIP.forEach(seg=>{let sa=false;seg.days.forEach(day=>{const opts=gso(day.id,"Activity");if(!opts.length)return;any=true;if(!sa){const sl=document.createElement("div");sl.className="section-label";sl.textContent=seg.segment;c.appendChild(sl);sa=true}const card=document.createElement("div");card.className="hotel-card";card.innerHTML=`<div class="hotel-header"><div class="hotel-icon">🎯</div><div class="hotel-header-text"><h3>${day.date}</h3><p>${day.location}</p></div></div><div class="hotel-body" id="ab-${day.id}"></div>`;c.appendChild(card);const body=ge("ab-"+day.id);opts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach((opt,i)=>body.appendChild(buildOptCard(opt,day.id,"Activity",i===0&&cs(opt)!==null&&!opt.vetoed)));const btn=document.createElement("button");btn.className="add-option-btn";btn.textContent="+ Add activity";btn.onclick=()=>openAdd(day.id,"Activity");body.appendChild(btn);});});
   if(!any)c.innerHTML='<div class="loading">No activities yet.</div>';
 }
 function updatePackingList(){
@@ -1042,7 +926,7 @@ function updatePackingList(){
 }
 function updateFeed(){
   const c=ge("feed-content");if(!c)return;c.innerHTML="";
-  const header=document.createElement("div");header.innerHTML=`<h2 style="font-size:18px;font-weight:700;margin-bottom:1rem">📣 Activity Feed</h2>`;c.appendChild(header);
+  c.innerHTML=`<h2 style="font-size:18px;font-weight:700;margin-bottom:1rem">📣 Activity Feed</h2>`;
   const card=document.createElement("div");card.className="hotel-card";card.style.padding="0 16px";
   const ICONS={lock:"🔒",veto:"🚫",comment:"💬",join:"👋",add:"➕",vote:"⭐"};
   if(!feedItems.length){card.innerHTML='<div class="loading" style="padding:2rem">No activity yet</div>';c.appendChild(card);return;}
@@ -1050,7 +934,7 @@ function updateFeed(){
     const row=document.createElement("div");row.className="feed-item";
     const iconEl=document.createElement("div");iconEl.className="feed-icon";iconEl.textContent=ICONS[item.type]||"📌";
     const body=document.createElement("div");body.style.flex="1";body.innerHTML=`<div class="feed-text">${item.text||""}</div>`;
-    if(item.createdAt){const ts=item.createdAt.toDate?item.createdAt.toDate():new Date(item.createdAt);const diff=Math.round((Date.now()-ts.getTime())/60000);const timeStr=diff<1?"Just now":diff<60?diff+"m ago":diff<1440?Math.round(diff/60)+"h ago":Math.round(diff/1440)+"d ago";body.innerHTML+=`<div class="feed-time">${timeStr}</div>`;}
+    if(item.createdAt){const ts=item.createdAt.toDate?item.createdAt.toDate():new Date(item.createdAt);const diff=Math.round((Date.now()-ts.getTime())/60000);body.innerHTML+=`<div class="feed-time">${diff<1?"Just now":diff<60?diff+"m ago":diff<1440?Math.round(diff/60)+"h ago":Math.round(diff/1440)+"d ago"}</div>`;}
     row.appendChild(iconEl);row.appendChild(body);card.appendChild(row);
   });
   c.appendChild(card);
@@ -1059,11 +943,11 @@ function updateFeed(){
 }
 function updateLeaderboard(){
   const c=ge("leaderboard-content");if(!c)return;
-  const opts=Object.values(ao);
-  const stats={};USERS.forEach(u=>{stats[u]={added:0,voted:0,totalGiven:0,totalReceived:0,votedOn:0,commented:0}});
+  const opts=Object.values(ao);const stats={};
+  USERS.forEach(u=>{stats[u]={added:0,voted:0,totalReceived:0,votedOn:0,commented:0}});
   opts.forEach(opt=>{
     if(opt.addedBy&&stats[opt.addedBy]){stats[opt.addedBy].added++;if(opt.votes){const vals=Object.values(opt.votes);if(vals.length){stats[opt.addedBy].totalReceived+=vals.reduce((a,b)=>a+b,0)/vals.length;stats[opt.addedBy].votedOn++;}}}
-    if(opt.votes)Object.entries(opt.votes).forEach(([voter,score])=>{if(stats[voter]){stats[voter].voted++;stats[voter].totalGiven+=score;}});
+    if(opt.votes)Object.entries(opt.votes).forEach(([v])=>{if(stats[v])stats[v].voted++;});
     if(opt.comments)Object.values(opt.comments).forEach(cm=>{if(stats[cm.by])stats[cm.by].commented++;});
   });
   USERS.forEach(u=>{stats[u].avgReceived=stats[u].votedOn>0?(stats[u].totalReceived/stats[u].votedOn).toFixed(1):null;});
@@ -1074,9 +958,8 @@ function updateLeaderboard(){
   rankCard.innerHTML=`<div class="lb-section-title">🏆 Overall Leaderboard</div><div class="lb-stat-grid"><div class="lb-stat"><div class="lb-stat-num">${totalOpts}</div><div class="lb-stat-lbl">Options</div></div><div class="lb-stat"><div class="lb-stat-num">${totalVotes}</div><div class="lb-stat-lbl">Votes</div></div><div class="lb-stat"><div class="lb-stat-num">${totalLocked}</div><div class="lb-stat-lbl">Confirmed</div></div></div>`;
   ranked.forEach((name,i)=>{
     const s=stats[name];const emoji=i===0?"🥇":i===1?"🥈":i===2?"🥉":`${i+1}`;
-    const barW=s.avgReceived?(parseFloat(s.avgReceived)/10*100).toFixed(0):0;
     const row=document.createElement("div");row.className="lb-person";
-    row.innerHTML=`<div class="lb-rank">${emoji}</div><div class="lb-avatar av-${name}">${name[0]}</div><div class="lb-info"><div class="lb-name">${name}</div><div class="lb-sub">${s.added} added &middot; ${s.voted} votes &middot; ${s.commented} comments</div><div class="lb-bar-wrap"><div class="lb-bar" style="width:${barW}%;background:${UC[name]}"></div></div></div><div style="text-align:right"><div class="lb-score">${s.avgReceived||"\u2014"}</div><div class="lb-score-label">avg score</div></div>`;
+    row.innerHTML=`<div class="lb-rank">${emoji}</div><div class="lb-avatar av-${name}">${name[0]}</div><div class="lb-info"><div class="lb-name">${name}</div><div class="lb-sub">${s.added} added · ${s.voted} votes · ${s.commented} comments</div><div class="lb-bar-wrap"><div class="lb-bar" style="width:${s.avgReceived?(parseFloat(s.avgReceived)/10*100).toFixed(0):0}%;background:${UC[name]}"></div></div></div><div style="text-align:right"><div class="lb-score">${s.avgReceived||"—"}</div><div class="lb-score-label">avg score</div></div>`;
     rankCard.appendChild(row);
   });
   c.appendChild(rankCard);
@@ -1087,7 +970,7 @@ function updateLeaderboard(){
     myOpts.sort((a,b)=>(parseFloat(cs(b)||0))-(parseFloat(cs(a)||0))).forEach(opt=>{
       const score=cs(opt),vc=opt.votes?Object.keys(opt.votes).length:0,locked=isFullyLocked(opt),vetoed=!!opt.vetoed;
       const row=document.createElement("div");row.style.cssText="display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border2);font-size:13px";
-      row.innerHTML=`<div style="flex:1;font-weight:600;${vetoed?"text-decoration:line-through;opacity:.5":""}">${opt.name}${locked?" 🔒":""}</div><div style="font-size:11px;color:var(--text3)">${vc}/4 votes</div><div style="font-weight:800;color:${UC[name]};min-width:32px;text-align:right">${score||"\u2014"}</div>`;
+      row.innerHTML=`<div style="flex:1;font-weight:600;${vetoed?"text-decoration:line-through;opacity:.5":""}">${opt.name}${locked?" 🔒":""}</div><div style="font-size:11px;color:var(--text3)">${vc}/4 votes</div><div style="font-weight:800;color:${UC[name]};min-width:32px;text-align:right">${score||"—"}</div>`;
       card.appendChild(row);
     });
     c.appendChild(card);
@@ -1097,7 +980,7 @@ function updateLeaderboard(){
 function updateFinalPlan(){
   const c=ge("final-content");if(!c)return;c.innerHTML="";
   const hero=document.createElement("div");hero.className="final-hero";
-  hero.innerHTML=`<h1>🇮🇹 Italy + 🇬🇷 Mykonos</h1><p>Summer 2026 &middot; The Final Plan</p><div class="final-hero-dates"><div><div class="final-hero-date-num">July 19</div><div class="final-hero-date-label">Departure</div></div><div><div class="final-hero-date-num">12</div><div class="final-hero-date-label">Days</div></div><div><div class="final-hero-date-num">July 30</div><div class="final-hero-date-label">Return</div></div></div><div class="final-travelers"><div class="final-traveler"><div class="final-traveler-av av-Sammy">S</div><span class="final-traveler-name">Sammy</span></div><div class="final-traveler"><div class="final-traveler-av av-Milton">M</div><span class="final-traveler-name">Milton</span></div><div class="final-traveler"><div class="final-traveler-av av-Sofia">So</div><span class="final-traveler-name">Sofia</span></div><div class="final-traveler"><div class="final-traveler-av av-Dua">D</div><span class="final-traveler-name">Dua</span></div></div>`;
+  hero.innerHTML=`<h1>🇮🇹 Italy + 🇬🇷 Mykonos</h1><p>Summer 2026 · The Final Plan</p><div class="final-hero-dates"><div><div class="final-hero-date-num">July 19</div><div class="final-hero-date-label">Departure</div></div><div><div class="final-hero-date-num">12</div><div class="final-hero-date-label">Days</div></div><div><div class="final-hero-date-num">July 30</div><div class="final-hero-date-label">Return</div></div></div><div class="final-travelers"><div class="final-traveler"><div class="final-traveler-av av-Sammy">S</div><span class="final-traveler-name">Sammy</span></div><div class="final-traveler"><div class="final-traveler-av av-Milton">M</div><span class="final-traveler-name">Milton</span></div><div class="final-traveler"><div class="final-traveler-av av-Sofia">So</div><span class="final-traveler-name">Sofia</span></div><div class="final-traveler"><div class="final-traveler-av av-Dua">D</div><span class="final-traveler-name">Dua</span></div></div>`;
   c.appendChild(hero);
   function makeFinalItem(typeClass,icon,label,opt){
     const el=document.createElement("div");
@@ -1106,7 +989,7 @@ function updateFinalPlan(){
       el.className=`final-item ${typeClass}${locked?" fi-locked":""}`;
       const iconDiv=document.createElement("div");iconDiv.className="final-item-icon";iconDiv.textContent=locked?"🔒":icon;
       const info=document.createElement("div");info.className="final-item-info";
-      info.innerHTML=`<div class="final-item-label">${label}</div><div class="final-item-name">${opt.name}</div><div class="final-item-sub">${score?"Score: "+score+" \u00b7 ":""}${opt.addedBy?"By "+opt.addedBy:""}${opt.price?" \u00b7 "+PRICE_LABELS[opt.price]:""}</div>`;
+      info.innerHTML=`<div class="final-item-label">${label}</div><div class="final-item-name">${opt.name}</div><div class="final-item-sub">${score?"Score: "+score+" · ":""}${opt.addedBy?"By "+opt.addedBy:""}${opt.price?" · "+PRICE_LABELS[opt.price]:""}</div>`;
       const right=document.createElement("div");right.className="final-item-right";
       if(score){const sc=document.createElement("span");sc.className="final-item-score";sc.textContent=score;right.appendChild(sc);}
       const wrap=document.createElement("div");wrap.className="final-lock-wrap";
@@ -1138,12 +1021,12 @@ function updateFinalPlan(){
       dayEl.innerHTML=`<div class="final-day-header"><div><div class="final-day-date">${day.date}</div><div class="final-day-location">${day.location}</div></div><div class="final-day-badge">${day.badge}</div></div>`;
       const items=document.createElement("div");items.className="final-items";
       const hotelId=HN_MAP[day.id];
-      if(hotelId){const opts=Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel");items.appendChild(makeFinalItem("fi-hotel","🏨","Hotel",getBest(opts)));}
+      if(hotelId){items.appendChild(makeFinalItem("fi-hotel","🏨","Hotel",getBest(Object.values(ao).filter(o=>o.dayId===hotelId&&o.slotType==="Hotel"))));}
       const topB=getBest(gso(day.id,"Breakfast"));if(topB)items.appendChild(makeFinalItem("fi-meal","🌅","Breakfast",topB));
       const topL=getBest(gso(day.id,"Lunch"));if(topL)items.appendChild(makeFinalItem("fi-meal","☀️","Lunch",topL));
       const topD=getBest(gso(day.id,"Dinner"));if(topD)items.appendChild(makeFinalItem("fi-meal","🌙","Dinner",topD));
       if(!topB&&!topL&&!topD)items.appendChild(makeFinalItem("fi-meal","🍽️","Meals",null));
-      const topA=getBest(gso(day.id,"Activity"));items.appendChild(makeFinalItem("fi-act","🎯","Activity",topA));
+      items.appendChild(makeFinalItem("fi-act","🎯","Activity",getBest(gso(day.id,"Activity"))));
       dayEl.appendChild(items);segEl.appendChild(dayEl);
     });
     c.appendChild(segEl);
@@ -1152,8 +1035,7 @@ function updateFinalPlan(){
 window.openAdd=function(did,st){
   amc={did,st};selectedPrice=null;
   document.querySelectorAll(".price-btn").forEach(b=>b.classList.remove("selected"));
-  const titles={Hotel:"Add Hotel Option",Breakfast:"Add Breakfast",Lunch:"Add Lunch",Dinner:"Add Dinner",Activity:"Add Activity"};
-  ge("add-modal-title").textContent=titles[st]||"Add Option";
+  ge("add-modal-title").textContent={Hotel:"Add Hotel Option",Breakfast:"Add Breakfast",Lunch:"Add Lunch",Dinner:"Add Dinner",Activity:"Add Activity"}[st]||"Add Option";
   ge("add-name").value="";ge("add-link").value="";ge("add-notes").value="";
   ge("add-modal").classList.remove("hidden");setTimeout(()=>ge("add-name").focus(),100);
 };
@@ -1164,58 +1046,15 @@ async function submitAdd(){
   try{
     await addDoc(collection(db,"options"),{dayId:amc.did,slotType:amc.st,name,link:link||null,notes:notes||null,price:selectedPrice||null,addedBy:cun,votes:{},lockedBy:{},vetoedBy:{},comments:{},vetoed:false,createdAt:serverTimestamp()});
     await logFeed(cun+` added "${name}" to ${amc.st}`,"add");
-    closeAdd();toast("Added! \u2713");
+    closeAdd();toast("Added! ✓");
   }catch(e){toast("Error: "+e.message)}
 }
 async function submitPack(){
   const name=ge("pack-name").value.trim();if(!name){toast("Enter an item name");return}
-  const cat=ge("pack-cat").value;
   try{
-    await addDoc(collection(db,"packing"),{name,category:cat,addedBy:cun,done:false,createdAt:serverTimestamp()});
-    ge("pack-name").value="";ge("pack-modal").classList.add("hidden");toast("Added \u2713");
-  }catch(e){toast("Error: "+e.message)}
-}
-window.openVote=function(did,st){
-  vmc={did,st};
-  const opts=st==="Hotel"?Object.values(ao).filter(o=>o.dayId===did&&o.slotType==="Hotel"):gso(did,st);
-  if(!opts.length){window.openAdd(did,st);return}
-  const labels={Hotel:"Vote on Hotels",Breakfast:"Vote \u2014 Breakfast",Lunch:"Vote \u2014 Lunch",Dinner:"Vote \u2014 Dinner",Activity:"Vote \u2014 Activities"};
-  ge("vote-modal-title").textContent=labels[st]||"Vote";
-  const list=ge("vote-list");list.innerHTML="";
-  opts.filter(o=>!o.vetoed).forEach(opt=>{
-    const myVote=opt.votes&&opt.votes[cun]?opt.votes[cun]:0;
-    const avg=cs(opt),vc=opt.votes?Object.keys(opt.votes).length:0;
-    const item=document.createElement("div");item.className="vote-item";
-    item.innerHTML=`<div style="flex:1;min-width:0"><div class="vote-item-name">${opt.name}${opt.price?" "+PRICE_LABELS[opt.price]:""}</div>${opt.link?`<a class="vote-item-link" href="${opt.link}" target="_blank">View link \u2192</a>`:""} ${opt.notes?`<div style="font-size:11px;color:var(--text3);margin-top:2px">${opt.notes}</div>`:""}<div style="font-size:11px;color:var(--text3);margin-top:3px">${vc}/4 voted${avg?" \u00b7 avg "+avg:""}</div><div class="vote-progress"><div class="vote-progress-fill" style="width:${(vc/4)*100}%"></div></div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div id="stars-${opt.id}" style="display:flex;flex-direction:column;gap:3px"></div><div class="vote-score-display" id="sd-${opt.id}">${myVote||"\u2014"}</div></div>`;
-    list.appendChild(item);
-    const se=item.querySelector("#stars-"+opt.id);
-    const r1=document.createElement("div");r1.style.cssText="display:flex;gap:3px";
-    const r2=document.createElement("div");r2.style.cssText="display:flex;gap:3px";
-    for(let i=1;i<=10;i++){
-      const s=document.createElement("div");s.className="star"+(myVote>=i?" selected":"");s.textContent=i;
-      s.dataset.oid=opt.id;s.dataset.v=i;
-      s.onclick=()=>{document.querySelectorAll(`.star[data-oid="${opt.id}"]`).forEach(x=>x.classList.toggle("selected",parseInt(x.dataset.v)<=i));ge("sd-"+opt.id).textContent=i};
-      (i<=5?r1:r2).appendChild(s);
-    }
-    se.appendChild(r1);se.appendChild(r2);
-  });
-  ge("vote-modal").classList.remove("hidden");
-};
-function closeVote(){ge("vote-modal").classList.add("hidden");vmc=null}
-async function submitVotes(){
-  if(!vmc)return;
-  const opts=vmc.st==="Hotel"?Object.values(ao).filter(o=>o.dayId===vmc.did&&o.slotType==="Hotel"):gso(vmc.did,vmc.st);
-  const ps=[];
-  opts.forEach(opt=>{
-    const sd=ge("sd-"+opt.id),val=sd?parseInt(sd.textContent):null;
-    if(val&&!isNaN(val))ps.push(updateDoc(doc(db,"options",opt.id),{[`votes.${cun}`]:val}));
-  });
-  if(!ps.length){toast("No votes to save");return}
-  try{
-    await Promise.all(ps);
-    await logFeed(cun+" voted on "+vmc.st+" options","vote");
-    closeVote();toast("Votes saved! \u2713");
-  }catch(e){toast("Error: "+e.message)}
+    await addDoc(collection(db,"packing"),{name,category:ge("pack-cat").value,addedBy:cun,done:false,createdAt:serverTimestamp()});
+    ge("pack-name").value="";ge("pack-modal").classList.add("hidden");toast("Added ✓");
+  }catch(e){toast("Error")}
 }
 </script>
 </body>
